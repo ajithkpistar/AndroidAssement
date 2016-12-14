@@ -1,0 +1,85 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="assessment.android.istar.com.androidassessment.template.BasicFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="#000"
+            android:weightSum="100">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="50"
+                android:layout_margin="20dp"
+                android:textColor="#ffffff"
+                android:id="@+id/timer" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:layout_weight="50"
+                android:textColor="#ffffff"
+                android:text="1/30"
+                android:id="@+id/noQuestion" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            android:id="@+id/question"
+            android:text="question" />
+
+        <RadioGroup
+            android:layout_margin="10dp"
+            android:layout_below="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:id="@+id/option1"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="option1"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:id="@+id/option2"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="option2"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:id="@+id/option3"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="option3option3option3option3option3option3option3option3option3option3option3"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:id="@+id/option4"
+                android:drawableRight="@android:drawable/btn_radio"
+                android:text="option4option4option4option4option4option4"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

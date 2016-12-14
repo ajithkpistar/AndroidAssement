@@ -12,9 +12,9 @@ public class AssessmentFactory  {
     public static AssessmentCard getCard(String type) {
 
         if(type.equalsIgnoreCase("Basic")){
-            return BasicFrag();
+            return new BasicFragment();
         }else{
-            return DefaultFragment();
+            return new DefaultFragment();
         }
 
     }
