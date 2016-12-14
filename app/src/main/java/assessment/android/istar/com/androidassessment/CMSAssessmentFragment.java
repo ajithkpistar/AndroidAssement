@@ -6,11 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+
 import java.io.StringReader;
+
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
+import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager;
 import assessment.android.istar.com.androidassessment.assessment_util.FetchAssessmentFromServer;
 import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerAdapter;
@@ -25,13 +29,14 @@ public class CMSAssessmentFragment extends Fragment {
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
     private int assessment_id;
+    private CMSAssessmentResult cmsAssessmentResult;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cms_assessment_fragment, container, false);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
         assessmentDataHandler = new AssessmentDataHandler(getContext());
-        
+
         if(getArguments() != null ){
             if(getArguments().getString(ASSESSMENT_ID) != null){
                 assessment_id = Integer.parseInt(getArguments().getString(ASSESSMENT_ID));
@@ -44,6 +49,15 @@ public class CMSAssessmentFragment extends Fragment {
         }else{
             fetchAssessmentFromServer(assessment_id,assessmentDataHandler,viewpagerAdapter,assessmentLockableViewPager);
         }
+
+        try{
+            Serializer serializer = new Persister();
+            cmsAssessmentResult =serializer.read(CMSAssessmentResult.class,getContext().getAssets().open("assessment_result.xml"));
+           System.out.println( "cmsAssessmentResult "+cmsAssessmentResult.getAssessment_id());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return view;
     }
 
