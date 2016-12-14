@@ -3,22 +3,14 @@ package assessment.android.istar.com.androidassessment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import java.util.List;
-import java.util.TreeMap;
-
-import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
-import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
-import assessment.android.istar.com.androidassessment.assessment_pojo.AssessmentStatus;
 import assessment.android.istar.com.androidassessment.assessment_util.Assessmentutil;
 import assessment.android.istar.com.androidassessment.assessment_util.SaveAllAssessmentAsyncTask;
-import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLLesson;
 import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
-        AssessmentDataHandler AaaAssessmentDataHandler = new AssessmentDataHandler(this);
+      /*  AssessmentDataHandler AaaAssessmentDataHandler = new AssessmentDataHandler(this);
 
 
         AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(this);
-        assessmentStatusHandler.saveContent("1","content","COMPLETED","1");
+        assessmentStatusHandler.saveContent("1","content","COMPLETED","1");*/
 
 
 
@@ -52,12 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             Assessmentutil assessmentutil=new Assessmentutil(this);
-
             System.out.println("-----------------------------------------------------------"+SingletonStudent.getInstance().getStudent().getId());
-
             new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
         }catch (Exception e){
             e.printStackTrace();
         }

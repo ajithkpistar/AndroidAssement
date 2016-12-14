@@ -1,8 +1,6 @@
 package assessment.android.istar.com.androidassessment.assessment_util;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 
 import org.simpleframework.xml.Serializer;
@@ -86,6 +84,34 @@ public class Assessmentutil {
         }
         return xmlLessons;
     }
+
+    public TreeMap<Integer, XMLLesson> getAssessment(int assessment_id){
+        TreeMap<Integer, XMLLesson> xmlLessons = new TreeMap<>();
+        try {
+            XMLStudent student = SingletonStudent.getInstance().getStudent();
+
+            for (XMLBatchGroup bg : student.getBatchGroups()) {
+                for (XMLBatch b : bg.getBtaches()) {
+                    if (b != null && b.getCourse() != null && b.getCourse().getCmsessions() != null) {
+                        for (XMLSession s : b.getCourse().getCmsessions()) {
+                            if (s != null && s.getLessons() != null && s.getLessons().size() > 0) {
+                                for (XMLLesson l : s.getLessons()) {
+                                    if (l != null && l.getStatus() != null && l.getStatus().equalsIgnoreCase("PUBLISHED"))
+                                        if(l.getType().equalsIgnoreCase("ASSESSMENT") && l.getlOrderId() == assessment_id){
+
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return xmlLessons;
+    }
+
 
 
 }

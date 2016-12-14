@@ -12,12 +12,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
-import java.util.HashMap;
+import java.io.StringReader;
 import java.util.TreeMap;
 
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
+import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
 import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLLesson;
 
 /**
@@ -67,6 +70,15 @@ public class SaveAllAssessmentAsyncTask extends AsyncTask<String, Integer, Strin
                     HttpEntity entity = response.getEntity();
                     String xml_object = EntityUtils.toString(entity, "UTF-8");
                     xml_object = xml_object.replaceAll("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "");
+                    StringReader reader = new StringReader(xml_object);
+                    Serializer serializer = new Persister();
+                    try {
+                        CMSAssessment example = serializer.read(CMSAssessment.class, reader);
+                        System.out.println("example " + example.getAssessmentTitle());
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     assessmentDataHandler.saveContent(assessment_id + "", xml_object);
 
 
