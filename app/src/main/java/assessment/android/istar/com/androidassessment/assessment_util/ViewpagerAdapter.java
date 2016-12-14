@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
+import assessment.android.istar.com.androidassessment.template.AssessmentCard;
 import assessment.android.istar.com.androidassessment.template.AssessmentFactory;
 
 /**
@@ -26,10 +27,10 @@ public class ViewpagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         final Bundle bundle = new Bundle();
-
+        bundle.putInt(AssessmentCard.POSITION,position);
+        bundle.putSerializable(AssessmentCard.CMSASSESSMENT,cmsAssessment.getQuestions().get(position));
         fragment =  AssessmentFactory.getCard(cmsAssessment.getQuestions().get(position).getTemplate());
-
-
+        fragment.setArguments(bundle);
         return fragment;
     }
 

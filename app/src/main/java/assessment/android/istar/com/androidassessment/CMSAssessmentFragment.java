@@ -54,7 +54,7 @@ public class CMSAssessmentFragment extends Fragment {
             CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class,reader);
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(),cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
-            viewpager.setSwipeLocked(true);
+         //   viewpager.setSwipeLocked(true);
         }catch (Exception e){
 
         }

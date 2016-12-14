@@ -7,4 +7,6 @@ import android.support.v4.app.Fragment;
  */
 
 public class AssessmentCard extends Fragment {
+    public static final String POSITION="POSITION";
+    public static final String CMSASSESSMENT="CMSASSESSMENT";
 }

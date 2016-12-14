@@ -22,8 +22,8 @@ public class BasicFragment extends AssessmentCard {
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
-        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.", Toast.LENGTH_LONG);
-        timer = (TextView) view.findViewById(R.id.timer);
+       // mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.", Toast.LENGTH_LONG);
+       // timer = (TextView) view.findViewById(R.id.timer);
         new CountDownTimer(delay, 1000) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {

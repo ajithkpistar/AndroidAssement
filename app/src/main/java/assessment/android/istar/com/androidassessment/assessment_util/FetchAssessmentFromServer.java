@@ -82,7 +82,7 @@ public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String
                 CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class,reader);
                 viewpagerAdapter = new ViewpagerAdapter(fm,cmsAssessment);
                 assessmentLockableViewPager.setAdapter(viewpagerAdapter);
-                assessmentLockableViewPager.setSwipeLocked(true);
+               // assessmentLockableViewPager.setSwipeLocked(true);
             }catch (Exception e){
 
             }
