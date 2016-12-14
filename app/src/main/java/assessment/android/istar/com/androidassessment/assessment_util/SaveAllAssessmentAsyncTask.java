@@ -21,6 +21,7 @@ import java.util.TreeMap;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
+import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLLesson;
 
 /**
@@ -74,7 +75,11 @@ public class SaveAllAssessmentAsyncTask extends AsyncTask<String, Integer, Strin
                     Serializer serializer = new Persister();
                     try {
                         CMSAssessment example = serializer.read(CMSAssessment.class, reader);
-                        System.out.println("example " + example.getAssessmentTitle());
+                        System.out.println("example " + example.getAssessmentId());
+
+                        for(CMSQuestion cmsQuestion:example.getQuestions()){
+                            System.out.println("jjxkjsjkjskjs "+cmsQuestion.getTemplate());
+                        }
 
                     }catch (Exception e){
                         e.printStackTrace();

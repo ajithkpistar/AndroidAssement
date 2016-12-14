@@ -1,10 +1,7 @@
 package assessment.android.istar.com.androidassessment.template;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,7 @@ public class BasicFragment extends AssessmentCard {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_basic, container, false);
+        View view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.", Toast.LENGTH_LONG);
         timer = (TextView) view.findViewById(R.id.timer);
         new CountDownTimer(delay, 1000) { // adjust the milli seconds here

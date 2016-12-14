@@ -20,6 +20,7 @@ import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerA
  */
 
 public class CMSAssessmentFragment extends Fragment {
+    public final static String ASSESSMENT_ID="ASSESSMENT_ID";
     private AssessmentLockableViewPager assessmentLockableViewPager;
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
@@ -32,8 +33,8 @@ public class CMSAssessmentFragment extends Fragment {
         assessmentDataHandler = new AssessmentDataHandler(getContext());
         
         if(getArguments() != null ){
-            if(getArguments().getInt("assessment_id",-1)!=-1){
-                assessment_id = getArguments().getInt("assessment_id",-1);
+            if(getArguments().getString(ASSESSMENT_ID) != null){
+                assessment_id = Integer.parseInt(getArguments().getString(ASSESSMENT_ID));
             }
         }
         
