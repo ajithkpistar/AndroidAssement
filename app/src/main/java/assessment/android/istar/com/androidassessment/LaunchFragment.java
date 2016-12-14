@@ -1,7 +1,6 @@
 package assessment.android.istar.com.androidassessment;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,7 +31,7 @@ public class LaunchFragment extends Fragment {
         line = (View)view.findViewById(R.id.line);
         launchBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AssessmentFragment()).commit();
+               // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AssessmentFragment()).commit();
                 title.setVisibility(View.GONE);
                 text.setVisibility(View.GONE);
                 description.setVisibility(View.GONE);
