@@ -1,6 +1,6 @@
+/*
 package assessment.android.istar.com.androidassessment.istarindia.utils;
 
-import com.istarindia.complexobject.XMLEvents;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,9 +8,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLEvents;
+
+*/
 /**
  * Created by Mayank on 13/08/2016.
- */
+ *//*
+
 public class EventUtility {
 
     public ArrayList<XMLEvents> getSingleDayEvent(String date)
@@ -75,3 +79,4 @@ public class EventUtility {
 
 
 }
+*/

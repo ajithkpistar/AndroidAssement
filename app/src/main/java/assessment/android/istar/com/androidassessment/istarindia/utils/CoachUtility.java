@@ -1,5 +1,5 @@
 package assessment.android.istar.com.androidassessment.istarindia.utils;
-
+/*
 import com.istarindia.complexobject.XMLCoachStudent;
 import com.istarindia.complexobject.XMLCourseRating;
 import com.istarindia.complexobject.XMLEvents;
@@ -12,19 +12,16 @@ import studenttrainer.istar.studenttrainerapp.coach.pojo.FavouriteStudent;
 import studenttrainer.istar.studenttrainerapp.coach.pojo.ReportData;
 import studenttrainer.istar.studenttrainerapp.event_workflow.pojo.Student;
 
-/**
+*//**
  * Created by Mayank on 13/08/2016.
- */
+ *//*
 public class CoachUtility {
 
-    public ArrayList<FavouriteStudent> getAllStudents()
-    {
+    public ArrayList<FavouriteStudent> getAllStudents() {
         ArrayList<FavouriteStudent> data = new ArrayList<>();
-        ArrayList<Integer> alreday_added= new ArrayList<>();
-        for(XMLCoachStudent cst : SingletonStudent.getInstance().getStudent().getCoachStudents())
-        {
-            if(!alreday_added.contains(cst.getStudentId()) && SingletonStudent.getInstance().getStudent().getId()!= cst.getStudentId())
-            {
+        ArrayList<Integer> alreday_added = new ArrayList<>();
+        for (XMLCoachStudent cst : SingletonStudent.getInstance().getStudent().getCoachStudents()) {
+            if (!alreday_added.contains(cst.getStudentId()) && SingletonStudent.getInstance().getStudent().getId() != cst.getStudentId()) {
                 alreday_added.add(cst.getStudentId());
                 FavouriteStudent fs = new FavouriteStudent();
                 fs.setId(cst.getStudentId());
@@ -36,10 +33,9 @@ public class CoachUtility {
                 fs.setName(cst.getStudentName());
                 fs.setFav(cst.isIsfavoutite());
                 ArrayList<ReportData> reportData = new ArrayList<>();
-                for(XMLCourseRating cr: cst.getCourseRating())
-                {
+                for (XMLCourseRating cr : cst.getCourseRating()) {
 
-                    ReportData reportData1 = new ReportData(cr.getCourseName(),cr.getRating()+"",cr.getCourse_id());
+                    ReportData reportData1 = new ReportData(cr.getCourseName(), cr.getRating() + "", cr.getCourse_id());
                     reportData.add(reportData1);
                 }
                 fs.setReportData(reportData);
@@ -51,27 +47,21 @@ public class CoachUtility {
         return data;
     }
 
-    public ArrayList<BatchStudentDetail> getBatchStudent()
-    {
+    public ArrayList<BatchStudentDetail> getBatchStudent() {
         ArrayList<BatchStudentDetail> data = new ArrayList<>();
 
-        HashMap<String,ArrayList<XMLCoachStudent> > inside = new HashMap<>();
-        HashMap<String,String> batch_org = new HashMap<>();
-        for(XMLCoachStudent cs : SingletonStudent.getInstance().getStudent().getCoachStudents())
-        {
-            if(SingletonStudent.getInstance().getStudent().getId()!= cs.getStudentId())
-            {
-                if(inside.containsKey(cs.getBatchGroup()) )
-                {
+        HashMap<String, ArrayList<XMLCoachStudent>> inside = new HashMap<>();
+        HashMap<String, String> batch_org = new HashMap<>();
+        for (XMLCoachStudent cs : SingletonStudent.getInstance().getStudent().getCoachStudents()) {
+            if (SingletonStudent.getInstance().getStudent().getId() != cs.getStudentId()) {
+                if (inside.containsKey(cs.getBatchGroup())) {
                     ArrayList<XMLCoachStudent> stu = inside.get(cs.getBatchGroup());
                     stu.add(cs);
-                    inside.put(cs.getBatchGroup(),stu);
-                }
-                else
-                {
+                    inside.put(cs.getBatchGroup(), stu);
+                } else {
                     ArrayList<XMLCoachStudent> stu = new ArrayList<>();
                     stu.add(cs);
-                    inside.put(cs.getBatchGroup(),stu);
+                    inside.put(cs.getBatchGroup(), stu);
                     batch_org.put(cs.getBatchGroup(), cs.getOrganizationName());
                 }
             }
@@ -79,13 +69,11 @@ public class CoachUtility {
 
         }
 
-        for(String str : inside.keySet())
-        {
+        for (String str : inside.keySet()) {
             String bg_name = str;
-            ArrayList<FavouriteStudent> favouriteStudents= new ArrayList<>();
+            ArrayList<FavouriteStudent> favouriteStudents = new ArrayList<>();
             ArrayList<XMLCoachStudent> stus = inside.get(str);
-            for(XMLCoachStudent cst : stus)
-            {
+            for (XMLCoachStudent cst : stus) {
 
                 FavouriteStudent fs = new FavouriteStudent();
                 fs.setId(cst.getStudentId());
@@ -97,10 +85,9 @@ public class CoachUtility {
 
                 fs.setFav(cst.isIsfavoutite());
                 ArrayList<ReportData> reportData = new ArrayList<>();
-                for(XMLCourseRating cr: cst.getCourseRating())
-                {
+                for (XMLCourseRating cr : cst.getCourseRating()) {
 
-                    ReportData reportData1 = new ReportData(cr.getCourseName(),cr.getRating()+"",cr.getCourse_id());
+                    ReportData reportData1 = new ReportData(cr.getCourseName(), cr.getRating() + "", cr.getCourse_id());
                     reportData.add(reportData1);
                 }
                 fs.setReportData(reportData);
@@ -117,17 +104,13 @@ public class CoachUtility {
         return data;
     }
 
-    public ArrayList<FavouriteStudent> getFavoutite()
-    {
+    public ArrayList<FavouriteStudent> getFavoutite() {
         ArrayList<FavouriteStudent> data = new ArrayList<>();
-        ArrayList<Integer> alreday_added= new ArrayList<>();
-        for(XMLCoachStudent cs : SingletonStudent.getInstance().getStudent().getCoachStudents())
-        {
-            if(!alreday_added.contains(cs.getStudentId()) && SingletonStudent.getInstance().getStudent().getId()!= cs.getStudentId())
-            {
+        ArrayList<Integer> alreday_added = new ArrayList<>();
+        for (XMLCoachStudent cs : SingletonStudent.getInstance().getStudent().getCoachStudents()) {
+            if (!alreday_added.contains(cs.getStudentId()) && SingletonStudent.getInstance().getStudent().getId() != cs.getStudentId()) {
                 alreday_added.add(cs.getStudentId());
-                if(cs.isIsfavoutite())
-                {
+                if (cs.isIsfavoutite()) {
                     FavouriteStudent fs = new FavouriteStudent();
                     fs.setId(cs.getStudentId());
                     fs.setCollegeName(cs.getOrganizationName());
@@ -137,10 +120,9 @@ public class CoachUtility {
                     fs.setFav(cs.isIsfavoutite());
                     fs.setImageUrl(cs.getImageUrl());
                     ArrayList<ReportData> reportData = new ArrayList<>();
-                    for(XMLCourseRating cr: cs.getCourseRating())
-                    {
+                    for (XMLCourseRating cr : cs.getCourseRating()) {
 
-                        ReportData reportData1 = new ReportData(cr.getCourseName(),cr.getRating()+"",cr.getCourse_id());
+                        ReportData reportData1 = new ReportData(cr.getCourseName(), cr.getRating() + "", cr.getCourse_id());
                         reportData.add(reportData1);
                     }
                     fs.setReportData(reportData);
@@ -155,14 +137,12 @@ public class CoachUtility {
     }
 
     public ArrayList<Student> getStuForAttendance(String eventId) {
-       // System.out.println("event id "+eventId);
+        // System.out.println("event id "+eventId);
         ArrayList<Student> stu = new ArrayList<>();
-          int batchGroupId=0;
-        for(XMLEvents e : SingletonStudent.getInstance().getStudent().getEvents())
-        {
-            if(e.getId().equalsIgnoreCase(eventId))
-            {
-                batchGroupId= e.getBgroupId();
+        int batchGroupId = 0;
+        for (XMLEvents e : SingletonStudent.getInstance().getStudent().getEvents()) {
+            if (e.getId().equalsIgnoreCase(eventId)) {
+                batchGroupId = e.getBgroupId();
             }
         }
 
@@ -170,11 +150,9 @@ public class CoachUtility {
 
 
         ArrayList<Integer> already_added = new ArrayList<>();
-        for(XMLCoachStudent cst : SingletonStudent.getInstance().getStudent().getCoachStudents())
-        {
-           // System.out.println("stu batchgrp id----"+cst.getBatchId());
-            if(!already_added.contains(cst.getStudentId()) && cst.getBatchId()==batchGroupId)
-            {
+        for (XMLCoachStudent cst : SingletonStudent.getInstance().getStudent().getCoachStudents()) {
+            // System.out.println("stu batchgrp id----"+cst.getBatchId());
+            if (!already_added.contains(cst.getStudentId()) && cst.getBatchId() == batchGroupId) {
                 already_added.add(cst.getStudentId());
                 Student s = new Student();
                 s.setImageUrl(cst.getImageUrl());
@@ -190,4 +168,4 @@ public class CoachUtility {
         }
         return stu;
     }
-}
+}*/

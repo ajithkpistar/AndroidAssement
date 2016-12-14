@@ -1,6 +1,7 @@
 package assessment.android.istar.com.androidassessment.istarindia.utils;
 
-import com.istarindia.complexobject.XMLStudent;
+
+import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLStudent;
 
 /**
  * Created by Mayank on 13/08/2016.

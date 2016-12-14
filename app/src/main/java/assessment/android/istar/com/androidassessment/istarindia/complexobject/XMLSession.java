@@ -3,7 +3,6 @@
  */
 package assessment.android.istar.com.androidassessment.istarindia.complexobject;
 
-import com.istarindia.utils.SingletonStudent;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
@@ -11,6 +10,8 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
 
 import java.util.ArrayList;
+
+import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
 
 
 /**

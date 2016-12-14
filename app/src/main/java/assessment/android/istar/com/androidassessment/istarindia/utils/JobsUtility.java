@@ -1,3 +1,4 @@
+/*
 package assessment.android.istar.com.androidassessment.istarindia.utils;
 
 import com.istarindia.complexobject.XMLInterview;
@@ -17,9 +18,11 @@ import studenttrainer.istar.studenttrainerapp.jobs.job_bean.offers.OfferChildUI;
 import studenttrainer.istar.studenttrainerapp.jobs.job_bean.offers.OfferParentUI;
 import studenttrainer.istar.studenttrainerapp.jobs.job_bean.tests.JobTestUI;
 
+*/
 /**
  * Created by Mayank on 30/08/2016.
- */
+ *//*
+
 public class JobsUtility {
 
     public ArrayList<JobsNotification> getNotification() {
@@ -167,3 +170,4 @@ public class JobsUtility {
     }
 
 }
+*/

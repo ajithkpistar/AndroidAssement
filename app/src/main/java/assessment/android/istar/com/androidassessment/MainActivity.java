@@ -4,15 +4,22 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import java.util.List;
+import java.util.TreeMap;
 
+import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
 import assessment.android.istar.com.androidassessment.assessment_pojo.AssessmentStatus;
+import assessment.android.istar.com.androidassessment.assessment_util.Assessmentutil;
+import assessment.android.istar.com.androidassessment.assessment_util.SaveAllAssessmentAsyncTask;
+import assessment.android.istar.com.androidassessment.istarindia.complexobject.XMLLesson;
+import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,29 +39,27 @@ public class MainActivity extends AppCompatActivity {
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+        AssessmentDataHandler AaaAssessmentDataHandler = new AssessmentDataHandler(this);
 
 
         AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(this);
-        assessmentStatusHandler.saveContent("1", "hi", "INCOMPLETE", "1");
-
-        /*delete
-        assessmentStatusHandler.deleteContent(1);
-        */
-        Cursor cursor=assessmentStatusHandler.getData(1);
-        AssessmentStatus assessmentStatus=null;
-        if(cursor.moveToFirst()){
-            assessmentStatus=new AssessmentStatus(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3));
-        }
-
-        if(assessmentStatus!=null){
-            System.out.println("assssss000000"+assessmentStatus.getStatus());
-
-        }
+        assessmentStatusHandler.saveContent("1","content","COMPLETED","1");
 
 
-        List<AssessmentStatus> allContent = assessmentStatusHandler.getAllContent();
-        for (AssessmentStatus s : allContent) {
-            System.out.println("jhjjjjjjjjjjjjjjjjjjj--->" + s.getData());
+
+
+        //
+
+        try {
+            Assessmentutil assessmentutil=new Assessmentutil(this);
+
+            System.out.println("-----------------------------------------------------------"+SingletonStudent.getInstance().getStudent().getId());
+
+            new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

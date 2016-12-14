@@ -1,6 +1,6 @@
 package assessment.android.istar.com.androidassessment.istarindia.utils;
 
-import com.istarindia.complexobject.XMLBatch;
+/*import com.istarindia.complexobject.XMLBatch;
 import com.istarindia.complexobject.XMLBatchGroup;
 import com.istarindia.complexobject.XMLCourse;
 import com.istarindia.complexobject.XMLLesson;
@@ -16,9 +16,9 @@ import java.util.TreeMap;
 
 import studenttrainer.istar.studenttrainerapp.learn.pojo.AndroidCourse;
 
-/**
+*//**
  * Created by Mayank on 14/08/2016.
- */
+ *//*
 public class CourseUtils {
 
     public TreeMap<Integer, AndroidCourse> getOrderedCourse() {
@@ -192,4 +192,4 @@ public class CourseUtils {
     }
 
 
-}
+}*/
