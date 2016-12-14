@@ -48,39 +48,60 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         }
 
-        if(cmsQuestion != null){
-            if(cmsQuestion.getQuestionText() != null){
+        if(cmsQuestion != null) {
+            if (cmsQuestion.getQuestionText() != null) {
                 question.setText(cmsQuestion.getQuestionText());
             }
-            if(cmsQuestion.getOptions() != null){
+            if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
-                for(CMSOption cmsOption : cmsQuestion.getOptions()){
-                    if(temp ==0)
+                for (CMSOption cmsOption : cmsQuestion.getOptions()) {
+                    if (temp == 0)
                         option1.setText(cmsOption.getOptionText());
-                    if(temp ==1)
+                    if (temp == 1)
                         option2.setText(cmsOption.getOptionText());
-                    if(temp ==2)
+                    if (temp == 2)
                         option3.setText(cmsOption.getOptionText());
-                    if(temp ==3)
+                    if (temp == 3)
                         option4.setText(cmsOption.getOptionText());
-                    if(temp ==4)
+                    if (temp == 4)
                         option5.setText(cmsOption.getOptionText());
                     temp++;
                 }
-            }
 
-        }
-
-        submitbtn.setOnClickListener(new View.OnClickListener() {
+               /* radioButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // get selected radio button from radioGroup
                 int selectedId = Rgroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
                 radioButton = (RadioButton) view.findViewById(selectedId);
 
-                Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
+                if(radioButton != null && radioButton.getText() != null){
+
+                    Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
+                }else{Toast.makeText(getActivity(),"Select any option", Toast.LENGTH_SHORT).show();}
+
+
+            }
+        });*/
+
+
+
+            }
+        }
+
+        submitbtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // get selected radio button from radioGroup
+                int selectedId = Rgroup.getCheckedRadioButtonId();
+
+                // find the radiobutton by returned id
+                radioButton = (RadioButton) view.findViewById(selectedId);
+
+                if(radioButton != null && radioButton.getText() != null){
+
+                    Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
+                }else{Toast.makeText(getActivity(),"Select any option", Toast.LENGTH_SHORT).show();}
 
 
             }
