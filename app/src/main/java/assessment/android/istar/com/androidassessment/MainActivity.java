@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
@@ -42,25 +43,25 @@ public class MainActivity extends AppCompatActivity {
         assessmentStatusHandler.saveContent("1","content","COMPLETED","1");*/
 
 
-
+        Assessmentutil assessmentutil=new Assessmentutil(this);
 
         //
 
         try {
-            Assessmentutil assessmentutil=new Assessmentutil(this);
+           /* Assessmentutil assessmentutil=new Assessmentutil(this);
             System.out.println("-----------------------------------------------------------"+SingletonStudent.getInstance().getStudent().getId());
-            new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);*/
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        Intent i = new Intent(MainActivity.this,MyActivity.class);
-        startActivity(i);
-       /* Bundle bundle = new Bundle();
+        /*Intent i = new Intent(MainActivity.this,MyActivity.class);
+        startActivity(i);*/
+        Bundle bundle = new Bundle();
         bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10008+"");
         Fragment fragment = new CMSAssessmentFragment();
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {

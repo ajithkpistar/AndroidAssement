@@ -1,6 +1,7 @@
 package assessment.android.istar.com.androidassessment;
 
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import assessment.android.istar.com.androidassessment.assessment_result.CMSAsses
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
 import assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager;
 import assessment.android.istar.com.androidassessment.assessment_util.FetchAssessmentFromServer;
+import assessment.android.istar.com.androidassessment.assessment_util.SubmitAssessmentAsyncTask;
 import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerAdapter;
 import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
 
@@ -37,6 +39,7 @@ public class CMSAssessmentFragment extends Fragment {
     static ArrayList<Entry> question_map, question_time;
     private long start_time, end_time;
     private Toolbar toolbar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class CMSAssessmentFragment extends Fragment {
         }
 
 
-        start_time = System.nanoTime();
+        start_time = System.currentTimeMillis();
         return view;
     }
 
@@ -111,15 +114,9 @@ public class CMSAssessmentFragment extends Fragment {
         super.onStop();
         cmsAssessmentResult.setQuestion_map(question_map);
         cmsAssessmentResult.setQuestion_time(question_time);
-        end_time = System.nanoTime();
-        cmsAssessmentResult.setTotal_time(end_time - start_time + "");
-        try {
-            Serializer serializer = new Persister();
-            serializer.write(cmsAssessmentResult, System.out);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        end_time = System.currentTimeMillis();
+        cmsAssessmentResult.setTotal_time((end_time - start_time) / 60000 + "");
+        if (cmsAssessmentResult != null)
+            new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }

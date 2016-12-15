@@ -16,17 +16,18 @@ import java.util.List;
  */
 
 public class AssessmentDataHandler extends SQLiteOpenHelper {
-    public AssessmentDataHandler(Context context) {
-        super(context, Environment.getExternalStorageDirectory() + ""
-                + File.separator + "Talentify"
-                + File.separator + DATABASE_NAME, null, DATABASE_VERSION);
-    }
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "talentify_assessment_data";
     private static final String TABLE = "assessmentdata";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "data";
+    private static final String EXTERNALSTORAGE = getPath();
+
+
+    public AssessmentDataHandler(Context context) {
+        super(context, EXTERNALSTORAGE, null, DATABASE_VERSION);
+    }
 
 
     @Override
@@ -80,7 +81,7 @@ public class AssessmentDataHandler extends SQLiteOpenHelper {
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE+" where id=" + id + "", null);
+        Cursor res = db.rawQuery("select * from " + TABLE + " where id=" + id + "", null);
         System.out.println("get content done");
 
         return res;
@@ -106,4 +107,25 @@ public class AssessmentDataHandler extends SQLiteOpenHelper {
         super.finalize();
     }
 
+    private static String getPath() {
+
+        String path = DATABASE_NAME;
+        try {
+            if (isExternalStorageReadable()) {
+                path = Environment.getExternalStorageDirectory() + ""
+                        + File.separator + "Talentify"
+                        + File.separator + DATABASE_NAME;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
+
+    public static boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+    }
 }
