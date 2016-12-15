@@ -1,10 +1,10 @@
 package assessment.android.istar.com.androidassessment.assessment_result;
 
 import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +15,11 @@ import java.util.List;
 public class CMSAssessmentResult {
 
     @ElementList(name = "question_map", required = false)
-    List<Entry> question_map;
+    ArrayList<Entry> question_map;
 
 
     @ElementList(name = "question_time", required = false)
-    List<Entry> question_time;
+    ArrayList<Entry> question_time;
 
 
     @Attribute(name="assessment_id", required = false)
@@ -36,11 +36,11 @@ public class CMSAssessmentResult {
 
 
     public List<Entry> getQuestion_map() { return this.question_map; }
-    public void setQuestion_map(List<Entry> _value) { this.question_map = _value; }
+    public void setQuestion_map(ArrayList<Entry> _value) { this.question_map = _value; }
 
 
     public List<Entry> getQuestion_time() { return this.question_time; }
-    public void setQuestion_time(List<Entry> _value) { this.question_time = _value; }
+    public void setQuestion_time(ArrayList<Entry> _value) { this.question_time = _value; }
 
 
     public String getAssessment_id() { return this.assessment_id; }
@@ -56,24 +56,5 @@ public class CMSAssessmentResult {
 
 
 
-    public static class Entry {
 
-        @Element(name="key", required = false)
-        String key;
-
-
-        @Element(name="value", required = false)
-        String value;
-
-
-
-        public String getKey() { return this.key; }
-        public void setKey(String _value) { this.key = _value; }
-
-
-        public String getValue() { return this.value; }
-        public void setValue(String _value) { this.value = _value; }
-
-
-    }
 }

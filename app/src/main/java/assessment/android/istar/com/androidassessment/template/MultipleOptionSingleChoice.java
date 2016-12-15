@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
@@ -26,11 +27,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private Button submitbtn;
     public RadioGroup Rgroup;
     private RadioButton radioButton;
+    private long start_time,end_time;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
 
-         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
+        view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
+        start_time = System.nanoTime();
         question = (TextView) view.findViewById(R.id.question);
         option1 = (TextView) view.findViewById(R.id.option1);
         option2 = (TextView) view.findViewById(R.id.option2);
@@ -48,61 +51,41 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         }
 
-        if(cmsQuestion != null) {
-            if (cmsQuestion.getQuestionText() != null) {
+        if(cmsQuestion != null){
+            if(cmsQuestion.getQuestionText() != null){
                 question.setText(cmsQuestion.getQuestionText());
             }
-            if (cmsQuestion.getOptions() != null) {
+            if(cmsQuestion.getOptions() != null){
                 int temp = 0;
-                for (CMSOption cmsOption : cmsQuestion.getOptions()) {
-                    if (temp == 0)
+                for(CMSOption cmsOption : cmsQuestion.getOptions()){
+                    if(temp ==0)
                         option1.setText(cmsOption.getOptionText());
-                    if (temp == 1)
+                    if(temp ==1)
                         option2.setText(cmsOption.getOptionText());
-                    if (temp == 2)
+                    if(temp ==2)
                         option3.setText(cmsOption.getOptionText());
-                    if (temp == 3)
+                    if(temp ==3)
                         option4.setText(cmsOption.getOptionText());
-                    if (temp == 4)
+                    if(temp ==4)
                         option5.setText(cmsOption.getOptionText());
                     temp++;
                 }
-
-               /* radioButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // get selected radio button from radioGroup
-                int selectedId = Rgroup.getCheckedRadioButtonId();
-
-                // find the radiobutton by returned id
-                radioButton = (RadioButton) view.findViewById(selectedId);
-
-                if(radioButton != null && radioButton.getText() != null){
-
-                    Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
-                }else{Toast.makeText(getActivity(),"Select any option", Toast.LENGTH_SHORT).show();}
-
-
             }
-        });*/
 
-
-
-            }
         }
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 // get selected radio button from radioGroup
                 int selectedId = Rgroup.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
                 radioButton = (RadioButton) view.findViewById(selectedId);
 
-                if(radioButton != null && radioButton.getText() != null){
-
-                    Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
-                }else{Toast.makeText(getActivity(),"Select any option", Toast.LENGTH_SHORT).show();}
-
+                Toast.makeText(getActivity(),radioButton.getText(), Toast.LENGTH_SHORT).show();
+                end_time = System.nanoTime();
+                CMSAssessmentFragment.nextViewpager(cmsQuestion.getId()+"",radioButton.getText().toString(),end_time-start_time+"");
 
             }
         });

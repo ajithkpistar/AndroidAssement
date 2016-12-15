@@ -2,12 +2,12 @@ package assessment.android.istar.com.androidassessment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
@@ -53,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        Bundle bundle = new Bundle();
+
+        Intent i = new Intent(MainActivity.this,MyActivity.class);
+        startActivity(i);
+       /* Bundle bundle = new Bundle();
         bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10008+"");
         Fragment fragment = new CMSAssessmentFragment();
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();*/
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {

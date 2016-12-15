@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="assessment.android.istar.com.androidassessment">
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".reciever.NetworkChangeReceiver"
             android:enabled="true"
@@ -46,6 +48,8 @@
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".MyActivity"></activity>
     </application>
 
 </manifest>

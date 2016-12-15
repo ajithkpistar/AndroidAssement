@@ -3,10 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="#26c6da"
+        android:title="dddddddddddddddddddddddddddddddddddddd"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#ffffff">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
 
+            <ProgressBar
+                android:id="@+id/prograss_bar"
+                style="@android:style/Widget.ProgressBar.Large"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                />
+
+            <TextView
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="22:35"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:textColor="#ffffff"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="1/35"
+                android:gravity="center_vertical|center_horizontal|end"
+                android:layout_margin="10dp"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
     <assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:id="@+id/assessment_viewpager">
 
     </assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager>
