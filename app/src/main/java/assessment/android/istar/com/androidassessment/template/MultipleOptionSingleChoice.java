@@ -66,22 +66,27 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                     if (temp == 0) {
                         option1.setText(cmsOption.getOptionText());
                         option1.setTag(cmsOption.getId());
+                        option1.setVisibility(View.VISIBLE);
                     }
                     if (temp == 1) {
                         option2.setText(cmsOption.getOptionText());
                         option2.setTag(cmsOption.getId());
+                        option2.setVisibility(View.VISIBLE);
                     }
                     if (temp == 2) {
                         option3.setText(cmsOption.getOptionText());
                         option3.setTag(cmsOption.getId());
+                        option3.setVisibility(View.VISIBLE);
                     }
                     if (temp == 3) {
                         option4.setText(cmsOption.getOptionText());
                         option4.setTag(cmsOption.getId());
+                        option4.setVisibility(View.VISIBLE);
                     }
                     if (temp == 4) {
                         option5.setText(cmsOption.getOptionText());
                         option5.setTag(cmsOption.getId());
+                        option5.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }

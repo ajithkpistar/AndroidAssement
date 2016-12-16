@@ -6,36 +6,37 @@
     tools:context="assessment.android.istar.com.androidassessment.LaunchFragment">
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="END OF TEST"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
+        android:text="END OF TEST"
         android:textColor="#000"
-        android:textStyle="bold"
         android:textSize="23dp"
-        android:id="@+id/text"/>
+        android:textStyle="bold" />
 
     <View
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:id="@+id/line"
+        android:layout_width="200dp"
+        android:layout_height="1dp"
         android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
         android:background="@android:color/black" />
 
 
     <Button
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:id="@+id/endBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="SUBMIT TEST"
-        android:background="#000"
-        android:textColor="@android:color/white"
         android:layout_below="@+id/line"
-        android:id="@+id/endBtn"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="120dp"
+        android:background="#000"
+        android:text="SUBMIT TEST"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

@@ -42,15 +42,10 @@ public class MainActivity extends AppCompatActivity {
         AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(this);
         assessmentStatusHandler.saveContent("1","content","COMPLETED","1");*/
 
-
-        Assessmentutil assessmentutil=new Assessmentutil(this);
-
-        //
-
         try {
-           /* Assessmentutil assessmentutil=new Assessmentutil(this);
+            Assessmentutil assessmentutil=new Assessmentutil(this);
             System.out.println("-----------------------------------------------------------"+SingletonStudent.getInstance().getStudent().getId());
-            new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);*/
+           // new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         /*Intent i = new Intent(MainActivity.this,MyActivity.class);
         startActivity(i);*/
         Bundle bundle = new Bundle();
-        bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10008+"");
+        bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10317+"");
         Fragment fragment = new CMSAssessmentFragment();
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
