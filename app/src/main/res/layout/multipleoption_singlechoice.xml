@@ -39,7 +39,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_below="@+id/question">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                     <RadioButton
                         android:id="@+id/rbtn1"
                         android:layout_width="wrap_content"
@@ -52,8 +55,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rbtn2"
@@ -67,8 +73,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rbtn3"
@@ -82,9 +91,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone" />
+                        android:visibility="gone" /></LinearLayout>
 
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                     <RadioButton
                         android:id="@+id/rbtn4"
                         android:layout_width="wrap_content"
@@ -97,8 +109,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rbtn5"
@@ -112,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:visibility="gone" />
+                        android:visibility="gone" /></LinearLayout>
 
 
                 </RadioGroup>

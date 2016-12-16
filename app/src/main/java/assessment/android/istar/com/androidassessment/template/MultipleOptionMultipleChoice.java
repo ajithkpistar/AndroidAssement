@@ -57,6 +57,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         checkbtn3 = (CheckBox)view.findViewById(R.id.checkbtn3);
         checkbtn4 = (CheckBox)view.findViewById(R.id.checkbtn4);
         checkbtn5 = (CheckBox)view.findViewById(R.id.checkbtn5);
+        ThemeUtils themeutil = new ThemeUtils();
 
 
 
@@ -73,40 +74,26 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                question.loadDataWithBaseURL(null, cmsQuestion.getQuestionText(), "text/html", "utf-8", null);
+                themeutil.getThemeQuestion(cmsQuestion, question);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
-                        option1.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        checkbtn1.setTag(cmsOption.getId());
-                        option1.setVisibility(View.VISIBLE);
-                        checkbtn1.setVisibility(View.VISIBLE);
+
+                        themeutil.getThemeMultipleOption(cmsQuestion, option1, checkbtn1, cmsOption);
                     }
                     if (temp == 1) {
-                        option2.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        checkbtn2.setTag(cmsOption.getId());
-                        option2.setVisibility(View.VISIBLE);
-                        checkbtn2.setVisibility(View.VISIBLE);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option2, checkbtn2, cmsOption);
                     }
                     if (temp == 2) {
-                        option3.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        checkbtn3.setTag(cmsOption.getId());
-                        option3.setVisibility(View.VISIBLE);
-                        checkbtn3.setVisibility(View.VISIBLE);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option3, checkbtn3, cmsOption);
                     }
                     if (temp == 3) {
-                        option4.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        checkbtn4.setTag(cmsOption.getId());
-                        option4.setVisibility(View.VISIBLE);
-                        checkbtn4.setVisibility(View.VISIBLE);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option4, checkbtn4, cmsOption);
                     }
                     if (temp == 4) {
-                        option5.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        checkbtn5.setTag(cmsOption.getId());
-                        option5.setVisibility(View.VISIBLE);
-                        checkbtn5.setVisibility(View.VISIBLE);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, cmsOption);
                     }
                     temp++;
                 }
@@ -115,16 +102,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             if(cmsQuestion.getTheme() != null){
 
                 cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option1.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option2.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option3.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option4.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option5.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                question.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-
-
-
-
             }
 
         }
@@ -153,10 +130,12 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                     result = result +","+checkbtn5.getTag();
                 }
 
-                System.out.println("---result--"+result.replaceFirst("^,", ""));
 
                 end_time = System.currentTimeMillis();
                 if (!result.equalsIgnoreCase("") ) {
+
+                    System.out.println("---selectedVal--"+result.replaceFirst("^,", ""));
+
                     CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", result.replaceFirst("^,", ""), (end_time - start_time) / 1000 + "");
                 } else {
                     new MaterialDialog.Builder(getContext())

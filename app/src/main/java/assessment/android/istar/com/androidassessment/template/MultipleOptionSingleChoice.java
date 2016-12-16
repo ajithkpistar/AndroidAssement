@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -61,7 +63,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         ThemeUtils themeutil = new ThemeUtils();
 
         submitbtn = (Button) view.findViewById(R.id.submitbtn);
-        Rgroup = (RadioGroup) view.findViewById(R.id.options);
+      Rgroup = (RadioGroup) view.findViewById(R.id.options);
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -73,32 +75,26 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                themeutil.getThemeQuestion(cmsQuestion, question);
+                themeutil.getThemeQuestion(cmsQuestion, question,getActivity());
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
 
-                        themeutil.getThemeSingleOption(cmsQuestion, option1, rbtn1, cmsOption.getOptionText());
-
-
+                        themeutil.getThemeSingleOption(cmsQuestion, option1, rbtn1, cmsOption);
                     }
                     if (temp == 1) {
-                        themeutil.getThemeSingleOption(cmsQuestion, option2, rbtn2, cmsOption.getOptionText());
-
+                        themeutil.getThemeSingleOption(cmsQuestion, option2, rbtn2, cmsOption);
                     }
                     if (temp == 2) {
-                        themeutil.getThemeSingleOption(cmsQuestion, option3, rbtn3, cmsOption.getOptionText());
-
+                        themeutil.getThemeSingleOption(cmsQuestion, option3, rbtn3, cmsOption);
                     }
                     if (temp == 3) {
-                        themeutil.getThemeSingleOption(cmsQuestion, option4, rbtn4, cmsOption.getOptionText());
-                        ;
+                        themeutil.getThemeSingleOption(cmsQuestion, option4, rbtn4, cmsOption);
                     }
                     if (temp == 4) {
-                        themeutil.getThemeSingleOption(cmsQuestion, option5, rbtn5, cmsOption.getOptionText());
-
+                        themeutil.getThemeSingleOption(cmsQuestion, option5, rbtn5, cmsOption);
                     }
                     temp++;
                 }
@@ -109,16 +105,89 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         }
 
+        rbtn1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+
+            } });
+        rbtn2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                rbtn1.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+
+            } });
+        rbtn3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                rbtn2.setChecked(false);
+                rbtn1.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+
+            } });
+        rbtn4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn1.setChecked(false);
+                rbtn5.setChecked(false);
+
+            } });
+        rbtn5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn5.setChecked(false);
+                rbtn1.setChecked(false);
+
+            } });
+
+
+
         submitbtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // get selected radio button from radioGroup
-                int selectedId = Rgroup.getCheckedRadioButtonId();
-                // find the radiobutton by returned id
-                radioButton = (RadioButton) view.findViewById(selectedId);
+
+String selectedVal="";
+                boolean radiobtn1 = ((RadioButton) view.findViewById(R.id.rbtn1)).isChecked();
+                if(radiobtn1 == true){
+
+                    selectedVal = rbtn1.getTag().toString();
+                }
+                boolean radiobtn2 = ((RadioButton) view.findViewById(R.id.rbtn2)).isChecked();
+                if(radiobtn2 == true){
+                    selectedVal = rbtn2.getTag().toString();
+
+                }
+                boolean radiobtn3 = ((RadioButton) view.findViewById(R.id.rbtn3)).isChecked();
+                if(radiobtn3 == true){
+                    selectedVal = rbtn3.getTag().toString();
+
+                }
+                boolean radiobtn4 = ((RadioButton) view.findViewById(R.id.rbtn4)).isChecked();
+                if(radiobtn4 == true){
+                    selectedVal = rbtn4.getTag().toString();
+
+                }
+                boolean radiobtn5 = ((RadioButton) view.findViewById(R.id.rbtn5)).isChecked();
+                if(radiobtn5 == true){
+                    selectedVal = rbtn5.getTag().toString();
+
+                }
+
                 end_time = System.currentTimeMillis();
 
-                if (radioButton != null && radioButton.getTag() != null) {
-                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", radioButton.getTag().toString(), (end_time - start_time) / 1000 + "");
+                if (selectedVal != null && !selectedVal.equalsIgnoreCase("")) {
+                    System.out.println("--selectedVal-->"+selectedVal);
+                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", selectedVal, (end_time - start_time) / 1000 + "");
                 } else {
                     new MaterialDialog.Builder(getContext())
                             .title(R.string.app_name)

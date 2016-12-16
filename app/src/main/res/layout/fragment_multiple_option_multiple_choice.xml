@@ -38,7 +38,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/question">
 
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/op1"
+                        android:orientation="horizontal">
                     <CheckBox
                         android:id="@+id/checkbtn1"
                         android:layout_width="wrap_content"
@@ -54,8 +58,13 @@
                         android:layout_below="@+id/checkbtn1"
 
                         android:layout_marginLeft="20dp"
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/op2"
+                        android:layout_below="@+id/op1"
+                        android:orientation="horizontal">
                     <CheckBox
                         android:id="@+id/checkbtn2"
                         android:layout_width="wrap_content"
@@ -74,8 +83,13 @@
                         android:layout_below="@+id/checkbtn2"
 
                         android:layout_marginLeft="20dp"
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/op3"
+                        android:layout_below="@+id/op2"
+                        android:orientation="horizontal">
                     <CheckBox
                         android:id="@+id/checkbtn3"
                         android:layout_width="wrap_content"
@@ -93,8 +107,13 @@
                         android:layout_below="@+id/checkbtn3"
                         android:layout_marginLeft="20dp"
 
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/op4"
+                        android:layout_below="@+id/op3"
+                        android:orientation="horizontal">
                     <CheckBox
                         android:id="@+id/checkbtn4"
                         android:layout_width="wrap_content"
@@ -113,8 +132,13 @@
                         android:layout_below="@+id/checkbtn4"
                         android:layout_marginLeft="20dp"
 
-                        android:visibility="gone" />
-
+                        android:visibility="gone" /></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/op5"
+                        android:layout_below="@+id/op4"
+                        android:orientation="horizontal">
                     <CheckBox
                         android:id="@+id/checkbtn5"
                         android:layout_width="wrap_content"
@@ -132,7 +156,7 @@
                         android:layout_below="@+id/checkbtn5"
                         android:layout_marginLeft="20dp"
 
-                        android:visibility="gone" />
+                        android:visibility="gone" /></LinearLayout>
                 </RelativeLayout>
 
                 <View
