@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#26c6da"
-
-    >
+    android:background="#26c6da">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <WebView
+                <TextView
                     android:id="@+id/question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -34,72 +32,55 @@
                     android:text="Question 1"
                     android:textSize="30sp" />
 
-                <RadioGroup
+                <RelativeLayout
                     android:id="@+id/options"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/question">
 
-                    <WebView
+
+                    <CheckBox
                         android:id="@+id/option1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Option1" />
+                        android:text="Option1"
+                        android:visibility="gone" />
 
-                    <RadioButton
-                        android:id="@+id/rbtn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1" />
-
-                    <WebView
+                    <CheckBox
                         android:id="@+id/option2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Option2" />
-                    <RadioButton
-                        android:id="@+id/rbtn2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1" />
+                        android:layout_below="@+id/option1"
+                        android:text="Option2"
 
-                    <WebView
+                        android:visibility="gone" />
+
+                    <CheckBox
                         android:id="@+id/option3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/option2"
+                        android:text="Option3"
+                        android:visibility="gone" />
 
-                        android:text="Option3" />
-                    <RadioButton
-                        android:id="@+id/rbtn3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1" />
-
-                    <WebView
+                    <CheckBox
                         android:id="@+id/option4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/option3"
+                        android:text="Option4"
 
-                        android:text="Option4" />
-                    <RadioButton
-                        android:id="@+id/rbtn4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1" />
+                        android:visibility="gone" />
 
-                    <WebView
+                    <CheckBox
                         android:id="@+id/option5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Option5" />
+                        android:layout_below="@+id/option4"
+                        android:text="Option5"
 
-                    <RadioButton
-                        android:id="@+id/rbtn5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1" />
-
-                </RadioGroup>
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/line"
@@ -125,4 +106,3 @@
 
     </LinearLayout>
 </ScrollView>
-
