@@ -1,6 +1,7 @@
 package assessment.android.istar.com.androidassessment.assessment_util;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,6 +22,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 import assessment.android.istar.com.androidassessment.R;
+import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
+import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 
 /**
@@ -30,27 +33,31 @@ import assessment.android.istar.com.androidassessment.assessment_result.CMSAsses
 public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String> {
     private Context context;
     private CMSAssessmentResult cmsAssessmentResult;
+    private AssessmentStatusHandler assessmentStatusHandler;
+    private int last_pointer;
 
-    public SubmitAssessmentAsyncTask(Context context, CMSAssessmentResult cmsAssessmentResult) {
+    public SubmitAssessmentAsyncTask(Context context, CMSAssessmentResult cmsAssessmentResult, int last_pointer) {
         System.out.println("-----------------------------------------caledddddddddddddddddddddddddddd");
         this.context = context;
         this.cmsAssessmentResult = cmsAssessmentResult;
+        this.last_pointer = last_pointer;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        assessmentStatusHandler = new AssessmentStatusHandler(context);
     }
 
     @Override
     protected String doInBackground(String... params) {
+        String value = null;
         try {
-
             Serializer serializer = new Persister();
             StringWriter stringWriter = new StringWriter();
             serializer.write(cmsAssessmentResult, stringWriter);
-            String value = stringWriter.toString();
-            System.out.println("value---------------->\n"+value);
+            value = stringWriter.toString();
+            System.out.println("value---------------->\n" + value);
 
             HttpClient httpclient = new DefaultHttpClient();
             String BASE_URL = context.getResources().getString(R.string.server_ip) + "/submit_assessment_offline";
@@ -68,13 +75,22 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
             httppost.setEntity(new UrlEncodedFormEntity(postParameters));
 
             HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
+            int code = response.getStatusLine().getStatusCode();
 
-            System.out.println("Response for------>"+cmsAssessmentResult.getAssessment_id()+" --------- "+response.getStatusLine());
+            System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id() + " --------- " + response.getStatusLine());
 
-
+            if (code != 200) {
+                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
+            } else {
+                Cursor c = assessmentStatusHandler.getData(Integer.parseInt(cmsAssessmentResult.getAssessment_id()));
+                if (c.moveToFirst() && c.getString(2) != null && c.getString(2).equalsIgnoreCase("COMPLETED")) {
+                    assessmentStatusHandler.deleteContent(Integer.parseInt(cmsAssessmentResult.getAssessment_id()));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            if (value != null)
+                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
         }
         return null;
     }

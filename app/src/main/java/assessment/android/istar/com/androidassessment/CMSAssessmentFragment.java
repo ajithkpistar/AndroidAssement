@@ -29,10 +29,13 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
+import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
+import assessment.android.istar.com.androidassessment.assessment_pojo.AssessmentStatus;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
@@ -142,7 +145,7 @@ public class CMSAssessmentFragment extends Fragment {
 
     private void fetchAssessmentFromServer(int assessment_id, AssessmentDataHandler assessmentDataHandler, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
         new FetchAssessmentFromServer(getContext(), viewpagerAdapter, assessmentLockableViewPager,
-                assessmentDataHandler, getChildFragmentManager(),countDownTimer,number_of_ques,prograss_bar,progress_text,start_time).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
+                assessmentDataHandler, getChildFragmentManager(), countDownTimer, number_of_ques, prograss_bar, progress_text, start_time).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
 
     }
 
@@ -200,7 +203,6 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
 
-
     public void updateslidePointerText() {
         try {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
@@ -224,9 +226,22 @@ public class CMSAssessmentFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
-        if (getAllAssmentResult() != null) {
-            new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        try {
+            if (getAllAssmentResult() != null) {
+                if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
+                    new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
+                    Serializer serializer = new Persister();
+                    StringWriter stringWriter = new StringWriter();
+                    serializer.write(cmsAssessmentResult, stringWriter);
+                    String value = stringWriter.toString();
+                    System.out.println("value---------------->\n" + value);
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", assessmentLockableViewPager.getCurrentItem() + "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
