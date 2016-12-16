@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,10 +48,13 @@ public class CMSAssessmentFragment extends Fragment {
     private Toolbar toolbar;
     private static TextView number_of_ques;
     private TextView progress_text;
+    private ProgressBar prograss_bar;
 
     private Toast mToastToShow;
     private CountDownTimer countDownTimer;
     private int delay = 60000;
+    private boolean checkker = false;
+    private int progress_status = 0;
 
 
     @Override
@@ -62,6 +66,8 @@ public class CMSAssessmentFragment extends Fragment {
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\nlast 1 MIN Left.", Toast.LENGTH_SHORT);
+        prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
+        prograss_bar.setIndeterminate(false);
 
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
@@ -165,10 +171,9 @@ public class CMSAssessmentFragment extends Fragment {
         question_time.add(new Entry(key, time));
     }
 
-    private boolean checkker = false;
 
     public void play() {
-        countDownTimer = new CountDownTimer(delay, 1000) { // adjust the milli seconds here
+        countDownTimer = new CountDownTimer(delay, delay / 100) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
                 progress_text.setText("" + String.format("%d:%d",
@@ -180,12 +185,15 @@ public class CMSAssessmentFragment extends Fragment {
                     checkker = true;
                     mToastToShow.show();
                 }
+
+                prograss_bar.setProgress(progress_status++);
             }
 
             public void onFinish() {
-                progress_text.setText("TIME OVER!");
+                progress_text.setText("00:00");
+                prograss_bar.setProgress(0);
+                progress_status = 0;
             }
-
         }.start();
     }
 

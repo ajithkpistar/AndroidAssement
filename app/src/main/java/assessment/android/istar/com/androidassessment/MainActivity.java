@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Assessmentutil assessmentutil=new Assessmentutil(this);
             System.out.println("-----------------------------------------------------------"+SingletonStudent.getInstance().getStudent().getId());
-           // new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SaveAllAssessmentAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }catch (Exception e){
             e.printStackTrace();
         }
