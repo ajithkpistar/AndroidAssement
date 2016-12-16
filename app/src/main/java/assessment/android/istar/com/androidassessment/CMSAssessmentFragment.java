@@ -84,9 +84,7 @@ public class CMSAssessmentFragment extends Fragment {
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
 
-            if (cmsAssessment != null) {
-                number_of_ques.setText("1 of" + (cmsAssessment.getNumber_of_questions()));
-            }
+            updateslidePointerText();
             assessmentLockableViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -95,11 +93,7 @@ public class CMSAssessmentFragment extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-                    if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
-                        number_of_ques.setText("");
-                    } else {
-                        number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + " of" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
-                    }
+                    updateslidePointerText();
                 }
 
                 @Override
@@ -126,11 +120,19 @@ public class CMSAssessmentFragment extends Fragment {
         if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
             addData(key, answer, time);
-            if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
+            updateslidePointerText();
+        }
+    }
+
+    public static void updateslidePointerText() {
+        try {
+            if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
             } else {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + " of" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -138,11 +140,7 @@ public class CMSAssessmentFragment extends Fragment {
     public static void previousViewpager() {
         if (assessmentLockableViewPager.getCurrentItem() != 0) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
-            if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
-                number_of_ques.setText("");
-            } else {
-                number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + " of" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
-            }
+            updateslidePointerText();
         }
 
     }
@@ -160,7 +158,8 @@ public class CMSAssessmentFragment extends Fragment {
         cmsAssessmentResult.setQuestion_time(question_time);
         end_time = System.currentTimeMillis();
         cmsAssessmentResult.setTotal_time((end_time - start_time) / 60000 + "");
-        if (cmsAssessmentResult != null)
+        if (cmsAssessmentResult != null) {
             new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 }
