@@ -121,7 +121,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
-            //delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
+            delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
 
         } catch (Exception e) {
 
