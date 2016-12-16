@@ -51,6 +51,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/option1"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/checkbtn1"
                         android:visibility="gone"/>
 
                     <CheckBox
@@ -65,6 +66,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/option2"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/checkbtn2"
                         android:visibility="gone"/>
 
                     <CheckBox
@@ -72,13 +74,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option2"
-                        android:text="Option3"
+                        android:text=""
                         android:visibility="gone"
                         />
                     <WebView
                         android:layout_width="wrap_content"
                         android:id="@+id/option3"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/checkbtn3"
                         android:visibility="gone"/>
 
                     <CheckBox
@@ -86,13 +89,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option3"
-                        android:text="Option4"
+                        android:text=""
 
                         android:visibility="gone" />
                     <WebView
                         android:layout_width="wrap_content"
                         android:id="@+id/option4"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/checkbtn4"
                         android:visibility="gone"/>
 
                     <CheckBox
@@ -100,13 +104,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option4"
-                        android:text="Option5"
+                        android:text=""
                         android:visibility="gone" />
 
                     <WebView
                         android:layout_width="wrap_content"
                         android:id="@+id/option5"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/checkbtn5"
                         android:visibility="gone"/>
                 </RelativeLayout>
 
