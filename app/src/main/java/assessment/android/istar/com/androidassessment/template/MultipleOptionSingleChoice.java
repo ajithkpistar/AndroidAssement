@@ -45,7 +45,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
         start_time = System.currentTimeMillis();
-         cv = (CardView) view.findViewById(R.id.cv);
+        cv = (CardView) view.findViewById(R.id.cv);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
@@ -57,8 +57,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn2 = (RadioButton) view.findViewById(R.id.rbtn2);
         rbtn3 = (RadioButton) view.findViewById(R.id.rbtn3);
         rbtn4 = (RadioButton) view.findViewById(R.id.rbtn4);
-        rbtn5=(RadioButton)view.findViewById(R.id.rbtn5);
-
+        rbtn5 = (RadioButton) view.findViewById(R.id.rbtn5);
+        ThemeUtils themeutil = new ThemeUtils();
 
         submitbtn = (Button) view.findViewById(R.id.submitbtn);
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
@@ -73,58 +73,38 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                question.loadDataWithBaseURL(null, cmsQuestion.getQuestionText(), "text/html", "utf-8", null);
+                themeutil.getThemeQuestion(cmsQuestion, question);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
-                        option1.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        rbtn1.setTag(cmsOption.getId());
-                        option1.setVisibility(View.VISIBLE);
-                        rbtn1.setVisibility(View.VISIBLE);
+
+                        themeutil.getThemeOptions(cmsQuestion, option1, rbtn1, cmsOption.getOptionText());
+
+
                     }
                     if (temp == 1) {
-                        option2.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
+                        themeutil.getThemeOptions(cmsQuestion, option2, rbtn2, cmsOption.getOptionText());
 
-                        rbtn2.setTag(cmsOption.getId());
-                        option2.setVisibility(View.VISIBLE);
-                        rbtn2.setVisibility(View.VISIBLE);
                     }
                     if (temp == 2) {
-                        option3.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        rbtn3.setTag(cmsOption.getId());
-                        option3.setVisibility(View.VISIBLE);
-                        rbtn3.setVisibility(View.VISIBLE);
+                        themeutil.getThemeOptions(cmsQuestion, option3, rbtn3, cmsOption.getOptionText());
+
                     }
                     if (temp == 3) {
-                        option4.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        rbtn4.setTag(cmsOption.getId());
-                        option4.setVisibility(View.VISIBLE);
-                        rbtn4.setVisibility(View.VISIBLE);
+                        themeutil.getThemeOptions(cmsQuestion, option4, rbtn4, cmsOption.getOptionText());
+                        ;
                     }
                     if (temp == 4) {
-                        option5.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        rbtn5.setTag(cmsOption.getId());
-                        option5.setVisibility(View.VISIBLE);
-                        rbtn5.setVisibility(View.VISIBLE);
+                        themeutil.getThemeOptions(cmsQuestion, option5, rbtn5, cmsOption.getOptionText());
+
                     }
                     temp++;
                 }
             }
-            if(cmsQuestion.getTheme() != null){
-
+            if (cmsQuestion.getTheme() != null) {
                 cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option1.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option2.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option3.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option4.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                option5.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-                question.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
-
-
-
-
             }
 
         }
