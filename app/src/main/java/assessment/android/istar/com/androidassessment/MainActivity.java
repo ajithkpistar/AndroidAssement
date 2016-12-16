@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import assessment.android.istar.com.androidassessment.assessment_util.Assessmentutil;
@@ -50,13 +53,30 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        final Button submit=(Button) findViewById(R.id.submit);
+        final EditText editText=(EditText)findViewById(R.id.assment_id);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submit.setVisibility(View.GONE);
+                editText.setVisibility(View.GONE);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,editText.getText().toString()+"");
+                Fragment fragment = new CMSAssessmentFragment();
+                fragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+            }
+        });
+
+
+
+
         /*Intent i = new Intent(MainActivity.this,MyActivity.class);
         startActivity(i);*/
-        Bundle bundle = new Bundle();
-        bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10195+"");
-        Fragment fragment = new CMSAssessmentFragment();
-        fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {

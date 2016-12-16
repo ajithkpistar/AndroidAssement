@@ -8,15 +8,28 @@
     android:background="#26c6da"
     tools:context="assessment.android.istar.com.androidassessment.MainActivity">
 
-    <!--<TextView
+    <EditText
+        android:id="@+id/assment_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="50dp"
+        android:inputType="number"
+        android:background="#fff" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />-->
+        android:layout_below="@id/assment_id"
+        android:layout_centerHorizontal="true"
+        android:background="#ceebef"
+        android:id="@+id/submit"
+        android:text="submit" />
+
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/frame_container"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     </FrameLayout>
 </RelativeLayout>
