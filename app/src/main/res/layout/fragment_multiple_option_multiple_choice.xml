@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <TextView
+                <WebView
                     android:id="@+id/question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,47 +39,75 @@
                     android:layout_below="@+id/question">
 
 
-                    <CheckBox
-                        android:id="@+id/option1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Option1"
-                        android:visibility="gone" />
 
                     <CheckBox
-                        android:id="@+id/option2"
+                        android:id="@+id/checkbtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:visibility="gone" />
+
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/option1"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+                    <CheckBox
+                        android:id="@+id/checkbtn2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option1"
-                        android:text="Option2"
+                        android:text=""
 
                         android:visibility="gone" />
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/option2"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <CheckBox
-                        android:id="@+id/option3"
+                        android:id="@+id/checkbtn3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option2"
                         android:text="Option3"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        />
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/option3"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <CheckBox
-                        android:id="@+id/option4"
+                        android:id="@+id/checkbtn4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option3"
                         android:text="Option4"
 
                         android:visibility="gone" />
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/option4"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <CheckBox
-                        android:id="@+id/option5"
+                        android:id="@+id/checkbtn5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/option4"
                         android:text="Option5"
-
                         android:visibility="gone" />
+
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/option5"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <View

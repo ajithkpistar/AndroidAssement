@@ -11,6 +11,8 @@ public class AssessmentFactory  {
 
         if(type.equalsIgnoreCase("1")){
             return new MultipleOptionSingleChoice();
+        }if(type.equalsIgnoreCase("2")){
+            return new MultipleOptionMultipleChoice();
         }else{
             return new DefaultFragment();
         }
