@@ -149,31 +149,6 @@ public class CMSAssessmentFragment extends Fragment {
     public void setupObject() {
         start_time = System.currentTimeMillis();
         updateslidePointerText();
-
-
-        play();
-    }
-
-    public static void previousViewpager() {
-        if (assessmentLockableViewPager.getCurrentItem() != 0) {
-            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
-        }
-    }
-
-    public static void nextViewpager(String key, String answer, String time) {
-        if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
-            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
-            addData(key, answer, time);
-        }
-    }
-
-    static void addData(String key, String answer, String time) {
-        question_map.add(new Entry(key, answer));
-        question_time.add(new Entry(key, time));
-    }
-
-
-    public void play() {
         progress_status = 0;
         prograss_bar.setMax(delay / 1000);
         countDownTimer = new CountDownTimer(delay, 1000) { // adjust the milli seconds here
@@ -205,6 +180,26 @@ public class CMSAssessmentFragment extends Fragment {
             }
         }.start();
     }
+
+    public static void previousViewpager() {
+        if (assessmentLockableViewPager.getCurrentItem() != 0) {
+            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
+        }
+    }
+
+    public static void nextViewpager(String key, String answer, String time) {
+        if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
+            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
+            addData(key, answer, time);
+        }
+    }
+
+    static void addData(String key, String answer, String time) {
+        question_map.add(new Entry(key, answer));
+        question_time.add(new Entry(key, time));
+    }
+
+
 
     public void updateslidePointerText() {
         try {
