@@ -173,7 +173,7 @@ public class CMSAssessmentFragment extends Fragment {
 
     public void play() {
         progress_status = 0;
-        countDownTimer = new CountDownTimer(delay, delay / 100) { // adjust the milli seconds here
+        countDownTimer = new CountDownTimer(delay, 1000) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
                 long min = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
@@ -192,6 +192,7 @@ public class CMSAssessmentFragment extends Fragment {
                 if (min == 1 && sec == 0) {
                     mToastToShow.show();
                 }
+
 
                 prograss_bar.setProgress(progress_status++);
             }
