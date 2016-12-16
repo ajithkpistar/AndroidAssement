@@ -80,24 +80,24 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
 
-                        themeutil.getThemeOptions(cmsQuestion, option1, rbtn1, cmsOption.getOptionText());
+                        themeutil.getThemeSingleOption(cmsQuestion, option1, rbtn1, cmsOption.getOptionText());
 
 
                     }
                     if (temp == 1) {
-                        themeutil.getThemeOptions(cmsQuestion, option2, rbtn2, cmsOption.getOptionText());
+                        themeutil.getThemeSingleOption(cmsQuestion, option2, rbtn2, cmsOption.getOptionText());
 
                     }
                     if (temp == 2) {
-                        themeutil.getThemeOptions(cmsQuestion, option3, rbtn3, cmsOption.getOptionText());
+                        themeutil.getThemeSingleOption(cmsQuestion, option3, rbtn3, cmsOption.getOptionText());
 
                     }
                     if (temp == 3) {
-                        themeutil.getThemeOptions(cmsQuestion, option4, rbtn4, cmsOption.getOptionText());
+                        themeutil.getThemeSingleOption(cmsQuestion, option4, rbtn4, cmsOption.getOptionText());
                         ;
                     }
                     if (temp == 4) {
-                        themeutil.getThemeOptions(cmsQuestion, option5, rbtn5, cmsOption.getOptionText());
+                        themeutil.getThemeSingleOption(cmsQuestion, option5, rbtn5, cmsOption.getOptionText());
 
                     }
                     temp++;

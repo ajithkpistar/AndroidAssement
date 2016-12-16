@@ -14,12 +14,6 @@ import static assessment.android.istar.com.androidassessment.R.id.options;
 
 /**
  * Created by Sumanth on 12/16/2016.
- * <p>
- * <listitemFontColor>#fffef4</listitemFontColor>
- * <listitemFontFamily>Raleway-Regular.ttf</listitemFontFamily>
- * <listitemFontSize>49</listitemFontSize>
- * <listitemFontWeight>100</listitemFontWeight>
- * <listitemLineHeight>1</listitemLineHeight>
  */
 
 public class ThemeUtils {
@@ -29,10 +23,10 @@ public class ThemeUtils {
 
 
         String text = "<html><head>"
-                + "<style type=\"text/css\">body{color: "+ cmsQuestion.getTheme().getListitemFontColor()
-                +"; background-color:"+ cmsQuestion.getTheme().getBackgroundColor() +" ;}"
-                +"; font-family:"+ cmsQuestion.getTheme().getListitemFontFamily() +" ;}"
-                +"; font-size:"+ cmsQuestion.getTheme().getListitemFontSize() +" ;}"
+                + "<style type=\"text/css\">body{color: " + cmsQuestion.getTheme().getListitemFontColor()
+                + "; background-color:" + cmsQuestion.getTheme().getBackgroundColor() + " ;}"
+                + "; font-family:" + cmsQuestion.getTheme().getListitemFontFamily() + " ;}"
+                + "; font-size:" + cmsQuestion.getTheme().getListitemFontSize() + " ;}"
                 + "</style></head>"
                 + "<body>"
                 + cmsQuestion.getQuestionText()
@@ -41,14 +35,14 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeOptions(final CMSQuestion cmsOption,final WebView webView,final RadioButton radioButton,final String optionText) {
+    public void getThemeSingleOption(final CMSQuestion cmsOption, final WebView webView, final RadioButton radioButton, final String optionText) {
 
 
         String text = "<html><head>"
-                + "<style type=\"text/css\">body{color: "+ cmsOption.getTheme().getListitemFontColor()
-                +"; background-color:"+ cmsOption.getTheme().getBackgroundColor() +" ;}"
-                +"; font-family:"+ cmsOption.getTheme().getListitemFontFamily() +" ;}"
-                +"; font-size:"+ cmsOption.getTheme().getListitemFontSize() +" ;}"
+                + "<style type=\"text/css\">body{color: " + cmsOption.getTheme().getListitemFontColor()
+                + "; background-color:" + cmsOption.getTheme().getBackgroundColor() + " ;}"
+                + "; font-family:" + cmsOption.getTheme().getListitemFontFamily() + " ;}"
+                + "; font-size:" + cmsOption.getTheme().getListitemFontSize() + " ;}"
                 + "</style></head>"
                 + "<body>"
                 + optionText
