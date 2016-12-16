@@ -52,8 +52,7 @@ public class CMSAssessmentFragment extends Fragment {
 
     private Toast mToastToShow;
     private CountDownTimer countDownTimer;
-    private int delay = 60000;
-    private boolean checkker = false;
+    private int delay = 120000;
     private int progress_status = 0;
 
 
@@ -122,7 +121,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
-            delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
+            //delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
 
         } catch (Exception e) {
 
@@ -173,16 +172,24 @@ public class CMSAssessmentFragment extends Fragment {
 
 
     public void play() {
+        progress_status = 0;
         countDownTimer = new CountDownTimer(delay, delay / 100) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
-                progress_text.setText("" + String.format("%d:%d",
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                long min = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                long sec = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
+                String timerString = "00:00", minString = "" + min, secString = "" + sec;
+                if (min < 10) {
+                    minString = "0" + min;
+                }
+                if (sec < 10) {
+                    secString = "0" + sec;
+                }
+                timerString = minString + ":" + secString;
+                progress_text.setText(timerString);
 
-                if (TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) == 1 && checkker == false) {
-                    checkker = true;
+                if (min == 1 && sec == 0) {
                     mToastToShow.show();
                 }
 
