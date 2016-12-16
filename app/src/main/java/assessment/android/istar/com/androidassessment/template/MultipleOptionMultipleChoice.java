@@ -1,10 +1,12 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private CMSQuestion cmsQuestion;
     private Button submitbtn;
     private long start_time, end_time;
+    CardView cv;
     CheckBox checkbtn1,checkbtn2,checkbtn3,checkbtn4,checkbtn5;
     View view;
 
@@ -40,6 +43,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         view = inflater.inflate(R.layout.fragment_multiple_option_multiple_choice, container, false);
         start_time = System.nanoTime();
+        cv = (CardView) view.findViewById(R.id.cv);
 
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
@@ -106,6 +110,21 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                     }
                     temp++;
                 }
+            }
+
+            if(cmsQuestion.getTheme() != null){
+
+                cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                option1.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                option2.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                option3.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                option4.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                option5.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                question.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+
+
+
+
             }
 
         }
