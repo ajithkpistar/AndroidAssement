@@ -35,7 +35,7 @@ public class EndAssessmentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (cmsAssessmentResult != null) {
-                    new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult,-1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
             }
         });

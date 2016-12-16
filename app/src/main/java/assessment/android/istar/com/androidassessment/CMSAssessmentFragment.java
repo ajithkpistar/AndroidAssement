@@ -29,10 +29,13 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
+import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
+import assessment.android.istar.com.androidassessment.assessment_pojo.AssessmentStatus;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
@@ -57,7 +60,7 @@ public class CMSAssessmentFragment extends Fragment {
     static ArrayList<Entry> question_map, question_time;
     public static long start_time, end_time;
     private Toolbar toolbar;
-    private static TextView number_of_ques;
+    private TextView number_of_ques;
     private TextView progress_text;
 
     private Toast mToastToShow;
@@ -89,6 +92,24 @@ public class CMSAssessmentFragment extends Fragment {
             }
         }
         cmsAssessmentResult = new CMSAssessmentResult();
+
+        assessmentLockableViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                updateslidePointerText();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         cmsAssessmentResult.setAssessment_id(assessment_id + "");
         cmsAssessmentResult.setUser_id(SingletonStudent.getInstance().getStudent().getId() + "");
         question_map = new ArrayList<>();
@@ -124,122 +145,13 @@ public class CMSAssessmentFragment extends Fragment {
 
     private void fetchAssessmentFromServer(int assessment_id, AssessmentDataHandler assessmentDataHandler, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
         new FetchAssessmentFromServer(getContext(), viewpagerAdapter, assessmentLockableViewPager,
-                assessmentDataHandler, getChildFragmentManager()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
+                assessmentDataHandler, getChildFragmentManager(), countDownTimer, number_of_ques, prograss_bar, progress_text, start_time).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
 
-    }
-
-    public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String> {
-        private ViewpagerAdapter viewpagerAdapter;
-        private AssessmentLockableViewPager assessmentLockableViewPager;
-        private AssessmentDataHandler assessmentDataHandler;
-        private Context context;
-        private FragmentManager fm;
-
-        public FetchAssessmentFromServer(Context context, ViewpagerAdapter viewpagerAdapter,
-                                         AssessmentLockableViewPager assessmentLockableViewPager,
-                                         AssessmentDataHandler assessmentDataHandler, FragmentManager fm) {
-            this.context = context;
-            this.viewpagerAdapter = viewpagerAdapter;
-            this.assessmentLockableViewPager = assessmentLockableViewPager;
-            this.assessmentDataHandler = assessmentDataHandler;
-            this.fm = fm;
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String xml_object = null;
-            try {
-                HttpClient httpclient = new DefaultHttpClient();
-                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?assessment_id=" + params[0];
-                Log.v("Talentify", "BASE_URL " + BASE_URL);
-
-                int timeout = 80; // seconds
-                HttpParams httpParams = httpclient.getParams();
-                httpParams.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, timeout * 1000);
-                httpParams.setParameter(CoreConnectionPNames.SO_TIMEOUT, timeout * 1000);
-                HttpPost httppost = new HttpPost(BASE_URL);
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                xml_object = EntityUtils.toString(entity, "UTF-8");
-                assessmentDataHandler.saveContent(params[0], xml_object);
-            } catch (Exception e) {
-
-            }
-            return xml_object;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null && !result.equalsIgnoreCase("")) {
-                StringReader reader = new StringReader(result);
-                Serializer serializer = new Persister();
-                try {
-                    CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class, reader);
-                    viewpagerAdapter = new ViewpagerAdapter(fm, cmsAssessment);
-                    assessmentLockableViewPager.setAdapter(viewpagerAdapter);
-                    delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
-
-                    setupObject();
-                } catch (Exception e) {
-
-                }
-            }
-        }
     }
 
     public void setupObject() {
         start_time = System.currentTimeMillis();
         updateslidePointerText();
-        assessmentLockableViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                updateslidePointerText();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        //start timer
-        play();
-    }
-
-    public static void previousViewpager() {
-        if (assessmentLockableViewPager.getCurrentItem() != 0) {
-            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
-            updateslidePointerText();
-        }
-    }
-
-    public static void nextViewpager(String key, String answer, String time) {
-        if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
-            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
-            addData(key, answer, time);
-            updateslidePointerText();
-        }
-    }
-
-    static void addData(String key, String answer, String time) {
-        question_map.add(new Entry(key, answer));
-        question_time.add(new Entry(key, time));
-    }
-
-
-    public void play() {
         progress_status = 0;
         prograss_bar.setMax(delay / 1000);
         countDownTimer = new CountDownTimer(delay, 1000) { // adjust the milli seconds here
@@ -272,7 +184,26 @@ public class CMSAssessmentFragment extends Fragment {
         }.start();
     }
 
-    public static void updateslidePointerText() {
+    public static void previousViewpager() {
+        if (assessmentLockableViewPager.getCurrentItem() != 0) {
+            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
+        }
+    }
+
+    public static void nextViewpager(String key, String answer, String time) {
+        if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
+            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
+            addData(key, answer, time);
+        }
+    }
+
+    static void addData(String key, String answer, String time) {
+        question_map.add(new Entry(key, answer));
+        question_time.add(new Entry(key, time));
+    }
+
+
+    public void updateslidePointerText() {
         try {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
@@ -295,9 +226,22 @@ public class CMSAssessmentFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-
-        if (getAllAssmentResult() != null) {
-            new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        try {
+            if (getAllAssmentResult() != null) {
+                if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
+                    new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                } else {
+                    AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
+                    Serializer serializer = new Persister();
+                    StringWriter stringWriter = new StringWriter();
+                    serializer.write(cmsAssessmentResult, stringWriter);
+                    String value = stringWriter.toString();
+                    System.out.println("value---------------->\n" + value);
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", assessmentLockableViewPager.getCurrentItem() + "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
