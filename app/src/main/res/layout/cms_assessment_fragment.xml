@@ -3,49 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="#26c6da"
-        android:title="dddddddddddddddddddddddddddddddddddddd"
         android:minHeight="?attr/actionBarSize"
+        android:title="dddddddddddddddddddddddddddddddddddddd"
         android:titleTextColor="#ffffff">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:layout_height="match_parent">
 
             <ProgressBar
                 android:id="@+id/prograss_bar"
                 style="@android:style/Widget.ProgressBar.Large"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/progress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="20dp"
                 android:text="22:35"
-                android:gravity="center_vertical|center_horizontal|left"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="1/35"
-                android:gravity="center_vertical|center_horizontal|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                />
+                android:text="1/35" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
     <assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager
+        android:id="@+id/assessment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/assessment_viewpager">
+        android:layout_below="@+id/toolbar">
 
     </assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager>
 </RelativeLayout>
