@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="#26c6da"
+        android:background="#ffffff"
         android:minHeight="?attr/actionBarSize"
         android:title="dddddddddddddddddddddddddddddddddddddd"
         android:titleTextColor="#ffffff">
@@ -33,6 +33,7 @@
                 android:layout_centerVertical="true"
                 android:paddingLeft="12dp"
                 android:textSize="13sp"
+                android:textColor="#000"
                 android:text="00:00" />
 
             <TextView
@@ -42,6 +43,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
+                android:textColor="#000"
                 android:text="" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

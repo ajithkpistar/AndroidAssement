@@ -4,9 +4,14 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="#26c6da"
+    android:background="#fff"
     tools:context="assessment.android.istar.com.androidassessment.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"></FrameLayout>
 
     <EditText
         android:id="@+id/assment_id"
@@ -14,22 +19,15 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="50dp"
-        android:inputType="number"
-        android:background="#fff" />
+        android:background="#26c6da"
+        android:inputType="number" />
 
     <Button
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/assment_id"
         android:layout_centerHorizontal="true"
         android:background="#ceebef"
-        android:id="@+id/submit"
         android:text="submit" />
-
-    <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 </RelativeLayout>
