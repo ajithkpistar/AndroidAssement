@@ -28,6 +28,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
     private WebView question;
     WebView option1, option2, option3, option4, option5;
+    RadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
     private int position;
     private CMSQuestion cmsQuestion;
     private Button submitbtn;
@@ -47,6 +48,14 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         option3 = (WebView) view.findViewById(R.id.option3);
         option4 = (WebView) view.findViewById(R.id.option4);
         option5 = (WebView) view.findViewById(R.id.option5);
+
+        rbtn1 = (RadioButton) view.findViewById(R.id.rbtn1);
+        rbtn2 = (RadioButton) view.findViewById(R.id.rbtn2);
+        rbtn3 = (RadioButton) view.findViewById(R.id.rbtn3);
+        rbtn4 = (RadioButton) view.findViewById(R.id.rbtn4);
+        rbtn5=(RadioButton)view.findViewById(R.id.rbtn5);
+
+
         submitbtn = (Button) view.findViewById(R.id.submitbtn);
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
 
@@ -67,28 +76,33 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
                         option1.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        option1.setTag(cmsOption.getId());
+                        rbtn1.setTag(cmsOption.getId());
                         option1.setVisibility(View.VISIBLE);
+                        rbtn1.setVisibility(View.VISIBLE);
                     }
                     if (temp == 1) {
                         option2.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        option2.setTag(cmsOption.getId());
+                        rbtn2.setTag(cmsOption.getId());
                         option2.setVisibility(View.VISIBLE);
+                        rbtn2.setVisibility(View.VISIBLE);
                     }
                     if (temp == 2) {
                         option3.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        option3.setTag(cmsOption.getId());
+                        rbtn3.setTag(cmsOption.getId());
                         option3.setVisibility(View.VISIBLE);
+                        rbtn3.setVisibility(View.VISIBLE);
                     }
                     if (temp == 3) {
                         option4.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        option4.setTag(cmsOption.getId());
+                        rbtn4.setTag(cmsOption.getId());
                         option4.setVisibility(View.VISIBLE);
+                        rbtn4.setVisibility(View.VISIBLE);
                     }
                     if (temp == 4) {
                         option5.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
-                        option5.setTag(cmsOption.getId());
+                        rbtn5.setTag(cmsOption.getId());
                         option5.setVisibility(View.VISIBLE);
+                        rbtn5.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }

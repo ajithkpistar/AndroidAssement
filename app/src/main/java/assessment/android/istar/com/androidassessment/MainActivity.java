@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         /*Intent i = new Intent(MainActivity.this,MyActivity.class);
         startActivity(i);*/
         Bundle bundle = new Bundle();
-        bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10317+"");
+        bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,10195+"");
         Fragment fragment = new CMSAssessmentFragment();
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();

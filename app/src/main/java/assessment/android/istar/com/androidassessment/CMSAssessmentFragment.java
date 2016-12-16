@@ -84,8 +84,8 @@ public class CMSAssessmentFragment extends Fragment {
             fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
         }
 
-        updateslidePointerText();
-        play();
+        //updateslidePointerText();
+        //play();
         assessmentLockableViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
