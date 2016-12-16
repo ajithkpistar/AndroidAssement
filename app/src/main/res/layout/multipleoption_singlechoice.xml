@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <TextView
+                <WebView
                     android:id="@+id/question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,14 +40,14 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/question">
 
-                    <RadioButton
+                    <WebView
                         android:id="@+id/option1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Option1"
                         android:visibility="gone" />
 
-                    <RadioButton
+                    <WebView
                         android:id="@+id/option2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
 
                         android:visibility="gone" />
 
-                    <RadioButton
+                    <WebView
                         android:id="@+id/option3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                         android:text="Option3"
                         android:visibility="gone" />
 
-                    <RadioButton
+                    <WebView
                         android:id="@+id/option4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                         android:text="Option4"
                         android:visibility="gone" />
 
-                    <RadioButton
+                    <WebView
                         android:id="@+id/option5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

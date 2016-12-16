@@ -37,6 +37,7 @@ import assessment.android.istar.com.androidassessment.istarindia.utils.Singleton
 public class CMSAssessmentFragment extends Fragment {
     public final static String ASSESSMENT_ID = "ASSESSMENT_ID";
     private static AssessmentLockableViewPager assessmentLockableViewPager;
+
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
     private int assessment_id;
@@ -82,7 +83,6 @@ public class CMSAssessmentFragment extends Fragment {
         } else {
             fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
         }
-
 
         updateslidePointerText();
         play();
@@ -194,7 +194,6 @@ public class CMSAssessmentFragment extends Fragment {
         cmsAssessmentResult.setQuestion_time(question_time);
         end_time = System.currentTimeMillis();
         cmsAssessmentResult.setTotal_time((end_time - start_time) / 60000 + "");
-
         return cmsAssessmentResult;
     }
 

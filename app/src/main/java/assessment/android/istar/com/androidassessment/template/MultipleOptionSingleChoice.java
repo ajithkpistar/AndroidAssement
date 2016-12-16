@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,7 +26,8 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionSingleChoice extends AssessmentCard {
 
-    private TextView question, option1, option2, option3, option4, option5;
+    private WebView question;
+    WebView option1, option2, option3, option4, option5;
     private int position;
     private CMSQuestion cmsQuestion;
     private Button submitbtn;
@@ -39,12 +41,12 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
         start_time = System.currentTimeMillis();
-        question = (TextView) view.findViewById(R.id.question);
-        option1 = (TextView) view.findViewById(R.id.option1);
-        option2 = (TextView) view.findViewById(R.id.option2);
-        option3 = (TextView) view.findViewById(R.id.option3);
-        option4 = (TextView) view.findViewById(R.id.option4);
-        option5 = (TextView) view.findViewById(R.id.option5);
+        question = (WebView) view.findViewById(R.id.question);
+        option1 = (WebView) view.findViewById(R.id.option1);
+        option2 = (WebView) view.findViewById(R.id.option2);
+        option3 = (WebView) view.findViewById(R.id.option3);
+        option4 = (WebView) view.findViewById(R.id.option4);
+        option5 = (WebView) view.findViewById(R.id.option5);
         submitbtn = (Button) view.findViewById(R.id.submitbtn);
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
 
@@ -58,33 +60,33 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                question.setText(cmsQuestion.getQuestionText());
+                question.loadDataWithBaseURL(null, cmsQuestion.getQuestionText(), "text/html", "utf-8", null);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
-                        option1.setText(cmsOption.getOptionText());
+                        option1.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
                         option1.setTag(cmsOption.getId());
                         option1.setVisibility(View.VISIBLE);
                     }
                     if (temp == 1) {
-                        option2.setText(cmsOption.getOptionText());
+                        option2.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
                         option2.setTag(cmsOption.getId());
                         option2.setVisibility(View.VISIBLE);
                     }
                     if (temp == 2) {
-                        option3.setText(cmsOption.getOptionText());
+                        option3.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
                         option3.setTag(cmsOption.getId());
                         option3.setVisibility(View.VISIBLE);
                     }
                     if (temp == 3) {
-                        option4.setText(cmsOption.getOptionText());
+                        option4.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
                         option4.setTag(cmsOption.getId());
                         option4.setVisibility(View.VISIBLE);
                     }
                     if (temp == 4) {
-                        option5.setText(cmsOption.getOptionText());
+                        option5.loadDataWithBaseURL(null, cmsOption.getOptionText(), "text/html", "utf-8", null);
                         option5.setTag(cmsOption.getId());
                         option5.setVisibility(View.VISIBLE);
                     }
