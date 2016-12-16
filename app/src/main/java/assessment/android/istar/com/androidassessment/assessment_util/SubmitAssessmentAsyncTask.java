@@ -15,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -37,7 +38,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
     private int last_pointer;
 
     public SubmitAssessmentAsyncTask(Context context, CMSAssessmentResult cmsAssessmentResult, int last_pointer) {
-        System.out.println("-----------------------------------------caledddddddddddddddddddddddddddd");
+        System.out.println("---------------------Submit Asyc Task-------------------------");
         this.context = context;
         this.cmsAssessmentResult = cmsAssessmentResult;
         this.last_pointer = last_pointer;
@@ -76,14 +77,18 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
 
             HttpResponse response = httpclient.execute(httppost);
             int code = response.getStatusLine().getStatusCode();
+            HttpEntity responseEntity = response.getEntity();
+            String response_code="200";
+            if(responseEntity!=null) {
+                response_code = EntityUtils.toString(responseEntity);
+            }
+            System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id()+ "---------" + response_code);
 
-            System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id() + " --------- " + response.getStatusLine());
-
-            if (code != 200) {
+            if (!response_code.equalsIgnoreCase("200")) {
                 assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
             } else {
                 Cursor c = assessmentStatusHandler.getData(Integer.parseInt(cmsAssessmentResult.getAssessment_id()));
-                if (c.moveToFirst() && c.getString(2) != null && c.getString(2).equalsIgnoreCase("COMPLETED")) {
+                if (c.moveToFirst() && c.getString(2) != null) {
                     assessmentStatusHandler.deleteContent(Integer.parseInt(cmsAssessmentResult.getAssessment_id()));
                 }
             }
