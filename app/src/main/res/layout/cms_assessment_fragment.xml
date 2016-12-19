@@ -8,7 +8,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="#ffffff"
+        android:background="#cfd8dc"
+        android:layout_margin="6dp"
+        android:elevation="10dp"
         android:minHeight="?attr/actionBarSize"
         android:title="">
 
