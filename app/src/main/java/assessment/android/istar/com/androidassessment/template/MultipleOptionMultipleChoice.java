@@ -57,43 +57,12 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         checkbtn3 = (CheckBox) view.findViewById(R.id.checkbtn3);
         checkbtn4 = (CheckBox) view.findViewById(R.id.checkbtn4);
         checkbtn5 = (CheckBox) view.findViewById(R.id.checkbtn5);
-        ThemeUtils themeutil = new ThemeUtils();
-
-        checkbtn1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                updateValues();
-            }
-        });
-        checkbtn2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                updateValues();
-            }
-        });
-        checkbtn3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                updateValues();
-            }
-        });
-        checkbtn4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                updateValues();
-            }
-        });
-        checkbtn5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                updateValues();
-            }
-        });
-
 
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
+
+        ThemeUtils themeutil = new ThemeUtils();
 
         start_time = System.currentTimeMillis();
         hidden_time.setText(start_time + "");
@@ -141,65 +110,36 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         }
 
-        /*submitbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               *//* String result="";
-                boolean checkbox1 = ((CheckBox) view.findViewById(R.id.checkbtn1)).isChecked();
-                if(checkbox1 == true){
-                    result = result +","+checkbtn1.getTag();
-                }
-                boolean checkbox2 = ((CheckBox) view.findViewById(R.id.checkbtn2)).isChecked();
-                if(checkbox2 == true){
-                    result = result +","+checkbtn2.getTag();
-                }
-                boolean checkbox3 = ((CheckBox) view.findViewById(R.id.checkbtn3)).isChecked();
-                if(checkbox3 == true){
-                    result = result +","+checkbtn3.getTag();
-                }
-                boolean checkbox4 = ((CheckBox) view.findViewById(R.id.checkbtn4)).isChecked();
-                if(checkbox4 == true){
-                    result = result +","+checkbtn4.getTag();
-                }
-                boolean checkbox5 = ((CheckBox) view.findViewById(R.id.checkbtn5)).isChecked();
-                if(checkbox5 == true){
-                    result = result +","+checkbtn5.getTag();
-                }
-
-
-                end_time = System.currentTimeMillis();
-                if (!result.equalsIgnoreCase("") ) {
-
-                    System.out.println("---selectedVal--"+result.replaceFirst("^,", ""));
-
-                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", result.replaceFirst("^,", ""), (end_time - start_time) / 1000 + "");
-                } else {
-                    new MaterialDialog.Builder(getContext())
-                            .title(R.string.app_name)
-                            .content(R.string.content_for_skip)
-                            .positiveText(R.string.agree)
-                            .negativeText(R.string.disagree)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", -1 + "", (end_time - start_time) / 1000 + "");
-                                    dialog.dismiss();
-                                }
-                            })
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-
-                }*//*
-
-
-
+        checkbtn1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
             }
-        });*/
-
+        });
+        checkbtn2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
         return view;
     }
 

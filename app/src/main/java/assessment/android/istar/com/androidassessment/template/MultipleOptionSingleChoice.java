@@ -22,21 +22,15 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionSingleChoice extends AssessmentCard {
 
-    private WebView question;
-    WebView option1, option2, option3, option4, option5;
-    RadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
+    private WebView question,option1, option2, option3, option4, option5;
+    private RadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
     private int position;
     private CMSQuestion cmsQuestion;
-    private Button submitbtn;
-    public RadioGroup Rgroup;
-    private RadioButton radioButton;
-    private long end_time;
-
+    private RadioGroup Rgroup;
     private CardView cv;
     private View view;
-
-    public String selectedVal = "";
-    public long start_time;
+    private String selectedVal = "";
+    private long start_time;
     private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
     private TextView hidden_key, hidden_value, hidden_time;
 
