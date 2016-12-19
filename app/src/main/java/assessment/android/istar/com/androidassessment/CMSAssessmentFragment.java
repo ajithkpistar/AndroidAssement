@@ -214,6 +214,10 @@ public class CMSAssessmentFragment extends Fragment {
                 progress_text.setText("00:00");
                 prograss_bar.setProgress(0);
                 progress_status = 0;
+
+                //send to next fragment and submit data.
+                if (getActivity() != null)
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
             }
         }.start();
     }

@@ -154,7 +154,7 @@ public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 no_of_ques.setText("");
             } else {
-                no_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + " of" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
+                no_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
             }
         } catch (Exception e) {
             e.printStackTrace();
