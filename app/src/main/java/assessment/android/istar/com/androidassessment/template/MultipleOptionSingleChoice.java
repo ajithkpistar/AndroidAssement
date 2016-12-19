@@ -110,10 +110,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(rbtn1.isChecked()){
-                    selectedVal="";
-                    rbtn1.setChecked(false);
-                }
+
 
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
@@ -125,10 +122,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(rbtn2.isChecked()){
-                    selectedVal="";
-                    rbtn2.setChecked(false);
-                }
+
 
                 rbtn1.setChecked(false);
                 rbtn3.setChecked(false);
@@ -140,10 +134,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(rbtn3.isChecked()){
-                    selectedVal="";
-                    rbtn3.setChecked(false);
-                }
+
 
                 rbtn2.setChecked(false);
                 rbtn1.setChecked(false);
@@ -156,10 +147,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(rbtn4.isChecked()){
-                    selectedVal="";
-                    rbtn4.setChecked(false);
-                }
+
 
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
@@ -172,10 +160,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(rbtn5.isChecked()){
-                    selectedVal="";
-                    rbtn5.setChecked(false);
-                }
+
 
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
@@ -183,6 +168,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 rbtn1.setChecked(false);
 
                 selectedVal = rbtn5.getTag().toString();
+
+
 
             } });
 
