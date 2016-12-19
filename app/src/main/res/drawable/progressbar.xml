@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thicknessRatio="10"
             android:useLevel="false">
-            <solid android:color="#757575" />
+            <solid android:color="@color/cardview_dark_background" />
         </shape>
     </item>
 

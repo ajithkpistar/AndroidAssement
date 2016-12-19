@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,14 +46,13 @@ import assessment.android.istar.com.androidassessment.template.MultipleOptionSin
 
 public class CMSAssessmentFragment extends Fragment {
     public final static String ASSESSMENT_ID = "ASSESSMENT_ID";
-    private static AssessmentLockableViewPager assessmentLockableViewPager;
-
+    private AssessmentLockableViewPager assessmentLockableViewPager;
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
     private int assessment_id;
     private CMSAssessmentResult cmsAssessmentResult;
-    static ArrayList<Entry> question_map, question_time;
-    public static long start_time, end_time;
+    private ArrayList<Entry> question_map, question_time;
+    private long start_time, end_time;
     private Toolbar toolbar;
     private TextView number_of_ques;
     private TextView progress_text;
@@ -64,7 +62,6 @@ public class CMSAssessmentFragment extends Fragment {
     private int progress_status = 0;
     private ProgressBar prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
-
     private Button submit_question;
 
 
