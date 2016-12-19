@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">AndroidAssessment</string>
 
-    <string name="server_ip">http://192.168.1.19:8080</string>
+    <string name="server_ip">http://192.168.1.5:8080</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="resources_fetch_ip">http://api.talentify.in/</string>
-    <string name="content_for_skip">Are You Sure You Want To Skip This Question.?</string>
-    <string name="agree">agree</string>
-    <string name="disagree">disagree</string>
+    <string name="content_for_sip_title">Question Skip?</string>
+    <string name="content_for_skip">Are you sure you want to skip this question?</string>
+
 </resources>

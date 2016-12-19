@@ -287,14 +287,14 @@ public class CMSAssessmentFragment extends Fragment {
             time = ((System.currentTimeMillis() - start_time) / 1000) + "";
 
             if (value != null && !value.equalsIgnoreCase("")) {
-                System.out.println("--selectedVal-->" + value);
+                System.out.println("-----------selected Ansewer-----> " + value);
                 nextViewpager(key, value, time);
             } else {
                 new MaterialDialog.Builder(getContext())
-                        .title(R.string.app_name)
+                        .title(R.string.content_for_sip_title)
                         .content(R.string.content_for_skip)
-                        .positiveText(R.string.agree)
-                        .negativeText(R.string.disagree)
+                        .positiveText("Yes")
+                        .negativeText("No")
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
