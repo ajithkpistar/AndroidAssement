@@ -8,12 +8,12 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="#cfd8dc"
         android:layout_margin="6dp"
+        android:background="#cfd8dc"
         android:elevation="10dp"
         android:minHeight="?attr/actionBarSize"
-        android:visibility="gone"
-        android:title="">
+        android:title=""
+        android:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/layout1"
@@ -39,15 +39,27 @@
                 android:textColor="#000"
                 android:textSize="13sp" />
 
+            <Button
+                android:id="@+id/submit_question"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_circle"
+                android:text="" />
+
             <TextView
                 android:id="@+id/number_of_ques"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
+                android:layout_toLeftOf="@id/submit_question"
                 android:text=""
                 android:textColor="#000" />
+
+
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 

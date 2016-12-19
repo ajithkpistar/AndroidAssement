@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,17 +33,16 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private WebView question, option1, option2, option3, option4, option5;
     private int position;
     private CMSQuestion cmsQuestion;
-    private Button submitbtn;
     private long start_time, end_time;
-    CardView cv;
-    CheckBox checkbtn1,checkbtn2,checkbtn3,checkbtn4,checkbtn5;
-    View view;
+    private CardView cv;
+    private CheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
+    private View view;
+    private TextView hidden_key, hidden_value, hidden_time;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_multiple_option_multiple_choice, container, false);
-        start_time = System.nanoTime();
         cv = (CardView) view.findViewById(R.id.cv);
 
         question = (WebView) view.findViewById(R.id.question);
@@ -52,17 +52,51 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         option4 = (WebView) view.findViewById(R.id.option4);
         option5 = (WebView) view.findViewById(R.id.option5);
 
-        checkbtn1 = (CheckBox)view.findViewById(R.id.checkbtn1);
-        checkbtn2 = (CheckBox)view.findViewById(R.id.checkbtn2);
-        checkbtn3 = (CheckBox)view.findViewById(R.id.checkbtn3);
-        checkbtn4 = (CheckBox)view.findViewById(R.id.checkbtn4);
-        checkbtn5 = (CheckBox)view.findViewById(R.id.checkbtn5);
+        checkbtn1 = (CheckBox) view.findViewById(R.id.checkbtn1);
+        checkbtn2 = (CheckBox) view.findViewById(R.id.checkbtn2);
+        checkbtn3 = (CheckBox) view.findViewById(R.id.checkbtn3);
+        checkbtn4 = (CheckBox) view.findViewById(R.id.checkbtn4);
+        checkbtn5 = (CheckBox) view.findViewById(R.id.checkbtn5);
         ThemeUtils themeutil = new ThemeUtils();
 
+        checkbtn1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
+        checkbtn5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                updateValues();
+            }
+        });
 
 
+        hidden_key = (TextView) view.findViewById(R.id.hidden_key);
+        hidden_value = (TextView) view.findViewById(R.id.hidden_value);
+        hidden_time = (TextView) view.findViewById(R.id.hidden_time);
 
-        submitbtn = (Button) view.findViewById(R.id.submitbtn);
+        start_time = System.currentTimeMillis();
+        hidden_time.setText(start_time + "");
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -74,6 +108,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
+                hidden_key.setText(cmsQuestion.getId() + "");
                 themeutil.getThemeQuestion(cmsQuestion, question);
             }
             if (cmsQuestion.getOptions() != null) {
@@ -99,16 +134,16 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 }
             }
 
-            if(cmsQuestion.getTheme() != null){
+            if (cmsQuestion.getTheme() != null) {
 
                 cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
             }
 
         }
 
-        submitbtn.setOnClickListener(new View.OnClickListener() {
+        /*submitbtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String result="";
+               *//* String result="";
                 boolean checkbox1 = ((CheckBox) view.findViewById(R.id.checkbtn1)).isChecked();
                 if(checkbox1 == true){
                     result = result +","+checkbtn1.getTag();
@@ -158,14 +193,42 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                             })
                             .show();
 
-                }
+                }*//*
 
 
 
             }
-        });
+        });*/
 
         return view;
     }
+
+    private void updateValues() {
+        String result = "";
+        boolean checkbox1 = ((CheckBox) view.findViewById(R.id.checkbtn1)).isChecked();
+        if (checkbox1 == true) {
+            result = result + "," + checkbtn1.getTag();
+        }
+        boolean checkbox2 = ((CheckBox) view.findViewById(R.id.checkbtn2)).isChecked();
+        if (checkbox2 == true) {
+            result = result + "," + checkbtn2.getTag();
+        }
+        boolean checkbox3 = ((CheckBox) view.findViewById(R.id.checkbtn3)).isChecked();
+        if (checkbox3 == true) {
+            result = result + "," + checkbtn3.getTag();
+        }
+        boolean checkbox4 = ((CheckBox) view.findViewById(R.id.checkbtn4)).isChecked();
+        if (checkbox4 == true) {
+            result = result + "," + checkbtn4.getTag();
+        }
+        boolean checkbox5 = ((CheckBox) view.findViewById(R.id.checkbtn5)).isChecked();
+        if (checkbox5 == true) {
+            result = result + "," + checkbtn5.getTag();
+        }
+        result = result.replaceFirst("^,", "");
+
+        hidden_value.setText(result + "");
+    }
+
 
 }

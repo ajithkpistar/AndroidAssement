@@ -159,7 +159,7 @@
                         android:visibility="gone" /></LinearLayout>
                 </RelativeLayout>
 
-                <View
+                <!--<View
                     android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -173,7 +173,25 @@
                     android:layout_height="50dp"
                     android:layout_below="@+id/line"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/button_circle" />
+                    android:background="@drawable/button_circle" />-->
+
+                <TextView
+                    android:id="@+id/hidden_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/hidden_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/hidden_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
 
             </RelativeLayout>

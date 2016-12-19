@@ -4,15 +4,21 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -32,6 +38,8 @@ import assessment.android.istar.com.androidassessment.assessment_util.FetchAsses
 import assessment.android.istar.com.androidassessment.assessment_util.SubmitAssessmentAsyncTask;
 import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerAdapter;
 import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
+import assessment.android.istar.com.androidassessment.template.MultipleOptionMultipleChoice;
+import assessment.android.istar.com.androidassessment.template.MultipleOptionSingleChoice;
 
 /**
  * Created by Feroz on 14-12-2016.
@@ -50,14 +58,14 @@ public class CMSAssessmentFragment extends Fragment {
     private Toolbar toolbar;
     private TextView number_of_ques;
     private TextView progress_text;
-
     private Toast mToastToShow;
     private CountDownTimer countDownTimer;
     private int delay = 120000;
     private int progress_status = 0;
     private ProgressBar prograss_bar;
-
     private AssessmentStatusHandler assessmentStatusHandler;
+
+    private Button submit_question;
 
 
     @Override
@@ -65,7 +73,7 @@ public class CMSAssessmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cms_assessment_fragment, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-
+        submit_question = (Button) view.findViewById(R.id.submit_question);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\nlast 1 MIN Left.", Toast.LENGTH_SHORT);
@@ -110,7 +118,7 @@ public class CMSAssessmentFragment extends Fragment {
         try {
             Cursor c = assessmentDataHandler.getData(assessment_id);
             if (c.moveToFirst()) {
-                setupOfflineAssement(c.getString(1), viewpagerAdapter, assessmentLockableViewPager);
+                setupOfflineAssement(c.getString(1));
             } else {
                 fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
             }
@@ -118,17 +126,26 @@ public class CMSAssessmentFragment extends Fragment {
             e.printStackTrace();
             fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
         }
+
+        submit_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateCmsAssesmentResult();
+            }
+        });
+
+
         return view;
     }
 
-    private void setupOfflineAssement(String assessment_string, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
+    private void setupOfflineAssement(String assessment_string) {
         StringReader reader = new StringReader(assessment_string);
         Serializer serializer = new Persister();
         try {
             CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class, reader);
 
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
-            viewpager.setAdapter(viewpagerAdapter);
+            assessmentLockableViewPager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
             start_time = System.currentTimeMillis();
 
@@ -213,20 +230,20 @@ public class CMSAssessmentFragment extends Fragment {
         toolbar.setVisibility(View.VISIBLE);
     }
 
-    public static void previousViewpager() {
+    public void previousViewpager() {
         if (assessmentLockableViewPager.getCurrentItem() != 0) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
         }
     }
 
-    public static void nextViewpager(String key, String answer, String time) {
+    public void nextViewpager(String key, String answer, String time) {
         if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
             addData(key, answer, time);
         }
     }
 
-    static void addData(String key, String answer, String time) {
+    void addData(String key, String answer, String time) {
         question_map.add(new Entry(key, answer));
         question_time.add(new Entry(key, time));
     }
@@ -253,6 +270,54 @@ public class CMSAssessmentFragment extends Fragment {
         cmsAssessmentResult.setTotal_time((end_time - start_time) + "");
         return cmsAssessmentResult;
     }
+
+
+    private void updateCmsAssesmentResult() {
+        try {
+            final String key, value, time;
+            final long start_time;
+
+            if (viewpagerAdapter.getItem(assessmentLockableViewPager.getCurrentItem()) instanceof MultipleOptionSingleChoice) {
+                key = ((TextView) ((MultipleOptionSingleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_key)).getText().toString();
+                value = ((TextView) ((MultipleOptionSingleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_value)).getText().toString();
+                start_time = Long.parseLong(((TextView) ((MultipleOptionSingleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_time)).getText().toString());
+
+            } else {
+                key = ((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_key)).getText().toString();
+                value = ((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_value)).getText().toString();
+                start_time = Long.parseLong(((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_time)).getText().toString());
+            }
+            time = ((System.currentTimeMillis() - start_time) / 1000) + "";
+
+            if (value != null && !value.equalsIgnoreCase("")) {
+                System.out.println("--selectedVal-->" + value);
+                nextViewpager(key, value, time);
+            } else {
+                new MaterialDialog.Builder(getContext())
+                        .title(R.string.app_name)
+                        .content(R.string.content_for_skip)
+                        .positiveText(R.string.agree)
+                        .negativeText(R.string.disagree)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                nextViewpager(key, -1 + "", time);
+                                dialog.dismiss();
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onStop() {

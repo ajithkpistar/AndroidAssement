@@ -2,25 +2,16 @@ package assessment.android.istar.com.androidassessment.template;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
-import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
@@ -39,18 +30,22 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private Button submitbtn;
     public RadioGroup Rgroup;
     private RadioButton radioButton;
-    private long start_time, end_time;
+    private long end_time;
+
     private CardView cv;
     private View view;
-    private String selectedVal = "";
+
+    public String selectedVal = "";
+    public long start_time;
     private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
+    private TextView hidden_key, hidden_value, hidden_time;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
-        start_time = System.currentTimeMillis();
+
         cv = (CardView) view.findViewById(R.id.cv);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
@@ -66,8 +61,14 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn5 = (RadioButton) view.findViewById(R.id.rbtn5);
         ThemeUtils themeutil = new ThemeUtils();
 
-        submitbtn = (Button) view.findViewById(R.id.submitbtn);
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
+
+        hidden_key = (TextView) view.findViewById(R.id.hidden_key);
+        hidden_value = (TextView) view.findViewById(R.id.hidden_value);
+        hidden_time = (TextView) view.findViewById(R.id.hidden_time);
+
+        start_time = System.currentTimeMillis();
+        hidden_time.setText(start_time + "");
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -83,6 +84,9 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
+                hidden_key.setText(cmsQuestion.getId() + "");
+
+                selectedVal = "";
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
 
@@ -166,40 +170,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         });
 
-
-        submitbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                end_time = System.currentTimeMillis();
-
-                if (selectedVal != null && !selectedVal.equalsIgnoreCase("")) {
-                    System.out.println("--selectedVal-->" + selectedVal);
-                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", selectedVal, (end_time - start_time) / 1000 + "");
-                } else {
-                    new MaterialDialog.Builder(getContext())
-                            .title(R.string.app_name)
-                            .content(R.string.content_for_skip)
-                            .positiveText(R.string.agree)
-                            .negativeText(R.string.disagree)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", -1 + "", (end_time - start_time) / 1000 + "");
-                                    dialog.dismiss();
-                                }
-                            })
-                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-
-                }
-            }
-        });
-
         return view;
     }
 
@@ -275,5 +245,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 selectedVal = "";
                 break;
         }
+        hidden_value.setText(selectedVal + "");
     }
 }
