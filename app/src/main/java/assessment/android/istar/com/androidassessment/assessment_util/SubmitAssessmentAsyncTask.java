@@ -36,6 +36,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
     private CMSAssessmentResult cmsAssessmentResult;
     private AssessmentStatusHandler assessmentStatusHandler;
     private int last_pointer;
+    String value = null;
 
     public SubmitAssessmentAsyncTask(Context context, CMSAssessmentResult cmsAssessmentResult, int last_pointer) {
         System.out.println("---------------------Submit Asyc Task-------------------------");
@@ -52,7 +53,6 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
 
     @Override
     protected String doInBackground(String... params) {
-        String value = null;
         try {
             Serializer serializer = new Persister();
             StringWriter stringWriter = new StringWriter();
@@ -64,7 +64,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
             String BASE_URL = context.getResources().getString(R.string.server_ip) + "/submit_assessment_offline";
             Log.v("Talentify", "BASE_URL " + BASE_URL);
 
-            int timeout = 20; // seconds
+            int timeout = 30; // seconds
             HttpParams httpParams = httpclient.getParams();
             httpParams.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, timeout * 1000);
             httpParams.setParameter(CoreConnectionPNames.SO_TIMEOUT, timeout * 1000);
@@ -78,11 +78,11 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
             HttpResponse response = httpclient.execute(httppost);
             int code = response.getStatusLine().getStatusCode();
             HttpEntity responseEntity = response.getEntity();
-            String response_code="200";
-            if(responseEntity!=null) {
+            String response_code = "200";
+            if (responseEntity != null) {
                 response_code = EntityUtils.toString(responseEntity);
             }
-            System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id()+ "---------" + response_code);
+            System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id() + "---------" + response_code);
 
             if (!response_code.equalsIgnoreCase("200")) {
                 assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
@@ -98,6 +98,15 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
                 assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
         }
         return null;
+    }
+
+    @Override
+    protected void onCancelled() {
+        try {
+            assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void onPostExecute(String result) {
