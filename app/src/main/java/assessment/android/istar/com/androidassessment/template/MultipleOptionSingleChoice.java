@@ -75,7 +75,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                themeutil.getThemeQuestion(cmsQuestion, question,getActivity());
+                themeutil.getThemeQuestion(cmsQuestion, question);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;

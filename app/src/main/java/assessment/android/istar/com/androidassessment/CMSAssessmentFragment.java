@@ -69,6 +69,8 @@ public class CMSAssessmentFragment extends Fragment {
     private int progress_status = 0;
     private ProgressBar prograss_bar;
 
+    private AssessmentStatusHandler assessmentStatusHandler;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +88,7 @@ public class CMSAssessmentFragment extends Fragment {
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
         assessmentDataHandler = new AssessmentDataHandler(getContext());
+        assessmentStatusHandler = new AssessmentStatusHandler(getContext());
         if (getArguments() != null) {
             if (getArguments().getString(ASSESSMENT_ID) != null) {
                 assessment_id = Integer.parseInt(getArguments().getString(ASSESSMENT_ID));
@@ -137,9 +140,29 @@ public class CMSAssessmentFragment extends Fragment {
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
+
+            //update the slide pointer.
+            setupOfflineAssessmentSlide(cmsAssessment);
             setupObject();
         } catch (Exception e) {
 
+        }
+    }
+
+    private void setupOfflineAssessmentSlide(CMSAssessment cmsAssessment) {
+        try {
+            Cursor c = assessmentStatusHandler.getData(assessment_id);
+            if (c.moveToFirst()) {
+                if (c.getString(2).equalsIgnoreCase("INCOMPLETED")) {
+                    Serializer serializer = new Persister();
+                    serializer.read(cmsAssessmentResult, c.getString(1));
+                    int last_pointer = Integer.parseInt(c.getString(3));
+                    delay = (cmsAssessment.getAssessmentDurationMinutes()-Integer.parseInt(cmsAssessmentResult.getTotal_time()))*60000;
+                    assessmentLockableViewPager.setCurrentItem(last_pointer);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -228,7 +251,7 @@ public class CMSAssessmentFragment extends Fragment {
         super.onStop();
         try {
             if (getAllAssmentResult() != null) {
-                if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount()-1) {
+                if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                     new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
                     AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());

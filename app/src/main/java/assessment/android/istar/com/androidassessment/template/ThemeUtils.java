@@ -25,7 +25,7 @@ import static assessment.android.istar.com.androidassessment.R.id.options;
 public class ThemeUtils {
 
 
-    public void getThemeQuestion(final CMSQuestion cmsQuestion, final WebView webView,Context context) {
+    public void getThemeQuestion(final CMSQuestion cmsQuestion, final WebView webView) {
 
 if(cmsQuestion != null && cmsQuestion.getId() != null){
 
