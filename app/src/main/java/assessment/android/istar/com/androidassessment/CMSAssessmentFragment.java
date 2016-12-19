@@ -291,7 +291,7 @@ public class CMSAssessmentFragment extends Fragment {
                 nextViewpager(key, value, time);
             } else {
                 new MaterialDialog.Builder(getContext())
-                        .title(R.string.content_for_sip_title)
+                        .title(R.string.content_for_skip_title)
                         .content(R.string.content_for_skip)
                         .positiveText("Yes")
                         .negativeText("No")
