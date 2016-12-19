@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +40,10 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     public RadioGroup Rgroup;
     private RadioButton radioButton;
     private long start_time, end_time;
-    CardView cv;
-    View view;
-    String selectedVal="";
+    private CardView cv;
+    private View view;
+    private String selectedVal = "";
+    private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
 
 
     @Override
@@ -109,70 +111,60 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         rbtn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
-
-                selectedVal = rbtn1.getTag().toString();
-            } });
+                if (chck_1) {
+                    selectUnselect(0);
+                    chck_1 = false;
+                } else {
+                    selectUnselect(1);
+                }
+            }
+        });
         rbtn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if (chck_2) {
+                    selectUnselect(0);
+                    chck_2 = false;
+                } else {
+                    selectUnselect(2);
+                }
 
-
-                rbtn1.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
-                selectedVal = rbtn2.getTag().toString();
-
-            } });
+            }
+        });
         rbtn3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if (chck_3) {
+                    selectUnselect(0);
+                    chck_3 = false;
+                } else {
+                    selectUnselect(3);
+                }
 
-
-                rbtn2.setChecked(false);
-                rbtn1.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
-
-                selectedVal = rbtn3.getTag().toString();
-
-            } });
+            }
+        });
         rbtn4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if (chck_4) {
+                    selectUnselect(0);
+                    chck_4 = false;
+                } else {
+                    selectUnselect(4);
+                }
 
-
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn1.setChecked(false);
-                rbtn5.setChecked(false);
-
-                selectedVal = rbtn4.getTag().toString();
-
-            } });
+            }
+        });
         rbtn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn1.setChecked(false);
-
-                selectedVal = rbtn5.getTag().toString();
-
-
-
-            } });
-
+                if (chck_5) {
+                    selectUnselect(0);
+                    chck_5 = false;
+                } else {
+                    selectUnselect(5);
+                }
+            }
+        });
 
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +173,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 end_time = System.currentTimeMillis();
 
                 if (selectedVal != null && !selectedVal.equalsIgnoreCase("")) {
-                    System.out.println("--selectedVal-->"+selectedVal);
+                    System.out.println("--selectedVal-->" + selectedVal);
                     CMSAssessmentFragment.nextViewpager(cmsQuestion.getId() + "", selectedVal, (end_time - start_time) / 1000 + "");
                 } else {
                     new MaterialDialog.Builder(getContext())
@@ -211,4 +203,77 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         return view;
     }
 
+
+    public void selectUnselect(int position) {
+        switch (position) {
+            case 1:
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+                selectedVal = rbtn1.getTag().toString();
+                chck_1 = true;
+                chck_2 = false;
+                chck_3 = false;
+                chck_4 = false;
+                chck_5 = false;
+                break;
+            case 2:
+                rbtn1.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+                selectedVal = rbtn2.getTag().toString();
+                chck_2 = true;
+                chck_1 = false;
+                chck_3 = false;
+                chck_4 = false;
+                chck_5 = false;
+                break;
+            case 3:
+                rbtn1.setChecked(false);
+                rbtn2.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+                selectedVal = rbtn3.getTag().toString();
+                chck_3 = true;
+                chck_1 = false;
+                chck_2 = false;
+                chck_4 = false;
+                chck_5 = false;
+                break;
+            case 4:
+                rbtn1.setChecked(false);
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn5.setChecked(false);
+                selectedVal = rbtn4.getTag().toString();
+                chck_4 = true;
+                chck_1 = false;
+                chck_2 = false;
+                chck_3 = false;
+                chck_5 = false;
+                break;
+            case 5:
+                rbtn1.setChecked(false);
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                selectedVal = rbtn5.getTag().toString();
+                chck_5 = true;
+                chck_1 = false;
+                chck_2 = false;
+                chck_3 = false;
+                chck_4 = false;
+                break;
+            default:
+                rbtn1.setChecked(false);
+                rbtn2.setChecked(false);
+                rbtn3.setChecked(false);
+                rbtn4.setChecked(false);
+                rbtn5.setChecked(false);
+                selectedVal = "";
+                break;
+        }
+    }
 }
