@@ -112,6 +112,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             }
         });
+        assessmentLockableViewPager.setSwipeLocked(true);
 
         cmsAssessmentResult.setAssessment_id(assessment_id + "");
         cmsAssessmentResult.setUser_id(SingletonStudent.getInstance().getStudent().getId() + "");
@@ -231,7 +232,7 @@ public class CMSAssessmentFragment extends Fragment {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
             } else {
-                number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + " of" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
+                number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
             }
         } catch (Exception e) {
             e.printStackTrace();
