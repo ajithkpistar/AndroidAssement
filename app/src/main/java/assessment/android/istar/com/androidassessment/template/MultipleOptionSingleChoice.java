@@ -41,6 +41,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private long start_time, end_time;
     CardView cv;
     View view;
+    String selectedVal="";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         ThemeUtils themeutil = new ThemeUtils();
 
         submitbtn = (Button) view.findViewById(R.id.submitbtn);
-      Rgroup = (RadioGroup) view.findViewById(R.id.options);
+        Rgroup = (RadioGroup) view.findViewById(R.id.options);
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -108,46 +110,79 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if(rbtn1.isChecked()){
+                    selectedVal="";
+                    rbtn1.setChecked(false);
+                }
+
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
                 rbtn4.setChecked(false);
                 rbtn5.setChecked(false);
 
+                selectedVal = rbtn1.getTag().toString();
             } });
         rbtn2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(rbtn2.isChecked()){
+                    selectedVal="";
+                    rbtn2.setChecked(false);
+                }
 
                 rbtn1.setChecked(false);
                 rbtn3.setChecked(false);
                 rbtn4.setChecked(false);
                 rbtn5.setChecked(false);
+                selectedVal = rbtn2.getTag().toString();
 
             } });
         rbtn3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if(rbtn3.isChecked()){
+                    selectedVal="";
+                    rbtn3.setChecked(false);
+                }
+
                 rbtn2.setChecked(false);
                 rbtn1.setChecked(false);
                 rbtn4.setChecked(false);
                 rbtn5.setChecked(false);
 
+                selectedVal = rbtn3.getTag().toString();
+
             } });
         rbtn4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(rbtn4.isChecked()){
+                    selectedVal="";
+                    rbtn4.setChecked(false);
+                }
 
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
                 rbtn1.setChecked(false);
                 rbtn5.setChecked(false);
+
+                selectedVal = rbtn4.getTag().toString();
 
             } });
         rbtn5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if(rbtn5.isChecked()){
+                    selectedVal="";
+                    rbtn5.setChecked(false);
+                }
+
                 rbtn2.setChecked(false);
                 rbtn3.setChecked(false);
-                rbtn5.setChecked(false);
+                rbtn4.setChecked(false);
                 rbtn1.setChecked(false);
+
+                selectedVal = rbtn5.getTag().toString();
 
             } });
 
@@ -155,33 +190,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-String selectedVal="";
-                boolean radiobtn1 = ((RadioButton) view.findViewById(R.id.rbtn1)).isChecked();
-                if(radiobtn1 == true){
-
-                    selectedVal = rbtn1.getTag().toString();
-                }
-                boolean radiobtn2 = ((RadioButton) view.findViewById(R.id.rbtn2)).isChecked();
-                if(radiobtn2 == true){
-                    selectedVal = rbtn2.getTag().toString();
-
-                }
-                boolean radiobtn3 = ((RadioButton) view.findViewById(R.id.rbtn3)).isChecked();
-                if(radiobtn3 == true){
-                    selectedVal = rbtn3.getTag().toString();
-
-                }
-                boolean radiobtn4 = ((RadioButton) view.findViewById(R.id.rbtn4)).isChecked();
-                if(radiobtn4 == true){
-                    selectedVal = rbtn4.getTag().toString();
-
-                }
-                boolean radiobtn5 = ((RadioButton) view.findViewById(R.id.rbtn5)).isChecked();
-                if(radiobtn5 == true){
-                    selectedVal = rbtn5.getTag().toString();
-
-                }
 
                 end_time = System.currentTimeMillis();
 
