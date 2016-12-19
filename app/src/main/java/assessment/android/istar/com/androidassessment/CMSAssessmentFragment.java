@@ -56,7 +56,7 @@ public class CMSAssessmentFragment extends Fragment {
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
     private int assessment_id;
-    public static CMSAssessmentResult cmsAssessmentResult;
+    private CMSAssessmentResult cmsAssessmentResult;
     static ArrayList<Entry> question_map, question_time;
     public static long start_time, end_time;
     private Toolbar toolbar;
@@ -112,7 +112,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             }
         });
-        assessmentLockableViewPager.setSwipeLocked(true);
+        //assessmentLockableViewPager.setSwipeLocked(true);
 
         cmsAssessmentResult.setAssessment_id(assessment_id + "");
         cmsAssessmentResult.setUser_id(SingletonStudent.getInstance().getStudent().getId() + "");
@@ -141,10 +141,13 @@ public class CMSAssessmentFragment extends Fragment {
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             viewpager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
+            start_time = System.currentTimeMillis();
 
             //update the slide pointer.
             setupOfflineAssessmentSlide(cmsAssessment);
             setupObject();
+
+
         } catch (Exception e) {
 
         }
@@ -158,8 +161,16 @@ public class CMSAssessmentFragment extends Fragment {
                     Serializer serializer = new Persister();
                     serializer.read(cmsAssessmentResult, c.getString(1));
                     int last_pointer = Integer.parseInt(c.getString(3));
-                    delay = (cmsAssessment.getAssessmentDurationMinutes()-Integer.parseInt(cmsAssessmentResult.getTotal_time()))*60000;
+                    delay = (cmsAssessment.getAssessmentDurationMinutes() * 60000) - Integer.parseInt(cmsAssessmentResult.getTotal_time());
                     assessmentLockableViewPager.setCurrentItem(last_pointer);
+
+                    for (Entry entry : cmsAssessmentResult.getQuestion_map()) {
+                        question_map.add(entry);
+                    }
+                    for (Entry entry : cmsAssessmentResult.getQuestion_time()) {
+                        question_time.add(entry);
+                    }
+                    start_time = System.currentTimeMillis() - (Long.parseLong(cmsAssessmentResult.getTotal_time()));
                 }
             }
         } catch (Exception e) {
@@ -174,7 +185,6 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     public void setupObject() {
-        start_time = System.currentTimeMillis();
         updateslidePointerText();
         progress_status = 0;
         prograss_bar.setMax(delay / 1000);
@@ -239,11 +249,11 @@ public class CMSAssessmentFragment extends Fragment {
         }
     }
 
-    public static CMSAssessmentResult getAllAssmentResult() {
+    public CMSAssessmentResult getAllAssmentResult() {
         cmsAssessmentResult.setQuestion_map(question_map);
         cmsAssessmentResult.setQuestion_time(question_time);
         end_time = System.currentTimeMillis();
-        cmsAssessmentResult.setTotal_time((end_time - start_time) / 60000 + "");
+        cmsAssessmentResult.setTotal_time((end_time - start_time) + "");
         return cmsAssessmentResult;
     }
 
