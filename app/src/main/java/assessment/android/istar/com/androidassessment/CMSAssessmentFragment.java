@@ -112,7 +112,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             }
         });
-        //assessmentLockableViewPager.setSwipeLocked(true);
+        assessmentLockableViewPager.setSwipeLocked(true);
 
         cmsAssessmentResult.setAssessment_id(assessment_id + "");
         cmsAssessmentResult.setUser_id(SingletonStudent.getInstance().getStudent().getId() + "");
