@@ -1,15 +1,12 @@
 package assessment.android.istar.com.androidassessment;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreConnectionPNames;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -35,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
-import assessment.android.istar.com.androidassessment.assessment_pojo.AssessmentStatus;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
@@ -104,6 +92,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
+
                 updateslidePointerText();
             }
 
@@ -180,7 +169,7 @@ public class CMSAssessmentFragment extends Fragment {
 
     private void fetchAssessmentFromServer(int assessment_id, AssessmentDataHandler assessmentDataHandler, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
         new FetchAssessmentFromServer(getContext(), viewpagerAdapter, assessmentLockableViewPager,
-                assessmentDataHandler, getChildFragmentManager(), countDownTimer, number_of_ques, prograss_bar, progress_text, start_time).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
+                assessmentDataHandler, getChildFragmentManager(), countDownTimer, number_of_ques, prograss_bar, progress_text, start_time, toolbar).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
 
     }
 
@@ -220,6 +209,8 @@ public class CMSAssessmentFragment extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
             }
         }.start();
+        //visible toolbar
+        toolbar.setVisibility(View.VISIBLE);
     }
 
     public static void previousViewpager() {
@@ -245,8 +236,10 @@ public class CMSAssessmentFragment extends Fragment {
         try {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
+                toolbar.setVisibility(View.GONE);
             } else {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
+                toolbar.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();

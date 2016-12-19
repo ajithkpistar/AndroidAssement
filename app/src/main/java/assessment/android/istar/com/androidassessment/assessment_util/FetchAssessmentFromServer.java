@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,11 +45,12 @@ public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String
     private long start_time;
     private int delay;
     private int progress_status;
+    private Toolbar toolbar;
 
     public FetchAssessmentFromServer(Context context, ViewpagerAdapter viewpagerAdapter,
                                      AssessmentLockableViewPager assessmentLockableViewPager,
                                      AssessmentDataHandler assessmentDataHandler, FragmentManager fm, CountDownTimer countDownTimer,
-                                     TextView no_of_ques, ProgressBar prograss_bar, TextView progress_text, long start_time) {
+                                     TextView no_of_ques, ProgressBar prograss_bar, TextView progress_text, long start_time, Toolbar toolbar) {
         this.context = context;
         this.viewpagerAdapter = viewpagerAdapter;
         this.assessmentLockableViewPager = assessmentLockableViewPager;
@@ -59,6 +61,7 @@ public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String
         this.progress_text = progress_text;
         this.progressBar = prograss_bar;
         this.start_time = start_time;
+        this.toolbar = toolbar;
     }
 
 
@@ -146,6 +149,7 @@ public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String
                 progress_status = 0;
             }
         }.start();
+        toolbar.setVisibility(View.VISIBLE);
     }
 
 
