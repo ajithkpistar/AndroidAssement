@@ -88,7 +88,7 @@ public class CMSAssessmentFragment extends Fragment {
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
         prograss_bar.setIndeterminate(false);
-        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 MIN left to submit assessment", Toast.LENGTH_LONG);
+        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
@@ -244,6 +244,10 @@ public class CMSAssessmentFragment extends Fragment {
                     prograss_bar.setProgress(0);
                     progress_status = 0;
 
+                    if(assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1){
+                        updateCmsAssesmentResult(true);
+                    }
+
                     //send to next fragment and submit data.
                     if (getActivity() != null)
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
@@ -262,11 +266,11 @@ public class CMSAssessmentFragment extends Fragment {
             long questionMin = TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()));
             long questionSec = (TimeUnit.MILLISECONDS.toSeconds(questionTimer.get(assessmentLockableViewPager.getCurrentItem())) -
                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()))));
-            System.out.println("timer------> min : " + questionMin + " sec :" + questionSec);
+            //System.out.println("timer------> min : " + questionMin + " sec :" + questionSec);
 
             if (min == questionMin && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 if (sec == 10) {
-                    Toast.makeText(getContext(), "Hurry Up.!\n" + "10 SEC is left for Answer this question", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                 } else if (sec == questionSec) {
                     updateCmsAssesmentResult(true);
                 }
