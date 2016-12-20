@@ -50,6 +50,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
+        Boolean externalReadable = ImageSaver.isExternalStorageReadable();
 
         ThemeUtils themeutil = new ThemeUtils();
 
@@ -67,7 +68,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
                 hidden_key.setText(cmsQuestion.getId() + "");
-                themeutil.getThemeQuestion(cmsQuestion, question);
+                themeutil.getThemeQuestion(cmsQuestion, question,getActivity(),externalReadable);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;

@@ -1,16 +1,24 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Environment;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
@@ -31,7 +39,7 @@ public class ThemeUtils {
 
 //#9e9e9e
 
-    public void getThemeQuestion(final CMSQuestion cmsQuestion, final WebView webView) {
+    public void getThemeQuestion(final CMSQuestion cmsQuestion, final WebView webView, Context context, Boolean externalReadable) {
 
         if (cmsQuestion.getTheme() != null) {
             try {
@@ -43,12 +51,49 @@ public class ThemeUtils {
 
             }
         }
-
+        String url ="";
         String text = cmsQuestion.getQuestionText();
         if (cmsQuestion.getQuestionText().contains("<img")) {
 
-            text = cmsQuestion.getQuestionText().replaceAll("/video/", "http://beta.talentify.in:8339/video/").replaceAll("style=\"width:100%\"", "style=\"width:100%; height: 50%;\"");
-            System.out.println("----img-->" + text);
+            String pattern = "/video(.*?)\"";
+            // Create a Pattern object  "/video(.*?)\"";
+            Pattern r = Pattern.compile(pattern);
+
+            // Now create matcher object.
+            Matcher m = r.matcher(cmsQuestion.getQuestionText());
+            System.out.println(m.groupCount());
+           // imageView.setVisibility(View.INVISIBLE);
+
+            while (m.find()) {
+
+                 url = m.group().replaceAll(" ", "").replaceAll("\"", "");
+
+            }
+
+            int index = url.lastIndexOf("/");
+            String bg_image_name = url.substring(index, url.length()).replace("/", "");
+            ImageSaver imageSaver = new ImageSaver(context).
+                    setParentDirectoryName("TestImgFolderTalentify").
+                    setFileName(bg_image_name).
+                    setExternal(externalReadable);
+            Boolean file_exist = imageSaver.checkFile();
+            if (file_exist) {
+
+                webView.getSettings().setAllowFileAccess(true);
+                webView.getSettings().setJavaScriptEnabled(true);
+                String base = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
+                text = cmsQuestion.getQuestionText().replaceAll(url,"file://"+imageSaver.pathFile().getAbsolutePath().toString());
+                System.out.println("------------------>"+imageSaver.pathFile().getAbsolutePath().toString());
+
+
+            } else {
+                String finalurl = "http://beta.talentify.in:8339"+url;
+                 text = cmsQuestion.getQuestionText().replaceAll(url, finalurl);
+                new SaveImageAsync(imageSaver).execute(finalurl);
+            }
+
+
+
         }
         String finaltext = "<html><head>"
                 + "<style type=\"text/css\">body{color: " + FontColor
@@ -59,7 +104,7 @@ public class ThemeUtils {
                 + "<body>"
                 + text
                 + "</body></html>";
-
+//<img src=\""+ imagePath + "\">
         webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
 
 

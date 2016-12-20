@@ -53,7 +53,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn4 = (AppCompatRadioButton) view.findViewById(R.id.rbtn4);
         rbtn5 = (AppCompatRadioButton) view.findViewById(R.id.rbtn5);
 
-
+        Boolean externalReadable = ImageSaver.isExternalStorageReadable();
         ThemeUtils themeutil = new ThemeUtils();
 
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
@@ -75,7 +75,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
-                themeutil.getThemeQuestion(cmsQuestion, question);
+                themeutil.getThemeQuestion(cmsQuestion, question,getActivity(),externalReadable);
             }
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
