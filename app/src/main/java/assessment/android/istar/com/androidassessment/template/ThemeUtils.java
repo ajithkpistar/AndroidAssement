@@ -49,7 +49,6 @@ public class ThemeUtils {
             // Now create matcher object.
             Matcher m = r.matcher(cmsQuestion.getQuestionText());
             System.out.println(m.groupCount());
-            // imageView.setVisibility(View.INVISIBLE);
 
             while (m.find()) {
 
@@ -58,19 +57,17 @@ public class ThemeUtils {
             }
 
             int index = url.lastIndexOf("/");
-            String bg_image_name = url.substring(index, url.length()).replace("/", "");
+            String as_image_name = url.substring(index, url.length()).replace("/", "");
             ImageSaver imageSaver = new ImageSaver(context).
-                    setParentDirectoryName("TestImgFolderTalentify").
-                    setFileName(bg_image_name).
+                    setParentDirectoryName(""+cmsQuestion.getId()).
+                    setFileName(as_image_name).
                     setExternal(externalReadable);
             Boolean file_exist = imageSaver.checkFile();
             if (file_exist) {
 
                 webView.getSettings().setAllowFileAccess(true);
                 webView.getSettings().setJavaScriptEnabled(true);
-                String base = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
                 text = cmsQuestion.getQuestionText().replaceAll(url, "file://" + imageSaver.pathFile().getAbsolutePath().toString());
-                System.out.println("------------------>" + imageSaver.pathFile().getAbsolutePath().toString());
 
 
             } else {
@@ -90,7 +87,6 @@ public class ThemeUtils {
                 + "<body>"
                 + text
                 + "</body></html>";
-//<img src=\""+ imagePath + "\">
         webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
 
 
