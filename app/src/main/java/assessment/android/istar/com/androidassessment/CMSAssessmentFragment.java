@@ -487,8 +487,6 @@ public class CMSAssessmentFragment extends Fragment {
                 if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                     new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
-                    updateCmsAssesmentResult(true);
-                    getAllAssmentResult();
                     AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
                     Serializer serializer = new Persister();
                     StringWriter stringWriter = new StringWriter();
