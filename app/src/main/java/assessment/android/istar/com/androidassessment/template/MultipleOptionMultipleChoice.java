@@ -4,13 +4,13 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import assessment.android.istar.com.androidassessment.R;
@@ -23,8 +23,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private WebView question, option1, option2, option3, option4, option5;
     private int position;
     private CMSQuestion cmsQuestion;
-    private long start_time, end_time;
-    private CardView cv;
+    private long start_time;
+    private ScrollView mainLayout;
     private AppCompatCheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
     private View view;
     private TextView hidden_key, hidden_value, hidden_time;
@@ -33,8 +33,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_multiple_option_multiple_choice, container, false);
-        cv = (CardView) view.findViewById(R.id.cv);
-
+        mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
@@ -94,7 +93,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
 
             if (cmsQuestion.getTheme() != null) {
-                cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                mainLayout.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
                 setColorforCheckBox();
             }
 

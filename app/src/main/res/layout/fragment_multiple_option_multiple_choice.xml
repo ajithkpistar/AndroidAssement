@@ -1,22 +1,23 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    tools:context="assessment.android.istar.com.androidassessment.template.BasicFragment">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="assessment.android.istar.com.androidassessment.template.BasicFragment">
+        android:layout_margin="6dp"
+        android:background="#DCDCDC"
+        app:cardCornerRadius="3dp">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv"
+        <ScrollView
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="#DCDCDC"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent"
+            android:background="#fff">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -182,7 +183,6 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
-</ScrollView>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

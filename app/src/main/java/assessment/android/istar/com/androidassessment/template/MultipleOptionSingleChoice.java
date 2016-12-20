@@ -4,12 +4,12 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRadioButton;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import assessment.android.istar.com.androidassessment.R;
@@ -27,20 +27,19 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private int position;
     private CMSQuestion cmsQuestion;
     private RadioGroup Rgroup;
-    private CardView cv;
     private View view;
     private String selectedVal = "";
     private long start_time;
     private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
     private TextView hidden_key, hidden_value, hidden_time;
+    private ScrollView mainLayout;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
-
-        cv = (CardView) view.findViewById(R.id.cv);
+        mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
@@ -104,7 +103,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 }
             }
             if (cmsQuestion.getTheme() != null) {
-                cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                mainLayout.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
                 setColorforRadioButton();
             }
 
