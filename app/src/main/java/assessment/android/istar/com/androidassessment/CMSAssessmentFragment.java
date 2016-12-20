@@ -346,7 +346,7 @@ public class CMSAssessmentFragment extends Fragment {
     private void updateCmsAssesmentResult(boolean flag) {
         try {
             final String key, value, time;
-            final long start_time_of_question;
+            long start_time_of_question;
 
             if (viewpagerAdapter.getItem(assessmentLockableViewPager.getCurrentItem()) instanceof MultipleOptionSingleChoice) {
                 key = ((TextView) ((MultipleOptionSingleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_key)).getText().toString();
@@ -358,6 +358,10 @@ public class CMSAssessmentFragment extends Fragment {
                 value = ((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_value)).getText().toString();
                 start_time_of_question = Long.parseLong(((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_time)).getText().toString());
             }
+            if (assessmentLockableViewPager!=null && assessmentLockableViewPager.getCurrentItem() == 0) {
+                start_time_of_question = start_time;
+            }
+
             time = ((System.currentTimeMillis() - start_time_of_question) / 1000) + "";
 
             if (value != null && !value.equalsIgnoreCase("")) {
