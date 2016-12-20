@@ -3,6 +3,7 @@ package assessment.android.istar.com.androidassessment.template;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -179,11 +180,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
             int[] colors = new int[]{Color.parseColor(color), Color.parseColor(color)};
             ColorStateList colorStateList = new ColorStateList(states, colors);
-            rbtn1.setSupportButtonTintList(colorStateList);
-            rbtn2.setSupportButtonTintList(colorStateList);
-            rbtn3.setSupportButtonTintList(colorStateList);
-            rbtn4.setSupportButtonTintList(colorStateList);
-            rbtn5.setSupportButtonTintList(colorStateList);
+            CompoundButtonCompat.setButtonTintList(rbtn1, colorStateList);
+            CompoundButtonCompat.setButtonTintList(rbtn2, colorStateList);
+            CompoundButtonCompat.setButtonTintList(rbtn3, colorStateList);
+            CompoundButtonCompat.setButtonTintList(rbtn4, colorStateList);
+            CompoundButtonCompat.setButtonTintList(rbtn5, colorStateList);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
