@@ -69,13 +69,13 @@ public class CMSAssessmentFragment extends Fragment {
     private Toolbar toolbar;
     private TextView number_of_ques, progress_text;
     private Toast mToastToShow;
-    private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer, questionTimer;
     private int delay = 120000;
     private int progress_status = 0;
     private ProgressBar prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
     private Button submit_question;
-    private ArrayList<Integer> questionTimer;
+    private ArrayList<Integer> questionTimerData;
 
 
     @Override
@@ -109,8 +109,9 @@ public class CMSAssessmentFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
                 updateslidePointerText();
+                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1)
+                    setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
             }
 
             @Override
@@ -230,8 +231,6 @@ public class CMSAssessmentFragment extends Fragment {
                         mToastToShow.show();
                     }
 
-                    //skip for next question
-                    skipQuestion(min, sec);
                     prograss_bar.setProgress(progress_status++);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -244,7 +243,7 @@ public class CMSAssessmentFragment extends Fragment {
                     prograss_bar.setProgress(0);
                     progress_status = 0;
 
-                    if(assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1){
+                    if (assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1) {
                         updateCmsAssesmentResult(true);
                     }
 
@@ -257,28 +256,48 @@ public class CMSAssessmentFragment extends Fragment {
                 }
             }
         }.start();
+
+        //start question Timer
+        setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
         //visible toolbar
         toolbar.setVisibility(View.VISIBLE);
     }
 
-    private void skipQuestion(long min, long sec) {
-        try {
-            long questionMin = TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()));
-            long questionSec = (TimeUnit.MILLISECONDS.toSeconds(questionTimer.get(assessmentLockableViewPager.getCurrentItem())) -
-                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()))));
-            //System.out.println("timer------> min : " + questionMin + " sec :" + questionSec);
+    private void setUpQuestionTimer(long questionDelay) {
+        if (questionTimer != null) {
+            questionTimer.cancel();
+            questionTimer = null;
+        }
+        questionTimer = new CountDownTimer(questionDelay, 1000) {
+            public void onTick(long millisUntilFinished) {
+                try {
+                    long min = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                    long sec = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
 
-            if (min == questionMin && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1) {
-                if (sec == 10) {
-                    Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
-                } else if (sec == questionSec) {
-                    updateCmsAssesmentResult(true);
+                    if (min == 0 && sec == 10) {
+                        Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            public void onFinish() {
+                try {
+                    updateCmsAssesmentResult(true);
+                    if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
+                        if (getActivity() != null)
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
+
 
     public void previousViewpager() {
         if (assessmentLockableViewPager.getCurrentItem() != 0) {
@@ -446,15 +465,13 @@ public class CMSAssessmentFragment extends Fragment {
 
 
     private void updateQuestionTimer(CMSAssessment cmsAssessment) {
-        questionTimer = new ArrayList<>();
-        int current_delay = delay;
+        questionTimerData = new ArrayList<>();
         if (cmsAssessment != null && cmsAssessment.getAssessmentDurationMinutes() != null && cmsAssessment.getQuestions() != null && cmsAssessment.getQuestions().size() > 0) {
             List<CMSQuestion> cmsQuestions = cmsAssessment.getQuestions();
 
             for (CMSQuestion cmsQuestion : cmsQuestions) {
                 int questionDuration = cmsQuestion.getDurationInSec() * 1000;
-                current_delay = current_delay - questionDuration;
-                questionTimer.add(current_delay);
+                questionTimerData.add(questionDuration);
             }
         }
     }
@@ -468,13 +485,14 @@ public class CMSAssessmentFragment extends Fragment {
                 if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                     new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
+                    updateCmsAssesmentResult(true);
                     AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
                     Serializer serializer = new Persister();
                     StringWriter stringWriter = new StringWriter();
                     serializer.write(cmsAssessmentResult, stringWriter);
                     String value = stringWriter.toString();
                     System.out.println("value---------------->\n" + value);
-                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", assessmentLockableViewPager.getCurrentItem() + "");
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "");
                 }
             }
         } catch (Exception e) {
@@ -487,6 +505,10 @@ public class CMSAssessmentFragment extends Fragment {
         super.onDestroy();
         if (countDownTimer != null) {
             countDownTimer.cancel();
+        }
+        if (questionTimer != null) {
+            questionTimer.cancel();
+            questionTimer = null;
         }
     }
 }
