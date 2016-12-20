@@ -110,7 +110,8 @@ public class CMSAssessmentFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 updateslidePointerText();
-                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1)
+                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1
+                        && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
                     setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
             }
 
@@ -258,7 +259,8 @@ public class CMSAssessmentFragment extends Fragment {
         }.start();
 
         //start question Timer
-        setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
+        if (questionTimerData != null && assessmentLockableViewPager != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
+            setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
         //visible toolbar
         toolbar.setVisibility(View.VISIBLE);
     }
