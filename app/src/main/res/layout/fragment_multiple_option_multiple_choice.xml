@@ -21,14 +21,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="6dp">
 
                 <WebView
                     android:id="@+id/question"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:text="Question 1"
                     android:textSize="30sp" />
 
@@ -48,7 +48,7 @@
                             android:id="@+id/checkbtn1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:text=""
                             android:visibility="gone" />
 
@@ -58,7 +58,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/checkbtn1"
 
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:visibility="gone" />
                     </LinearLayout>
 
@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/option1"
 
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:text=""
 
                             android:visibility="gone" />
@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/checkbtn2"
 
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:visibility="gone" />
                     </LinearLayout>
 
@@ -103,7 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/option2"
 
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:text=""
                             android:visibility="gone" />
 
@@ -112,7 +112,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/checkbtn3"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
 
                             android:visibility="gone" />
                     </LinearLayout>
@@ -129,7 +129,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/option3"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
 
                             android:text=""
 
@@ -140,7 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/checkbtn4"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
 
                             android:visibility="gone" />
                     </LinearLayout>
@@ -157,7 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/option4"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
 
                             android:text=""
                             android:visibility="gone" />
@@ -167,7 +167,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/checkbtn5"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
 
                             android:visibility="gone" />
                     </LinearLayout>
