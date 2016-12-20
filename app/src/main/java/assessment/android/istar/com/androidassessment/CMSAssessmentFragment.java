@@ -1,6 +1,7 @@
 package assessment.android.istar.com.androidassessment;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -145,6 +146,13 @@ public class CMSAssessmentFragment extends Fragment {
             assessmentLockableViewPager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
             start_time = System.currentTimeMillis();
+
+            try {
+                toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
+                progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+                number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+            } catch (Exception e) {
+            }
 
             //update the slide pointer.
             setupOfflineAssessmentSlide(cmsAssessment);
