@@ -1,22 +1,23 @@
 package assessment.android.istar.com.androidassessment.template;
 
-        import android.content.res.ColorStateList;
-        import android.graphics.Color;
-        import android.os.Bundle;
-        import android.support.v4.widget.CompoundButtonCompat;
-        import android.support.v7.widget.AppCompatCheckBox;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.webkit.WebView;
-        import android.widget.CheckBox;
-        import android.widget.CompoundButton;
-        import android.widget.ScrollView;
-        import android.widget.TextView;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.widget.CompoundButtonCompat;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-        import assessment.android.istar.com.androidassessment.R;
-        import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
-        import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
+import assessment.android.istar.com.androidassessment.R;
+import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
+import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
@@ -128,6 +129,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 updateValues();
             }
         });
+        webviewSetup();
         return view;
     }
 
@@ -179,6 +181,46 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             e.printStackTrace();
         }
     }
+
+    private void webviewSetup() {
+        question.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        option1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        option2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        option3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        option4.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+        option5.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+    }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
