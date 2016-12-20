@@ -1,5 +1,6 @@
 package assessment.android.istar.com.androidassessment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,14 @@ public class NextFragment extends Fragment {
         TextView text=(TextView)view.findViewById(R.id.text);
         text.setText("Successfully Submitted!");
         endBtn=(Button)view.findViewById(R.id.endBtn);
-        endBtn.setVisibility(View.GONE);
+        endBtn.setText("GO BACK");
+        endBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(),MainActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
         return view;
     }
 }

@@ -55,8 +55,7 @@ public class CMSAssessmentFragment extends Fragment {
     private ArrayList<Entry> question_map, question_time;
     private long start_time, end_time;
     private Toolbar toolbar;
-    private TextView number_of_ques;
-    private TextView progress_text;
+    private TextView number_of_ques, progress_text;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer;
     private int delay = 120000;
@@ -74,10 +73,9 @@ public class CMSAssessmentFragment extends Fragment {
         submit_question = (Button) view.findViewById(R.id.submit_question);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
-        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\nlast 1 MIN Left.", Toast.LENGTH_SHORT);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
         prograss_bar.setIndeterminate(false);
-
+        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\nlast 1 MIN Left.", Toast.LENGTH_SHORT);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
@@ -160,7 +158,7 @@ public class CMSAssessmentFragment extends Fragment {
 
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
