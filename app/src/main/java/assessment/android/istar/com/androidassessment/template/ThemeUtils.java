@@ -41,7 +41,7 @@ public class ThemeUtils {
         String url = "";
         String text = cmsQuestion.getQuestionText();
         if (cmsQuestion.getQuestionText().contains("<img")) {
-
+try{
             String pattern = "/video(.*?)\"";
             // Create a Pattern object  "/video(.*?)\"";
             Pattern r = Pattern.compile(pattern);
@@ -75,7 +75,7 @@ public class ThemeUtils {
                 text = cmsQuestion.getQuestionText().replaceAll(url, finalurl);
                 new SaveImageAsync(imageSaver).execute(finalurl);
             }
-
+}catch (Exception e){}
 
         }
         String finaltext = "<html><head>"
