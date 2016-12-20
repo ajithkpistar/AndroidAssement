@@ -37,11 +37,13 @@ import org.simpleframework.xml.core.Persister;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentStatusHandler;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
+import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
 import assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager;
@@ -73,6 +75,7 @@ public class CMSAssessmentFragment extends Fragment {
     private ProgressBar prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
     private Button submit_question;
+    private ArrayList<Integer> questionTimer;
 
 
     @Override
@@ -85,7 +88,7 @@ public class CMSAssessmentFragment extends Fragment {
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
         prograss_bar.setIndeterminate(false);
-        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\nlast 1 MIN Left.", Toast.LENGTH_SHORT);
+        mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 MIN left to submit assessment", Toast.LENGTH_LONG);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
@@ -136,7 +139,7 @@ public class CMSAssessmentFragment extends Fragment {
         submit_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateCmsAssesmentResult();
+                updateCmsAssesmentResult(false);
             }
         });
 
@@ -161,7 +164,7 @@ public class CMSAssessmentFragment extends Fragment {
                 number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
             } catch (Exception e) {
             }
-
+            updateQuestionTimer(cmsAssessment);
             //update the slide pointer.
             setupOfflineAssessmentSlide(cmsAssessment);
             setupObject();
@@ -209,37 +212,68 @@ public class CMSAssessmentFragment extends Fragment {
         countDownTimer = new CountDownTimer(delay, 1000) { // adjust the milli seconds here
 
             public void onTick(long millisUntilFinished) {
-                long min = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
-                long sec = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
-                String timerString = "00:00", minString = "" + min, secString = "" + sec;
-                if (min < 10) {
-                    minString = "0" + min;
-                }
-                if (sec < 10) {
-                    secString = "0" + sec;
-                }
-                timerString = minString + ":" + secString;
-                progress_text.setText(timerString);
+                try {
+                    long min = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished);
+                    long sec = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
+                    String timerString = "00:00", minString = "" + min, secString = "" + sec;
+                    if (min < 10) {
+                        minString = "0" + min;
+                    }
+                    if (sec < 10) {
+                        secString = "0" + sec;
+                    }
+                    timerString = minString + ":" + secString;
+                    progress_text.setText(timerString);
 
-                if (min == 1 && sec == 0) {
-                    mToastToShow.show();
+                    if (min == 1 && sec == 0) {
+                        mToastToShow.show();
+                    }
+
+                    //skip for next question
+                    skipQuestion(min, sec);
+                    prograss_bar.setProgress(progress_status++);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                prograss_bar.setProgress(progress_status++);
             }
 
             public void onFinish() {
-                progress_text.setText("00:00");
-                prograss_bar.setProgress(0);
-                progress_status = 0;
+                try {
+                    progress_text.setText("00:00");
+                    prograss_bar.setProgress(0);
+                    progress_status = 0;
 
-                //send to next fragment and submit data.
-                if (getActivity() != null)
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
+                    //send to next fragment and submit data.
+                    if (getActivity() != null)
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new NextFragment()).commit();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
         //visible toolbar
         toolbar.setVisibility(View.VISIBLE);
+    }
+
+    private void skipQuestion(long min, long sec) {
+        try {
+            long questionMin = TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()));
+            long questionSec = (TimeUnit.MILLISECONDS.toSeconds(questionTimer.get(assessmentLockableViewPager.getCurrentItem())) -
+                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(questionTimer.get(assessmentLockableViewPager.getCurrentItem()))));
+            System.out.println("timer------> min : " + questionMin + " sec :" + questionSec);
+
+            if (min == questionMin && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1) {
+                if (sec == 10) {
+                    Toast.makeText(getContext(), "Hurry Up.!\n" + "10 SEC is left for Answer this question", Toast.LENGTH_SHORT).show();
+                } else if (sec == questionSec) {
+                    updateCmsAssesmentResult(true);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void previousViewpager() {
@@ -284,7 +318,7 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
 
-    private void updateCmsAssesmentResult() {
+    private void updateCmsAssesmentResult(boolean flag) {
         try {
             final String key, value, time;
             final long start_time;
@@ -304,6 +338,8 @@ public class CMSAssessmentFragment extends Fragment {
             if (value != null && !value.equalsIgnoreCase("")) {
                 System.out.println("-----------selected Ansewer-----> " + value);
                 nextViewpager(key, value, time);
+            } else if (flag) {
+                nextViewpager(key, -1 + "", time);
             } else {
                 new MaterialDialog.Builder(getContext())
                         .title(R.string.content_for_skip_title)
@@ -335,6 +371,7 @@ public class CMSAssessmentFragment extends Fragment {
 
         private Context context;
         private FragmentManager fm;
+        boolean response_success = true;
 
         public FetchAssessmentFromServer(Context context, FragmentManager fm) {
             this.context = context;
@@ -366,7 +403,8 @@ public class CMSAssessmentFragment extends Fragment {
                 xml_object = EntityUtils.toString(entity, "UTF-8");
                 assessmentDataHandler.saveContent(params[0], xml_object);
             } catch (Exception e) {
-
+                response_success = false;
+                e.printStackTrace();
             }
             return xml_object;
         }
@@ -390,12 +428,29 @@ public class CMSAssessmentFragment extends Fragment {
                     } catch (Exception e) {
                     }
 
+                    updateQuestionTimer(cmsAssessment);
                     //update the slide pointer.
                     setupOfflineAssessmentSlide(cmsAssessment);
-                    setupObject();
+                    if (response_success)
+                        setupObject();
                 } catch (Exception e) {
 
                 }
+            }
+        }
+    }
+
+
+    private void updateQuestionTimer(CMSAssessment cmsAssessment) {
+        questionTimer = new ArrayList<>();
+        int current_delay = delay;
+        if (cmsAssessment != null && cmsAssessment.getAssessmentDurationMinutes() != null && cmsAssessment.getQuestions() != null && cmsAssessment.getQuestions().size() > 0) {
+            List<CMSQuestion> cmsQuestions = cmsAssessment.getQuestions();
+
+            for (CMSQuestion cmsQuestion : cmsQuestions) {
+                int questionDuration = cmsQuestion.getDurationInSec() * 1000;
+                current_delay = current_delay - questionDuration;
+                questionTimer.add(current_delay);
             }
         }
     }
