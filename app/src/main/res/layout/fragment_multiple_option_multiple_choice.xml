@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <CheckBox
+                        <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                         android:layout_below="@+id/op1"
                         android:orientation="horizontal">
 
-                        <CheckBox
+                        <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                         android:layout_below="@+id/op2"
                         android:orientation="horizontal">
 
-                        <CheckBox
+                        <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                         android:layout_below="@+id/op3"
                         android:orientation="horizontal">
 
-                        <CheckBox
+                        <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         android:layout_below="@+id/op4"
                         android:orientation="horizontal">
 
-                        <CheckBox
+                        <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

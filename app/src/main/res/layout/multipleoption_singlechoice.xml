@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <RadioButton
+                        <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

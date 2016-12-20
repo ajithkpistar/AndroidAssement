@@ -1,13 +1,16 @@
 package assessment.android.istar.com.androidassessment.template;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.CardView;
+import android.text.AndroidCharacter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,8 +25,8 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionSingleChoice extends AssessmentCard {
 
-    private WebView question,option1, option2, option3, option4, option5;
-    private RadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
+    private WebView question, option1, option2, option3, option4, option5;
+    private AppCompatRadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
     private int position;
     private CMSQuestion cmsQuestion;
     private RadioGroup Rgroup;
@@ -48,11 +51,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         option4 = (WebView) view.findViewById(R.id.option4);
         option5 = (WebView) view.findViewById(R.id.option5);
 
-        rbtn1 = (RadioButton) view.findViewById(R.id.rbtn1);
-        rbtn2 = (RadioButton) view.findViewById(R.id.rbtn2);
-        rbtn3 = (RadioButton) view.findViewById(R.id.rbtn3);
-        rbtn4 = (RadioButton) view.findViewById(R.id.rbtn4);
-        rbtn5 = (RadioButton) view.findViewById(R.id.rbtn5);
+        rbtn1 = (AppCompatRadioButton) view.findViewById(R.id.rbtn1);
+        rbtn2 = (AppCompatRadioButton) view.findViewById(R.id.rbtn2);
+        rbtn3 = (AppCompatRadioButton) view.findViewById(R.id.rbtn3);
+        rbtn4 = (AppCompatRadioButton) view.findViewById(R.id.rbtn4);
+        rbtn5 = (AppCompatRadioButton) view.findViewById(R.id.rbtn5);
+
+
         ThemeUtils themeutil = new ThemeUtils();
 
         Rgroup = (RadioGroup) view.findViewById(R.id.options);
@@ -103,6 +108,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
             if (cmsQuestion.getTheme() != null) {
                 cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                setColorforRadioButton();
             }
 
         }
@@ -165,6 +171,26 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         });
 
         return view;
+    }
+
+    private void setColorforRadioButton() {
+        try {
+            String color = "#000000";
+            try {
+                color = cmsQuestion.getTheme().getListitemFontColor();
+            } catch (Exception e) {
+            }
+            int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
+            int[] colors = new int[]{Color.parseColor(color), Color.parseColor(color)};
+            ColorStateList colorStateList = new ColorStateList(states, colors);
+            rbtn1.setSupportButtonTintList(colorStateList);
+            rbtn2.setSupportButtonTintList(colorStateList);
+            rbtn3.setSupportButtonTintList(colorStateList);
+            rbtn4.setSupportButtonTintList(colorStateList);
+            rbtn5.setSupportButtonTintList(colorStateList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

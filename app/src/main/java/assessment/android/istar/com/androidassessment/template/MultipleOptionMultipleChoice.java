@@ -1,11 +1,13 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +37,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private CMSQuestion cmsQuestion;
     private long start_time, end_time;
     private CardView cv;
-    private CheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
+    private AppCompatCheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
     private View view;
     private TextView hidden_key, hidden_value, hidden_time;
 
@@ -52,11 +54,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         option4 = (WebView) view.findViewById(R.id.option4);
         option5 = (WebView) view.findViewById(R.id.option5);
 
-        checkbtn1 = (CheckBox) view.findViewById(R.id.checkbtn1);
-        checkbtn2 = (CheckBox) view.findViewById(R.id.checkbtn2);
-        checkbtn3 = (CheckBox) view.findViewById(R.id.checkbtn3);
-        checkbtn4 = (CheckBox) view.findViewById(R.id.checkbtn4);
-        checkbtn5 = (CheckBox) view.findViewById(R.id.checkbtn5);
+        checkbtn1 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn1);
+        checkbtn2 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn2);
+        checkbtn3 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn3);
+        checkbtn4 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn4);
+        checkbtn5 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn5);
 
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
@@ -104,8 +106,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
 
             if (cmsQuestion.getTheme() != null) {
-
                 cv.setBackgroundColor(Color.parseColor(cmsQuestion.getTheme().getBackgroundColor()));
+                setColorforCheckBox();
             }
 
         }
@@ -170,5 +172,24 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         hidden_value.setText(result + "");
     }
 
+    private void setColorforCheckBox() {
+        try {
+            String color = "#000000";
+            try {
+                color = cmsQuestion.getTheme().getListitemFontColor();
+            } catch (Exception e) {
+            }
+            int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
+            int[] colors = new int[]{Color.parseColor(color), Color.parseColor(color)};
+            ColorStateList colorStateList = new ColorStateList(states, colors);
+            checkbtn1.setSupportButtonTintList(colorStateList);
+            checkbtn2.setSupportButtonTintList(colorStateList);
+            checkbtn3.setSupportButtonTintList(colorStateList);
+            checkbtn4.setSupportButtonTintList(colorStateList);
+            checkbtn5.setSupportButtonTintList(colorStateList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
