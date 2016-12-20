@@ -1,30 +1,17 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Environment;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
-
-import static assessment.android.istar.com.androidassessment.R.id.options;
 
 /**
  * Created by Sumanth on 12/16/2016.
@@ -51,7 +38,7 @@ public class ThemeUtils {
 
             }
         }
-        String url ="";
+        String url = "";
         String text = cmsQuestion.getQuestionText();
         if (cmsQuestion.getQuestionText().contains("<img")) {
 
@@ -62,11 +49,11 @@ public class ThemeUtils {
             // Now create matcher object.
             Matcher m = r.matcher(cmsQuestion.getQuestionText());
             System.out.println(m.groupCount());
-           // imageView.setVisibility(View.INVISIBLE);
+            // imageView.setVisibility(View.INVISIBLE);
 
             while (m.find()) {
 
-                 url = m.group().replaceAll(" ", "").replaceAll("\"", "");
+                url = m.group().replaceAll(" ", "").replaceAll("\"", "");
 
             }
 
@@ -82,16 +69,15 @@ public class ThemeUtils {
                 webView.getSettings().setAllowFileAccess(true);
                 webView.getSettings().setJavaScriptEnabled(true);
                 String base = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-                text = cmsQuestion.getQuestionText().replaceAll(url,"file://"+imageSaver.pathFile().getAbsolutePath().toString());
-                System.out.println("------------------>"+imageSaver.pathFile().getAbsolutePath().toString());
+                text = cmsQuestion.getQuestionText().replaceAll(url, "file://" + imageSaver.pathFile().getAbsolutePath().toString());
+                System.out.println("------------------>" + imageSaver.pathFile().getAbsolutePath().toString());
 
 
             } else {
-                String finalurl = "http://beta.talentify.in:8339"+url;
-                 text = cmsQuestion.getQuestionText().replaceAll(url, finalurl);
+                String finalurl = "http://beta.talentify.in:8339" + url;
+                text = cmsQuestion.getQuestionText().replaceAll(url, finalurl);
                 new SaveImageAsync(imageSaver).execute(finalurl);
             }
-
 
 
         }

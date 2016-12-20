@@ -1,5 +1,6 @@
 package assessment.android.istar.com.androidassessment;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -7,8 +8,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,14 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -34,7 +45,6 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessm
 import assessment.android.istar.com.androidassessment.assessment_result.CMSAssessmentResult;
 import assessment.android.istar.com.androidassessment.assessment_result.Entry;
 import assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager;
-import assessment.android.istar.com.androidassessment.assessment_util.FetchAssessmentFromServer;
 import assessment.android.istar.com.androidassessment.assessment_util.SubmitAssessmentAsyncTask;
 import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerAdapter;
 import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
@@ -188,8 +198,7 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     private void fetchAssessmentFromServer(int assessment_id, AssessmentDataHandler assessmentDataHandler, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
-        new FetchAssessmentFromServer(getContext(), viewpagerAdapter, assessmentLockableViewPager,
-                assessmentDataHandler, getChildFragmentManager(), countDownTimer, number_of_ques, prograss_bar, progress_text, start_time, toolbar).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
+        new FetchAssessmentFromServer(getContext(), getChildFragmentManager()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
 
     }
 
@@ -318,6 +327,76 @@ public class CMSAssessmentFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String> {
+
+        private Context context;
+        private FragmentManager fm;
+
+        public FetchAssessmentFromServer(Context context, FragmentManager fm) {
+            this.context = context;
+            this.fm = fm;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String xml_object = null;
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?assessment_id=" + params[0];
+                Log.v("Talentify", "BASE_URL " + BASE_URL);
+
+                int timeout = 80; // seconds
+                HttpParams httpParams = httpclient.getParams();
+                httpParams.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, timeout * 1000);
+                httpParams.setParameter(CoreConnectionPNames.SO_TIMEOUT, timeout * 1000);
+                HttpPost httppost = new HttpPost(BASE_URL);
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                xml_object = EntityUtils.toString(entity, "UTF-8");
+                assessmentDataHandler.saveContent(params[0], xml_object);
+            } catch (Exception e) {
+
+            }
+            return xml_object;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null && !result.equalsIgnoreCase("")) {
+                StringReader reader = new StringReader(result);
+                Serializer serializer = new Persister();
+                try {
+                    CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class, reader);
+                    viewpagerAdapter = new ViewpagerAdapter(fm, cmsAssessment);
+                    assessmentLockableViewPager.setAdapter(viewpagerAdapter);
+                    delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
+                    start_time = System.currentTimeMillis();
+
+                    try {
+                        toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
+                        progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+                        number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+                    } catch (Exception e) {
+                    }
+
+                    //update the slide pointer.
+                    setupOfflineAssessmentSlide(cmsAssessment);
+                    setupObject();
+                } catch (Exception e) {
+
+                }
+            }
         }
     }
 
