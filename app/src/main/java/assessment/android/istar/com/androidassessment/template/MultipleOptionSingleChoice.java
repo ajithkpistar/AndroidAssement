@@ -62,10 +62,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
-
-        start_time = System.currentTimeMillis();
-        hidden_time.setText(start_time + "");
-
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
                 cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
@@ -265,5 +261,17 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
         }
         hidden_value.setText(selectedVal + "");
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        try {
+            if (isVisibleToUser) {
+                start_time = System.currentTimeMillis();
+                hidden_time.setText(start_time + "");
+            }
+        } catch (Exception e) {
+        }
     }
 }

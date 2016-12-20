@@ -1,22 +1,22 @@
 package assessment.android.istar.com.androidassessment.template;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.widget.CompoundButtonCompat;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ScrollView;
-import android.widget.TextView;
+        import android.content.res.ColorStateList;
+        import android.graphics.Color;
+        import android.os.Bundle;
+        import android.support.v4.widget.CompoundButtonCompat;
+        import android.support.v7.widget.AppCompatCheckBox;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.webkit.WebView;
+        import android.widget.CheckBox;
+        import android.widget.CompoundButton;
+        import android.widget.ScrollView;
+        import android.widget.TextView;
 
-import assessment.android.istar.com.androidassessment.R;
-import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
-import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
+        import assessment.android.istar.com.androidassessment.R;
+        import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
+        import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
@@ -54,9 +54,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
 
         ThemeUtils themeutil = new ThemeUtils();
-
-        start_time = System.currentTimeMillis();
-        hidden_time.setText(start_time + "");
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -183,4 +180,15 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         }
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        try {
+            if (isVisibleToUser) {
+                start_time = System.currentTimeMillis();
+                hidden_time.setText(start_time + "");
+            }
+        } catch (Exception e) {
+        }
+    }
 }
