@@ -1,8 +1,14 @@
 package assessment.android.istar.com.androidassessment;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,11 +18,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,12 +77,13 @@ public class CMSAssessmentFragment extends Fragment {
     private ArrayList<Entry> question_map, question_time;
     private long start_time, end_time;
     private Toolbar toolbar;
+    private RelativeLayout main_layout;
     private TextView number_of_ques, progress_text;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer, questionTimer;
     private int delay = 120000;
-    private int progress_status = 0;
-    private ProgressBar prograss_bar;
+    private int progress_status = 0, question_progress_status = 0;
+    private ProgressBar prograss_bar, question_prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
     private Button submit_question;
     private ArrayList<Integer> questionTimerData;
@@ -87,7 +98,8 @@ public class CMSAssessmentFragment extends Fragment {
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
-        prograss_bar.setIndeterminate(false);
+        question_prograss_bar = (ProgressBar) view.findViewById(R.id.question_prograss_bar);
+        main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
@@ -110,7 +122,7 @@ public class CMSAssessmentFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 updateslidePointerText();
-                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1
+                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 2
                         && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
                     setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
             }
@@ -164,9 +176,10 @@ public class CMSAssessmentFragment extends Fragment {
                 toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                 progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+                question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
             } catch (Exception e) {
             }
-            updateQuestionTimer(cmsAssessment);
+            createQuestionTimerValues(cmsAssessment);
             //update the slide pointer.
             setupOfflineAssessmentSlide(cmsAssessment);
             setupObject();
@@ -208,6 +221,12 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     public void setupObject() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+            progress_status = 0;
+            prograss_bar.setProgress(0);
+        }
         updateslidePointerText();
         progress_status = 0;
         prograss_bar.setMax(delay / 1000);
@@ -262,14 +281,18 @@ public class CMSAssessmentFragment extends Fragment {
         if (questionTimerData != null && assessmentLockableViewPager != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
             setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
         //visible toolbar
-        toolbar.setVisibility(View.VISIBLE);
+        main_layout.setVisibility(View.VISIBLE);
     }
 
-    private void setUpQuestionTimer(long questionDelay) {
+    private void setUpQuestionTimer(int questionDelay) {
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
+            question_progress_status = 0;
+            question_prograss_bar.setProgress(0);
         }
+        question_prograss_bar.setMax((questionDelay / 1000) * 10000);
+
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
                 try {
@@ -280,7 +303,7 @@ public class CMSAssessmentFragment extends Fragment {
                     if (min == 0 && sec == 10) {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
-
+                    setProgressAnimate(question_prograss_bar, question_progress_status++);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -288,6 +311,8 @@ public class CMSAssessmentFragment extends Fragment {
 
             public void onFinish() {
                 try {
+                    question_progress_status = 0;
+                    setProgressAnimate(question_prograss_bar, 0);
                     updateCmsAssesmentResult(true);
                     if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                         if (getActivity() != null)
@@ -298,6 +323,53 @@ public class CMSAssessmentFragment extends Fragment {
                 }
             }
         }.start();
+    }
+
+    private void setProgressAnimate(ProgressBar pb, int progressTo) {
+        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 10000);
+        animation.setDuration(500);
+        animation.setInterpolator(new LinearInterpolator());
+        animation.start();
+    }
+
+    protected Drawable generateProgressDrawable(String colorProgress) {
+
+        if(colorProgress.equalsIgnoreCase("#ffffff")){
+            colorProgress="#000000";
+        }else if(colorProgress.equalsIgnoreCase("#000000")){
+            colorProgress="#ffffff";
+        }
+
+        final float[] roundedCorners = new float[]{1,1, 1, 1, 1, 1, 1, 1};
+        // Create a ShapeDrawable to generate progress bar background
+        ShapeDrawable backgroundDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
+        backgroundDrawable.getPaint().setColor(Color.parseColor("#E0E0E0"));
+
+        // Initialize a new shape drawable to draw progress bar progress
+        ShapeDrawable progressDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
+        //progressDrawable.getPaint().set(paint);
+        progressDrawable.getPaint().setColor(Color.parseColor(colorProgress));
+
+        // Another shape drawable to draw secondary progress
+        ShapeDrawable secondaryProgressDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
+        secondaryProgressDrawable.getPaint().setColor(Color.parseColor(colorProgress));
+
+        // Initialize a ClipDrawable to generate progress on progress bar
+        ClipDrawable progressClip = new ClipDrawable(progressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
+
+        // Another clip drawable to draw secondary progress
+        ClipDrawable secondaryProgressClip = new ClipDrawable(secondaryProgressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
+
+        // Initialize a new LayerDrawable to hold progress bar all states
+        LayerDrawable layer = new LayerDrawable(new Drawable[]{backgroundDrawable, secondaryProgressClip, progressClip});
+
+        // Set the ids for different layers on layer drawable
+        layer.setId(0, android.R.id.background);
+        layer.setId(1, android.R.id.secondaryProgress);
+        layer.setId(2, android.R.id.progress);
+
+        // Return the LayerDrawable as progress bar progress drawable
+        return layer;
     }
 
 
@@ -324,10 +396,10 @@ public class CMSAssessmentFragment extends Fragment {
         try {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
-                toolbar.setVisibility(View.GONE);
+                main_layout.setVisibility(View.GONE);
             } else {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
-                toolbar.setVisibility(View.VISIBLE);
+                main_layout.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -358,7 +430,7 @@ public class CMSAssessmentFragment extends Fragment {
                 value = ((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_value)).getText().toString();
                 start_time_of_question = Long.parseLong(((TextView) ((MultipleOptionMultipleChoice) viewpagerAdapter.instantiateItem(assessmentLockableViewPager, assessmentLockableViewPager.getCurrentItem())).getView().findViewById(R.id.hidden_time)).getText().toString());
             }
-            if (assessmentLockableViewPager!=null && assessmentLockableViewPager.getCurrentItem() == 0) {
+            if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() == 0) {
                 start_time_of_question = start_time;
             }
 
@@ -457,7 +529,7 @@ public class CMSAssessmentFragment extends Fragment {
                     } catch (Exception e) {
                     }
 
-                    updateQuestionTimer(cmsAssessment);
+                    createQuestionTimerValues(cmsAssessment);
                     //update the slide pointer.
                     setupOfflineAssessmentSlide(cmsAssessment);
                     if (response_success)
@@ -470,15 +542,23 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
 
-    private void updateQuestionTimer(CMSAssessment cmsAssessment) {
-        questionTimerData = new ArrayList<>();
-        if (cmsAssessment != null && cmsAssessment.getAssessmentDurationMinutes() != null && cmsAssessment.getQuestions() != null && cmsAssessment.getQuestions().size() > 0) {
-            List<CMSQuestion> cmsQuestions = cmsAssessment.getQuestions();
+    private void createQuestionTimerValues(CMSAssessment cmsAssessment) {
+        try {
+            questionTimerData = new ArrayList<>();
+            if (cmsAssessment != null && cmsAssessment.getAssessmentDurationMinutes() != null && cmsAssessment.getQuestions() != null && cmsAssessment.getQuestions().size() > 0) {
+                List<CMSQuestion> cmsQuestions = cmsAssessment.getQuestions();
 
-            for (CMSQuestion cmsQuestion : cmsQuestions) {
-                int questionDuration = cmsQuestion.getDurationInSec() * 1000;
-                questionTimerData.add(questionDuration);
+                for (CMSQuestion cmsQuestion : cmsQuestions) {
+                    if (cmsQuestion != null && cmsQuestion.getDurationInSec() != null && cmsQuestion.getDurationInSec() != 0) {
+                        int questionDuration = cmsQuestion.getDurationInSec() * 1000;
+                        questionTimerData.add(questionDuration);
+                    } else {
+                        questionTimerData.add(0);
+                    }
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

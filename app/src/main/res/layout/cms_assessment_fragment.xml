@@ -4,72 +4,93 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:background="#cfd8dc"
-        android:elevation="10dp"
-        android:minHeight="?attr/actionBarSize"
-        android:title=""
-        android:visibility="visible">
+        android:visibility="gone">
 
-        <RelativeLayout
-            android:id="@+id/layout1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#cfd8dc"
+            android:elevation="5dp"
+            android:minHeight="?attr/actionBarSize"
+            android:title=""
+            android:visibility="visible">
 
-            <ProgressBar
-                android:id="@+id/prograss_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="58dp"
-                android:layout_height="match_parent"
-                android:indeterminate="false"
-                android:progress="0"
-                android:progressDrawable="@drawable/progressbar" />
-
-            <TextView
-                android:id="@+id/progress_text"
+            <RelativeLayout
+                android:id="@+id/layout1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="12dp"
-                android:text="00:00"
-                android:textColor="#000"
-                android:textSize="12sp" />
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/submit_question"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/button_circle"
-                android:text="" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/number_of_ques"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_toLeftOf="@id/submit_question"
-                android:text=""
-                android:textSize="12sp"
-                android:textColor="#000" />
+                    <ProgressBar
+                        android:id="@+id/prograss_bar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="58dp"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/progressbar" />
+
+                    <TextView
+                        android:id="@+id/progress_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="00:00"
+                        android:textColor="#000"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/submit_question"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_circle"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/number_of_ques"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_toLeftOf="@id/submit_question"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="12sp" />
 
 
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <ProgressBar
+            android:id="@+id/question_prograss_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/toolbar"
+            android:indeterminate="false"
+            android:progress="0" />
+    </RelativeLayout>
 
     <assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager
         android:id="@+id/assessment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/main_layout" />
 </RelativeLayout>
 
