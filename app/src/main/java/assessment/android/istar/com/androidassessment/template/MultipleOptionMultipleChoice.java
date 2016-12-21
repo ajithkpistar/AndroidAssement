@@ -73,19 +73,19 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
 
-                        themeutil.getThemeMultipleOption(cmsQuestion, option1, checkbtn1, cmsOption);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option1, checkbtn1, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 1) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option2, checkbtn2, cmsOption);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option2, checkbtn2, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 2) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option3, checkbtn3, cmsOption);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option3, checkbtn3, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 3) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option4, checkbtn4, cmsOption);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option4, checkbtn4, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 4) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, cmsOption);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, cmsOption, getActivity(), externalReadable);
                     }
                     temp++;
                 }
