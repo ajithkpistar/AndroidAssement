@@ -73,7 +73,7 @@ public class ThemeUtils {
             }
         }
 
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().equalsIgnoreCase("")) {
+        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().contains("<p></p>")) {
 
           String text = cmsOption.getOptionText();
             if (cmsOption.getOptionText().contains("<img")) {
@@ -111,7 +111,8 @@ public class ThemeUtils {
             FontSize = cmsQuestion.getTheme().getListitemFontSize();
         }
 
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().equalsIgnoreCase("")) {
+        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().contains("<p></p>"))  {
+
 
             String text = cmsOption.getOptionText();
             if (cmsOption.getOptionText().contains("<img")) {
