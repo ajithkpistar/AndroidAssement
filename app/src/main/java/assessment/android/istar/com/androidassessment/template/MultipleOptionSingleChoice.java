@@ -40,6 +40,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
+
+        //hardware acceleration disable
+        try {
+            view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        } catch (Exception e) {
+        }
+
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
@@ -264,42 +271,37 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     }
 
     private void webviewSetup() {
-        question.setOnLongClickListener(new View.OnLongClickListener() {
+        forceWebViewRedraw(question);
+        forceWebViewRedraw(option1);
+        forceWebViewRedraw(option2);
+        forceWebViewRedraw(option3);
+        forceWebViewRedraw(option4);
+        forceWebViewRedraw(option5);
+    }
+
+    private void forceWebViewRedraw(final WebView mWebView) {
+
+        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
-        option1.setOnLongClickListener(new View.OnLongClickListener() {
+
+        //for future problem in webview try this
+        /*final Runnable runnable = new Runnable() {
             @Override
-            public boolean onLongClick(View v) {
-                return true;
+            public void run() {
+                mWebView.invalidate();
             }
-        });
-        option2.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
+        };
+        mWebView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                view.invalidate();
+
             }
-        });
-        option3.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option4.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option5.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
+        });*/
+        // mWebView.postDelayed(runnable, 0);
     }
 
     @Override

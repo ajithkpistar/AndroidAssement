@@ -22,7 +22,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -122,9 +121,22 @@ public class CMSAssessmentFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 updateslidePointerText();
-                if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 2
-                        && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
-                    setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
+                try {
+                    if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 2
+                            && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null) {
+                        setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
+                    } else {
+                        if (questionTimer != null) {
+                            questionTimer.cancel();
+                            questionTimer = null;
+                        }
+                    }
+                } catch (Exception e) {
+                    if (questionTimer != null) {
+                        questionTimer.cancel();
+                        questionTimer = null;
+                    }
+                }
             }
 
             @Override
@@ -334,13 +346,13 @@ public class CMSAssessmentFragment extends Fragment {
 
     protected Drawable generateProgressDrawable(String colorProgress) {
 
-        if(colorProgress.equalsIgnoreCase("#ffffff")){
-            colorProgress="#000000";
-        }else if(colorProgress.equalsIgnoreCase("#000000")){
-            colorProgress="#ffffff";
+        if (colorProgress.equalsIgnoreCase("#ffffff")) {
+            colorProgress = "#000000";
+        } else if (colorProgress.equalsIgnoreCase("#000000")) {
+            colorProgress = "#ffffff";
         }
 
-        final float[] roundedCorners = new float[]{1,1, 1, 1, 1, 1, 1, 1};
+        final float[] roundedCorners = new float[]{1, 1, 1, 1, 1, 1, 1, 1};
         // Create a ShapeDrawable to generate progress bar background
         ShapeDrawable backgroundDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
         backgroundDrawable.getPaint().setColor(Color.parseColor("#E0E0E0"));
@@ -526,6 +538,7 @@ public class CMSAssessmentFragment extends Fragment {
                         toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                         progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                         number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
+                        question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
                     } catch (Exception e) {
                     }
 

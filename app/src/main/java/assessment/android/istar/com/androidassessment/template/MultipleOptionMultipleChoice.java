@@ -34,6 +34,13 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_multiple_option_multiple_choice, container, false);
+
+        //hardware acceleration disable
+        try {
+            view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        } catch (Exception e) {
+        }
+
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
@@ -182,44 +189,22 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     }
 
     private void webviewSetup() {
-        question.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option1.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option2.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option3.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option4.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
-        option5.setOnLongClickListener(new View.OnLongClickListener() {
+        forceWebViewRedraw(question);
+        forceWebViewRedraw(option1);
+        forceWebViewRedraw(option2);
+        forceWebViewRedraw(option3);
+        forceWebViewRedraw(option4);
+        forceWebViewRedraw(option5);
+    }
+
+    private void forceWebViewRedraw(final WebView mWebView) {
+        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
     }
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
