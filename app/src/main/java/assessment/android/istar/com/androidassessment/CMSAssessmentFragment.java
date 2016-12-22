@@ -582,6 +582,13 @@ public class CMSAssessmentFragment extends Fragment {
         try {
             if (getAllAssmentResult() != null) {
                 if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
+                    AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
+                    Serializer serializer = new Persister();
+                    StringWriter stringWriter = new StringWriter();
+                    serializer.write(cmsAssessmentResult, stringWriter);
+                    String value = stringWriter.toString();
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "COMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "");
+
                     new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
                     AssessmentStatusHandler assessmentStatusHandler = new AssessmentStatusHandler(getContext());
