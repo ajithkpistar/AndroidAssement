@@ -111,7 +111,7 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox,final CardView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         /*if (cmsQuestion.getTheme() != null) {
 
@@ -144,8 +144,11 @@ public class ThemeUtils {
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
             webView.setBackgroundColor(0);
             checkBox.setTag(cmsOption.getId());
+            webView.getSettings().setDefaultFontSize(optionFontSize);
             webView.setVisibility(View.VISIBLE);
             checkBox.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.VISIBLE);
+
 
         }
 
