@@ -92,15 +92,14 @@ public class ThemeUtils {
                     + "; font-family:" + FontFamily + " ;}"
                     + "; font-size:" + FontSize + " ;}"
                     + "</style></head>"
-                    + "<body>"
+                    + "<body><center>"
                     + text
-                    + "</body></html>";
+                    + "</center></body></html>";
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
             webView.setBackgroundColor(0);
             radioButton.setTag(cmsOption.getId());
             webView.setVisibility(View.VISIBLE);
-            radioButton.setVisibility(View.VISIBLE);
-
+            radioButton.setVisibility(View.GONE);
         }
 
     }

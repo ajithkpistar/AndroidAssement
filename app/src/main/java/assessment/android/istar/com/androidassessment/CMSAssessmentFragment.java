@@ -76,8 +76,8 @@ public class CMSAssessmentFragment extends Fragment {
     private ArrayList<Entry> question_map, question_time;
     private long start_time, end_time;
     private Toolbar toolbar;
-    private RelativeLayout main_layout;
-    private TextView number_of_ques, progress_text;
+    private RelativeLayout main_layout, bottom_layout;
+    private TextView number_of_ques, progress_text, question_timer_text;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer, questionTimer;
     private int delay = 120000;
@@ -96,9 +96,11 @@ public class CMSAssessmentFragment extends Fragment {
         submit_question = (Button) view.findViewById(R.id.submit_question);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
+        question_timer_text = (TextView) view.findViewById(R.id.question_timer_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
         question_prograss_bar = (ProgressBar) view.findViewById(R.id.question_prograss_bar);
         main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
+        bottom_layout = (RelativeLayout) view.findViewById(R.id.bottom_layout);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
@@ -186,6 +188,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             try {
                 toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
+                bottom_layout.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                 progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
@@ -294,17 +297,18 @@ public class CMSAssessmentFragment extends Fragment {
             setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
         //visible toolbar
         main_layout.setVisibility(View.VISIBLE);
+        bottom_layout.setVisibility(View.VISIBLE);
     }
 
     private void setUpQuestionTimer(int questionDelay) {
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
-            question_progress_status = 0;
             question_prograss_bar.setProgress(0);
         }
-        question_prograss_bar.setMax((questionDelay / 1000) * 10000);
-
+        question_progress_status = (questionDelay / 1000);
+        question_prograss_bar.setMax(question_progress_status * 100000);
+        setProgressAnimate(question_prograss_bar, question_progress_status--);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
                 try {
@@ -312,10 +316,20 @@ public class CMSAssessmentFragment extends Fragment {
                     long sec = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished));
 
+                    String timerString = "00:00", minString = "" + min, secString = "" + sec;
+                    if (min < 10) {
+                        minString = "0" + min;
+                    }
+                    if (sec < 10) {
+                        secString = "0" + sec;
+                    }
+                    timerString = minString + ":" + secString;
+                    question_timer_text.setText(timerString);
+
                     if (min == 0 && sec == 10) {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
-                    setProgressAnimate(question_prograss_bar, question_progress_status++);
+                    setProgressAnimate(question_prograss_bar, question_progress_status--);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -338,8 +352,8 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     private void setProgressAnimate(ProgressBar pb, int progressTo) {
-        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 10000);
-        animation.setDuration(500);
+        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 100000);
+        animation.setDuration(1100);
         animation.setInterpolator(new LinearInterpolator());
         animation.start();
     }
@@ -348,8 +362,10 @@ public class CMSAssessmentFragment extends Fragment {
 
         if (colorProgress.equalsIgnoreCase("#ffffff")) {
             colorProgress = "#000000";
+            question_timer_text.setTextColor(Color.parseColor("#ffffff"));
         } else if (colorProgress.equalsIgnoreCase("#000000")) {
             colorProgress = "#ffffff";
+            question_timer_text.setTextColor(Color.parseColor("#000000"));
         }
 
         final float[] roundedCorners = new float[]{1, 1, 1, 1, 1, 1, 1, 1};
@@ -409,9 +425,11 @@ public class CMSAssessmentFragment extends Fragment {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
                 main_layout.setVisibility(View.GONE);
+                bottom_layout.setVisibility(View.GONE);
             } else {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
                 main_layout.setVisibility(View.VISIBLE);
+                bottom_layout.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -536,6 +554,7 @@ public class CMSAssessmentFragment extends Fragment {
 
                     try {
                         toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
+                        bottom_layout.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                         progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                         number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                         question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));

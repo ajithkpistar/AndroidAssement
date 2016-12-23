@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
     private TextView hidden_key, hidden_value, hidden_time;
     private ScrollView mainLayout;
+    private LinearLayout layoutBtn1,layoutBtn2,layoutBtn3,layoutBtn4,layoutBtn5;
 
 
     @Override
@@ -60,6 +63,14 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn3 = (AppCompatRadioButton) view.findViewById(R.id.rbtn3);
         rbtn4 = (AppCompatRadioButton) view.findViewById(R.id.rbtn4);
         rbtn5 = (AppCompatRadioButton) view.findViewById(R.id.rbtn5);
+
+        layoutBtn1 = (LinearLayout)view.findViewById(R.id.layoutBtn1);
+        layoutBtn2 = (LinearLayout)view.findViewById(R.id.layoutBtn2);
+        layoutBtn3 = (LinearLayout)view.findViewById(R.id.layoutBtn3);
+        layoutBtn4 = (LinearLayout)view.findViewById(R.id.layoutBtn4);
+        layoutBtn5 = (LinearLayout)view.findViewById(R.id.layoutBtn5);
+
+
 
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
         ThemeUtils themeutil = new ThemeUtils();
@@ -209,6 +220,12 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_3 = false;
                 chck_4 = false;
                 chck_5 = false;
+                layoutBtn1.setBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                layoutBtn2.setBackgroundColor(0);
+                layoutBtn3.setBackgroundColor(0);
+                layoutBtn4.setBackgroundColor(0);
+                layoutBtn5.setBackgroundColor(0);
+
                 break;
             case 2:
                 rbtn1.setChecked(false);
@@ -221,6 +238,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_3 = false;
                 chck_4 = false;
                 chck_5 = false;
+                layoutBtn2.setBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                layoutBtn1.setBackgroundColor(0);
+                layoutBtn3.setBackgroundColor(0);
+                layoutBtn4.setBackgroundColor(0);
+                layoutBtn5.setBackgroundColor(0);
                 break;
             case 3:
                 rbtn1.setChecked(false);
@@ -233,6 +255,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_4 = false;
                 chck_5 = false;
+                layoutBtn3.setBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                layoutBtn2.setBackgroundColor(0);
+                layoutBtn1.setBackgroundColor(0);
+                layoutBtn4.setBackgroundColor(0);
+                layoutBtn5.setBackgroundColor(0);
                 break;
             case 4:
                 rbtn1.setChecked(false);
@@ -245,6 +272,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_3 = false;
                 chck_5 = false;
+                layoutBtn4.setBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                layoutBtn2.setBackgroundColor(0);
+                layoutBtn3.setBackgroundColor(0);
+                layoutBtn1.setBackgroundColor(0);
+                layoutBtn5.setBackgroundColor(0);
                 break;
             case 5:
                 rbtn1.setChecked(false);
@@ -257,6 +289,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_3 = false;
                 chck_4 = false;
+                layoutBtn5.setBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                layoutBtn2.setBackgroundColor(0);
+                layoutBtn3.setBackgroundColor(0);
+                layoutBtn4.setBackgroundColor(0);
+                layoutBtn1.setBackgroundColor(0);
                 break;
             default:
                 rbtn1.setChecked(false);
@@ -265,6 +302,12 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 rbtn4.setChecked(false);
                 rbtn5.setChecked(false);
                 selectedVal = "";
+                layoutBtn1.setBackgroundColor(0);
+                layoutBtn1.setBackgroundColor(0);
+                layoutBtn2.setBackgroundColor(0);
+                layoutBtn3.setBackgroundColor(0);
+                layoutBtn4.setBackgroundColor(0);
+                layoutBtn5.setBackgroundColor(0);
                 break;
         }
         hidden_value.setText(selectedVal + "");
@@ -285,6 +328,64 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             @Override
             public boolean onLongClick(View v) {
                 return true;
+            }
+        });
+
+        mWebView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (view.getId() == R.id.option1) {
+                            if (chck_1) {
+                                selectUnselect(0);
+                                chck_1 = false;
+                            } else {
+                                rbtn1.setChecked(true);
+                                selectUnselect(1);
+                            }
+                        } else if (view.getId() == R.id.option2) {
+                            if (chck_2) {
+                                selectUnselect(0);
+                                chck_2 = false;
+                            } else {
+                                rbtn2.setChecked(true);
+                                selectUnselect(2);
+                            }
+                        } else if (view.getId() == R.id.option3) {
+                            if (chck_3) {
+                                selectUnselect(0);
+                                chck_3 = false;
+                            } else {
+                                rbtn3.setChecked(true);
+                                selectUnselect(3);
+                            }
+                        } else if (view.getId() == R.id.option4) {
+                            if (chck_4) {
+                                selectUnselect(0);
+                                chck_4 = false;
+                            } else {
+                                rbtn4.setChecked(true);
+                                selectUnselect(4);
+                            }
+                        } else if (view.getId() == R.id.option5) {
+                            if (chck_5) {
+                                selectUnselect(0);
+                                chck_5 = false;
+                            } else {
+                                rbtn2.setChecked(true);
+                                selectUnselect(5);
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+
+                        break;
+                }
+                return false;
             }
         });
 

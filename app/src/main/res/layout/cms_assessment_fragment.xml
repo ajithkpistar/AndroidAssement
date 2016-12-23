@@ -17,11 +17,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#cfd8dc"
+            android:background="#00000000"
             android:elevation="5dp"
             android:minHeight="?attr/actionBarSize"
-            android:title=""
-            android:visibility="visible">
+            android:title="">
 
             <RelativeLayout
                 android:id="@+id/layout1"
@@ -30,7 +29,8 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true">
 
                     <ProgressBar
                         android:id="@+id/prograss_bar"
@@ -52,46 +52,78 @@
                         android:textSize="12sp" />
                 </RelativeLayout>
 
-                <Button
-                    android:id="@+id/submit_question"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/button_circle"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/number_of_ques"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:layout_toLeftOf="@id/submit_question"
-                    android:text=""
-                    android:textColor="#000"
-                    android:textSize="12sp" />
-
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
-        <ProgressBar
-            android:id="@+id/question_prograss_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginTop="1dp"
-            android:indeterminate="false"
-            android:progress="0" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar">
+
+            <ProgressBar
+                android:id="@+id/question_prograss_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:indeterminate="false"
+                android:progress="0" />
+
+            <TextView
+                android:id="@+id/question_timer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#cfd8dc"
+        android:elevation="5dp"
+        android:padding="2dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/submit_question"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_circle"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/number_of_ques"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="12sp" />
+
     </RelativeLayout>
 
     <assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager
         android:id="@+id/assessment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/main_layout" />
+
 </RelativeLayout>
 
