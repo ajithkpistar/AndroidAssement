@@ -2,6 +2,7 @@ package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
@@ -24,6 +25,7 @@ public class ThemeUtils {
     String FontColor = "#000000";
     String BackgroundColor = "#ffffff";
     String BackgroundOptionColor = "#00000000";
+    String FontOptionColor = "#00000000";
     String FontFamily = "Raleway-Regular.ttf";
     String FontSize = "14";
 
@@ -63,7 +65,7 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton,final CardView layout,final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         if (cmsQuestion.getTheme() != null) {
             try {
@@ -87,7 +89,7 @@ public class ThemeUtils {
 
 
             String finaltext = "<html><head>"
-                    + "<style type=\"text/css\">body{color: " + FontColor
+                    + "<style type=\"text/css\">body{color: " + FontOptionColor
                     + "; background-color:" + BackgroundOptionColor + " ;}"
                     + "; font-family:" + FontFamily + " ;}"
                     + "; font-size:" + FontSize + " ;}"
@@ -100,6 +102,9 @@ public class ThemeUtils {
             radioButton.setTag(cmsOption.getId());
             webView.setVisibility(View.VISIBLE);
             radioButton.setVisibility(View.GONE);
+            layout.setVisibility(View.VISIBLE);
+
+
         }
 
     }
