@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -68,12 +69,12 @@ import assessment.android.istar.com.androidassessment.template.MultipleOptionSin
 
 public class CMSAssessmentFragment extends Fragment {
     public final static String ASSESSMENT_ID = "ASSESSMENT_ID";
-    private AssessmentLockableViewPager assessmentLockableViewPager;
+    public static AssessmentLockableViewPager assessmentLockableViewPager;
     private AssessmentDataHandler assessmentDataHandler;
     private ViewpagerAdapter viewpagerAdapter;
     private int assessment_id;
     private CMSAssessmentResult cmsAssessmentResult;
-    private ArrayList<Entry> question_map, question_time;
+    private static ArrayList<Entry> question_map, question_time;
     private long start_time, end_time;
     private Toolbar toolbar;
     private RelativeLayout main_layout, bottom_layout;
@@ -91,6 +92,10 @@ public class CMSAssessmentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (getActivity() != null)
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         View view = inflater.inflate(R.layout.cms_assessment_fragment, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         submit_question = (Button) view.findViewById(R.id.submit_question);
@@ -188,7 +193,7 @@ public class CMSAssessmentFragment extends Fragment {
 
             try {
                 toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
-                bottom_layout.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
+                bottom_layout.setBackgroundColor(Color.parseColor("#0097a7"));
                 progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
@@ -278,7 +283,7 @@ public class CMSAssessmentFragment extends Fragment {
                     prograss_bar.setProgress(0);
                     progress_status = 0;
 
-                    if (assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1) {
+                    for (int i = assessmentLockableViewPager.getCurrentItem(); i < assessmentLockableViewPager.getAdapter().getCount() - 1; i++) {
                         updateCmsAssesmentResult(true);
                     }
 
@@ -368,10 +373,12 @@ public class CMSAssessmentFragment extends Fragment {
             question_timer_text.setTextColor(Color.parseColor("#000000"));
         }
 
+        colorProgress = "#0097a7";
+
         final float[] roundedCorners = new float[]{1, 1, 1, 1, 1, 1, 1, 1};
         // Create a ShapeDrawable to generate progress bar background
         ShapeDrawable backgroundDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
-        backgroundDrawable.getPaint().setColor(Color.parseColor("#E0E0E0"));
+        backgroundDrawable.getPaint().setColor(Color.parseColor("#ffffff"));
 
         // Initialize a new shape drawable to draw progress bar progress
         ShapeDrawable progressDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
@@ -401,20 +408,20 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
 
-    public void previousViewpager() {
+    public static void previousViewpager() {
         if (assessmentLockableViewPager.getCurrentItem() != 0) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
         }
     }
 
-    public void nextViewpager(String key, String answer, String time) {
+    public static void nextViewpager(String key, String answer, String time) {
         if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
             addData(key, answer, time);
         }
     }
 
-    void addData(String key, String answer, String time) {
+    static void addData(String key, String answer, String time) {
         question_map.add(new Entry(key, answer));
         question_time.add(new Entry(key, time));
     }
