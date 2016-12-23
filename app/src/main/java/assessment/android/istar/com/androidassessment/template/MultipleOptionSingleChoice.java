@@ -123,63 +123,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
 
         }
-
-        rbtn1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (chck_1) {
-                    selectUnselect(0);
-                    chck_1 = false;
-                } else {
-                    selectUnselect(1);
-                }
-            }
-        });
-        rbtn2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                if (chck_2) {
-                    selectUnselect(0);
-                    chck_2 = false;
-                } else {
-                    selectUnselect(2);
-                }
-
-            }
-        });
-        rbtn3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                if (chck_3) {
-                    selectUnselect(0);
-                    chck_3 = false;
-                } else {
-                    selectUnselect(3);
-                }
-
-            }
-        });
-        rbtn4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                if (chck_4) {
-                    selectUnselect(0);
-                    chck_4 = false;
-                } else {
-                    selectUnselect(4);
-                }
-
-            }
-        });
-        rbtn5.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (chck_5) {
-                    selectUnselect(0);
-                    chck_5 = false;
-                } else {
-                    selectUnselect(5);
-                }
-            }
-        });
         webviewSetup();
         return view;
     }
@@ -210,10 +153,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     public void selectUnselect(int position) {
         switch (position) {
             case 1:
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
                 selectedVal = rbtn1.getTag().toString();
                 chck_1 = true;
                 chck_2 = false;
@@ -228,10 +167,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
                 break;
             case 2:
-                rbtn1.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
                 selectedVal = rbtn2.getTag().toString();
                 chck_2 = true;
                 chck_1 = false;
@@ -245,10 +180,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setCardBackgroundColor(Color.parseColor("#ffffff"));
                 break;
             case 3:
-                rbtn1.setChecked(false);
-                rbtn2.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
                 selectedVal = rbtn3.getTag().toString();
                 chck_3 = true;
                 chck_1 = false;
@@ -262,10 +193,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setCardBackgroundColor(Color.parseColor("#ffffff"));
                 break;
             case 4:
-                rbtn1.setChecked(false);
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn5.setChecked(false);
                 selectedVal = rbtn4.getTag().toString();
                 chck_4 = true;
                 chck_1 = false;
@@ -279,10 +206,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setCardBackgroundColor(Color.parseColor("#ffffff"));
                 break;
             case 5:
-                rbtn1.setChecked(false);
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
                 selectedVal = rbtn5.getTag().toString();
                 chck_5 = true;
                 chck_1 = false;
@@ -296,11 +219,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn1.setCardBackgroundColor(Color.parseColor("#ffffff"));
                 break;
             default:
-                rbtn1.setChecked(false);
-                rbtn2.setChecked(false);
-                rbtn3.setChecked(false);
-                rbtn4.setChecked(false);
-                rbtn5.setChecked(false);
                 selectedVal = "";
                 layoutBtn1.setCardBackgroundColor(Color.parseColor("#ffffff"));
                 layoutBtn1.setCardBackgroundColor(Color.parseColor("#ffffff"));
@@ -362,7 +280,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     selectUnselect(0);
                                     chck_1 = false;
                                 } else {
-                                    rbtn1.setChecked(true);
                                     selectUnselect(1);
                                 }
                             } else if (view.getId() == R.id.option2) {
@@ -370,7 +287,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     selectUnselect(0);
                                     chck_2 = false;
                                 } else {
-                                    rbtn2.setChecked(true);
                                     selectUnselect(2);
                                 }
                             } else if (view.getId() == R.id.option3) {
@@ -378,7 +294,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     selectUnselect(0);
                                     chck_3 = false;
                                 } else {
-                                    rbtn3.setChecked(true);
                                     selectUnselect(3);
                                 }
                             } else if (view.getId() == R.id.option4) {
@@ -386,7 +301,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     selectUnselect(0);
                                     chck_4 = false;
                                 } else {
-                                    rbtn4.setChecked(true);
                                     selectUnselect(4);
                                 }
                             } else if (view.getId() == R.id.option5) {
@@ -394,7 +308,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     selectUnselect(0);
                                     chck_5 = false;
                                 } else {
-                                    rbtn2.setChecked(true);
                                     selectUnselect(5);
                                 }
                             }
