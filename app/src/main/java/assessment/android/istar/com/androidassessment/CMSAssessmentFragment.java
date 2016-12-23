@@ -122,7 +122,7 @@ public class CMSAssessmentFragment extends Fragment {
             public void onPageSelected(int position) {
                 updateslidePointerText();
                 try {
-                    if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 2
+                    if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1
                             && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null) {
                         setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
                     } else {
