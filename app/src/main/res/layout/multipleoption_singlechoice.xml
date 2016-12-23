@@ -54,7 +54,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:background="#ffffff"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatRadioButton
@@ -78,7 +77,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:background="#ffffff"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatRadioButton
@@ -111,7 +109,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:background="#ffffff"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatRadioButton
@@ -136,7 +133,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="50"
-                            android:background="#ffffff"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatRadioButton
@@ -162,7 +158,6 @@
                         android:id="@+id/layoutBtn5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#ffffff"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatRadioButton
