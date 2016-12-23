@@ -48,6 +48,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
@@ -75,8 +76,8 @@ public class CMSAssessmentFragment extends Fragment {
     private int assessment_id;
     private CMSAssessmentResult cmsAssessmentResult;
     private static ArrayList<Entry> question_map, question_time;
-    private long start_time, end_time;
-    private Toolbar toolbar;
+    private long start_time, end_time, question_start=0;
+    private RelativeLayout clock_view;
     private RelativeLayout main_layout, bottom_layout;
     private TextView number_of_ques, progress_text, question_timer_text;
     private Toast mToastToShow;
@@ -86,7 +87,9 @@ public class CMSAssessmentFragment extends Fragment {
     private ProgressBar prograss_bar, question_prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
     private Button submit_question;
-    private ArrayList<Integer> questionTimerData;
+    private TreeMap<Integer, Long> questionTimerData;
+    private CMSAssessment cmsAssessment;
+    private long last_questionTimer;
 
 
     @Override
@@ -96,8 +99,9 @@ public class CMSAssessmentFragment extends Fragment {
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        View view = inflater.inflate(R.layout.cms_assessment_fragment, container, false);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        View view = inflater.inflate(R.layout.new_cms_assessment_fragment, container, false);
+        clock_view = (RelativeLayout) view.findViewById(R.id.clock_view);
+        clock_view.bringToFront();
         submit_question = (Button) view.findViewById(R.id.submit_question);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
@@ -107,14 +111,13 @@ public class CMSAssessmentFragment extends Fragment {
         main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
         bottom_layout = (RelativeLayout) view.findViewById(R.id.bottom_layout);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
         assessmentDataHandler = new AssessmentDataHandler(getContext());
         assessmentStatusHandler = new AssessmentStatusHandler(getContext());
         if (getArguments() != null) {
             if (getArguments().getString(ASSESSMENT_ID) != null) {
                 assessment_id = Integer.parseInt(getArguments().getString(ASSESSMENT_ID));
+                Log.v("Talentify","Assessment Id---->"+assessment_id);
             }
         }
         cmsAssessmentResult = new CMSAssessmentResult();
@@ -129,14 +132,12 @@ public class CMSAssessmentFragment extends Fragment {
             public void onPageSelected(int position) {
                 updateslidePointerText();
                 try {
-                    if (assessmentLockableViewPager != null && assessmentLockableViewPager.getCurrentItem() != assessmentLockableViewPager.getAdapter().getCount() - 1
-                            && questionTimerData != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null) {
-                        setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
-                    } else {
-                        if (questionTimer != null) {
-                            questionTimer.cancel();
-                            questionTimer = null;
-                        }
+                    CMSQuestion cmsQuestion = cmsAssessment.getQuestions().get(assessmentLockableViewPager.getCurrentItem());
+                    if (questionTimerData.get(cmsQuestion.getId()) != null && questionTimerData.get(cmsQuestion.getId()) != 0) {
+                        setUpQuestionTimer(questionTimerData.get(cmsQuestion.getId()));
+                    } else if (questionTimer != null) {
+                        questionTimer.cancel();
+                        questionTimer = null;
                     }
                 } catch (Exception e) {
                     if (questionTimer != null) {
@@ -184,24 +185,23 @@ public class CMSAssessmentFragment extends Fragment {
         StringReader reader = new StringReader(assessment_string);
         Serializer serializer = new Persister();
         try {
-            CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class, reader);
+            cmsAssessment = serializer.read(CMSAssessment.class, reader);
 
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             assessmentLockableViewPager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
             start_time = System.currentTimeMillis();
-
             try {
-                toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                 bottom_layout.setBackgroundColor(Color.parseColor("#0097a7"));
                 progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                 question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
             } catch (Exception e) {
             }
-            createQuestionTimerValues(cmsAssessment);
+
             //update the slide pointer.
-            setupOfflineAssessmentSlide(cmsAssessment);
+            setupOfflineAssessmentSlide();
+            createQuestionTimerValues();
             setupObject();
 
 
@@ -210,7 +210,7 @@ public class CMSAssessmentFragment extends Fragment {
         }
     }
 
-    private void setupOfflineAssessmentSlide(CMSAssessment cmsAssessment) {
+    private void setupOfflineAssessmentSlide() {
         try {
             Cursor c = assessmentStatusHandler.getData(assessment_id);
             if (c.moveToFirst()) {
@@ -228,6 +228,7 @@ public class CMSAssessmentFragment extends Fragment {
                         question_time.add(entry);
                     }
                     start_time = System.currentTimeMillis() - (Long.parseLong(cmsAssessmentResult.getTotal_time()));
+                    last_questionTimer = Long.parseLong(c.getString(4));
                 }
             }
         } catch (Exception e) {
@@ -298,22 +299,38 @@ public class CMSAssessmentFragment extends Fragment {
         }.start();
 
         //start question Timer
-        if (questionTimerData != null && assessmentLockableViewPager != null && questionTimerData.get(assessmentLockableViewPager.getCurrentItem()) != null)
-            setUpQuestionTimer(questionTimerData.get(assessmentLockableViewPager.getCurrentItem()));
+        try {
+            CMSQuestion cmsQuestion = cmsAssessment.getQuestions().get(assessmentLockableViewPager.getCurrentItem());
+            if (questionTimerData.get(cmsQuestion.getId()) != null && questionTimerData.get(cmsQuestion.getId()) != 0) {
+                setUpQuestionTimer(questionTimerData.get(cmsQuestion.getId()));
+            } else if (questionTimer != null) {
+                questionTimer.cancel();
+                questionTimer = null;
+            }
+        } catch (Exception e) {
+            if (questionTimer != null) {
+                questionTimer.cancel();
+                questionTimer = null;
+            }
+        }
+
+
         //visible toolbar
         main_layout.setVisibility(View.VISIBLE);
         bottom_layout.setVisibility(View.VISIBLE);
     }
 
-    private void setUpQuestionTimer(int questionDelay) {
+    private void setUpQuestionTimer(long questionDelay) {
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
             question_prograss_bar.setProgress(0);
         }
-        question_progress_status = (questionDelay / 1000);
+        question_start = System.currentTimeMillis();
+        question_progress_status = ((int) questionDelay / 1000);
+        Log.v("Talentify","question Timer---->"+question_progress_status);
         question_prograss_bar.setMax(question_progress_status * 100000);
-        setProgressAnimate(question_prograss_bar, question_progress_status--);
+        setProgressAnimate(question_prograss_bar, question_progress_status);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
                 try {
@@ -553,14 +570,13 @@ public class CMSAssessmentFragment extends Fragment {
                 StringReader reader = new StringReader(result);
                 Serializer serializer = new Persister();
                 try {
-                    CMSAssessment cmsAssessment = serializer.read(CMSAssessment.class, reader);
+                    cmsAssessment = serializer.read(CMSAssessment.class, reader);
                     viewpagerAdapter = new ViewpagerAdapter(fm, cmsAssessment);
                     assessmentLockableViewPager.setAdapter(viewpagerAdapter);
                     delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
                     start_time = System.currentTimeMillis();
 
                     try {
-                        toolbar.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                         bottom_layout.setBackgroundColor(Color.parseColor(cmsAssessment.getTheme().getBackgroundColor()));
                         progress_text.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
                         number_of_ques.setTextColor(Color.parseColor(cmsAssessment.getTheme().getTitleFontColor()));
@@ -568,9 +584,11 @@ public class CMSAssessmentFragment extends Fragment {
                     } catch (Exception e) {
                     }
 
-                    createQuestionTimerValues(cmsAssessment);
+
                     //update the slide pointer.
-                    setupOfflineAssessmentSlide(cmsAssessment);
+                    setupOfflineAssessmentSlide();
+
+                    createQuestionTimerValues();
                     if (response_success)
                         setupObject();
                 } catch (Exception e) {
@@ -581,18 +599,21 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
 
-    private void createQuestionTimerValues(CMSAssessment cmsAssessment) {
+    private void createQuestionTimerValues() {
         try {
-            questionTimerData = new ArrayList<>();
+            questionTimerData = new TreeMap<>();
             if (cmsAssessment != null && cmsAssessment.getAssessmentDurationMinutes() != null && cmsAssessment.getQuestions() != null && cmsAssessment.getQuestions().size() > 0) {
                 List<CMSQuestion> cmsQuestions = cmsAssessment.getQuestions();
 
                 for (CMSQuestion cmsQuestion : cmsQuestions) {
                     if (cmsQuestion != null && cmsQuestion.getDurationInSec() != null && cmsQuestion.getDurationInSec() != 0) {
-                        int questionDuration = cmsQuestion.getDurationInSec() * 1000;
-                        questionTimerData.add(questionDuration);
-                    } else {
-                        questionTimerData.add(0);
+                        long questionDuration = cmsQuestion.getDurationInSec() * 1000;
+                        try {
+                            if (cmsQuestion.getId() == cmsAssessment.getQuestions().get(assessmentLockableViewPager.getCurrentItem()).getId())
+                                questionDuration = questionDuration - last_questionTimer;
+                        } catch (Exception e) {
+                        }
+                        questionTimerData.put(cmsQuestion.getId(), questionDuration);
                     }
                 }
             }
@@ -613,7 +634,7 @@ public class CMSAssessmentFragment extends Fragment {
                     StringWriter stringWriter = new StringWriter();
                     serializer.write(cmsAssessmentResult, stringWriter);
                     String value = stringWriter.toString();
-                    assessmentStatusHandler.saveContent(assessment_id + "", value, "COMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "");
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "COMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "", (System.currentTimeMillis()-question_start) + "");
 
                     new SubmitAssessmentAsyncTask(getContext().getApplicationContext(), cmsAssessmentResult, assessmentLockableViewPager.getCurrentItem()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 } else {
@@ -623,7 +644,7 @@ public class CMSAssessmentFragment extends Fragment {
                     serializer.write(cmsAssessmentResult, stringWriter);
                     String value = stringWriter.toString();
                     System.out.println("value---------------->\n" + value);
-                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "");
+                    assessmentStatusHandler.saveContent(assessment_id + "", value, "INCOMPLETED", (assessmentLockableViewPager.getCurrentItem()) + "", (System.currentTimeMillis()-question_start) + "");
                 }
             }
         } catch (Exception e) {

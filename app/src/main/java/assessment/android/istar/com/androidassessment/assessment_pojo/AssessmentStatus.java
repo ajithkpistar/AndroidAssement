@@ -9,15 +9,17 @@ public class AssessmentStatus {
     private String data;
     private String status;
     private String last_pointer;
+    private String last_question_timer;
 
     public AssessmentStatus() {
     }
 
-    public AssessmentStatus(Integer id, String data, String status, String last_pointer) {
+    public AssessmentStatus(Integer id, String data, String status, String last_pointer, String last_question_timer) {
         this.id = id;
         this.data = data;
         this.status = status;
         this.last_pointer = last_pointer;
+        this.last_question_timer = last_question_timer;
     }
 
     public Integer getId() {
@@ -50,5 +52,13 @@ public class AssessmentStatus {
 
     public void setLast_pointer(String last_pointer) {
         this.last_pointer = last_pointer;
+    }
+
+    public String getLast_question_timer() {
+        return last_question_timer;
+    }
+
+    public void setLast_question_timer(String last_question_timer) {
+        this.last_question_timer = last_question_timer;
     }
 }

@@ -26,6 +26,7 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
     private static final String KEY_NAME = "data";
     private static final String KEY_STATUS = "status";
     private static final String KEY_SLIDE_POINTER = "slide";
+    private static final String KEY_SLIDE_QUESTION_TIMER = "question_last_timer";
     private static final String EXTERNALSTORAGE = getPath();
 
 
@@ -37,7 +38,7 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CREATE_CONTENT_TABLE = "CREATE TABLE " + TABLE + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_STATUS + " TEXT," + KEY_SLIDE_POINTER + " INTEGER" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_STATUS + " TEXT," + KEY_SLIDE_POINTER + " INTEGER," + KEY_SLIDE_QUESTION_TIMER + " TEXT)";
         sqLiteDatabase.execSQL(CREATE_CONTENT_TABLE);
     }
 
@@ -48,12 +49,12 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void saveContent(String id, String content, String status, String last_pointer) {
+    public void saveContent(String id, String content, String status, String last_pointer,String last_timer_vaue) {
 
         Cursor cursor = getData(Integer.parseInt(id));
         if (cursor != null && cursor.getCount() > 0) {
             System.out.println("updateContent done");
-            updateContent(id, content, status, last_pointer);
+            updateContent(id, content, status, last_pointer,last_timer_vaue);
         } else {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
@@ -61,18 +62,20 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
             contentValues.put(KEY_NAME, content);
             contentValues.put(KEY_STATUS, status);
             contentValues.put(KEY_SLIDE_POINTER, last_pointer);
+            contentValues.put(KEY_SLIDE_QUESTION_TIMER, last_timer_vaue);
             db.insert(TABLE, null, contentValues);
             System.out.println("saveContent done");
         }
     }
 
-    public void updateContent(String id, String content, String status, String last_pointer) {
+    public void updateContent(String id, String content, String status, String last_pointer,String last_timer_vaue) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ID, id);
         contentValues.put(KEY_NAME, content);
         contentValues.put(KEY_STATUS, status);
         contentValues.put(KEY_SLIDE_POINTER, last_pointer);
+        contentValues.put(KEY_SLIDE_QUESTION_TIMER, last_timer_vaue);
         db.update(TABLE, contentValues, "id = ? ", new String[]{id});
         System.out.println("updateContent done");
 
@@ -102,7 +105,7 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                assessmentStatuses.add(new AssessmentStatus(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                assessmentStatuses.add(new AssessmentStatus(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4)));
             } while (cursor.moveToNext());
         }
         return assessmentStatuses;

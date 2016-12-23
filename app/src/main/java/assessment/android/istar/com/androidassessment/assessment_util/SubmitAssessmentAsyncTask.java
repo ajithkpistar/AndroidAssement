@@ -85,7 +85,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
             System.out.println("Response for------>" + cmsAssessmentResult.getAssessment_id() + "---------" + response_code);
 
             if (!response_code.equalsIgnoreCase("200")) {
-                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
+                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "","");
             } else {
                 Cursor c = assessmentStatusHandler.getData(Integer.parseInt(cmsAssessmentResult.getAssessment_id()));
                 if (c.moveToFirst() && c.getString(2) != null) {
@@ -95,7 +95,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
         } catch (Exception e) {
             e.printStackTrace();
             if (value != null)
-                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
+                assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "","");
         }
         return null;
     }
@@ -103,7 +103,7 @@ public class SubmitAssessmentAsyncTask extends AsyncTask<String, Integer, String
     @Override
     protected void onCancelled() {
         try {
-            assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "");
+            assessmentStatusHandler.saveContent(cmsAssessmentResult.getAssessment_id(), value, "COMPLETED", last_pointer + "","");
         } catch (Exception e) {
             e.printStackTrace();
         }
