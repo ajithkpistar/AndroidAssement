@@ -45,7 +45,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/lay1"
+                        android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutBtn1"
+                        android:orientation="horizontal"
+                        android:layout_weight="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn1"
@@ -63,9 +72,11 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:id="@+id/layoutBtn2"
+                        android:orientation="horizontal"
+                        android:layout_weight="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn2"
@@ -80,11 +91,20 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:visibility="gone" />
-                    </LinearLayout>
+                    </LinearLayout></LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:weightSum="100"
+                        android:id="@+id/lay2"
+                        android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:id="@+id/layoutBtn3"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -103,8 +123,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:id="@+id/layoutBtn4"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -120,11 +142,14 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:visibility="gone" />
-                    </LinearLayout>
+                    </LinearLayout></LinearLayout>
+
+
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/layoutBtn5"
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.AppCompatRadioButton

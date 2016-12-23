@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#e33e5ff1</color>
     <color name="LaunchTest">#FFFF00</color>
-
+    <color name="SelectedOption">#bbdefb</color>
 </resources>

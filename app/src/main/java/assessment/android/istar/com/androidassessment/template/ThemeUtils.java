@@ -5,11 +5,13 @@ import android.os.Environment;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 
@@ -21,6 +23,7 @@ public class ThemeUtils {
 
     String FontColor = "#000000";
     String BackgroundColor = "#ffffff";
+    String BackgroundOptionColor = "#00000000";
     String FontFamily = "Raleway-Regular.ttf";
     String FontSize = "14";
 
@@ -60,7 +63,7 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final CMSOption cmsOption,final Context context,final Boolean externalReadable) {
+    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         if (cmsQuestion.getTheme() != null) {
             try {
@@ -73,7 +76,7 @@ public class ThemeUtils {
             }
         }
 
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().contains("<p></p>")) {
+        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
           String text = cmsOption.getOptionText();
             if (cmsOption.getOptionText().contains("<img")) {
@@ -85,7 +88,7 @@ public class ThemeUtils {
 
             String finaltext = "<html><head>"
                     + "<style type=\"text/css\">body{color: " + FontColor
-                    + "; background-color:" + BackgroundColor + " ;}"
+                    + "; background-color:" + BackgroundOptionColor + " ;}"
                     + "; font-family:" + FontFamily + " ;}"
                     + "; font-size:" + FontSize + " ;}"
                     + "</style></head>"
@@ -93,6 +96,7 @@ public class ThemeUtils {
                     + text
                     + "</body></html>";
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
+            webView.setBackgroundColor(0);
             radioButton.setTag(cmsOption.getId());
             webView.setVisibility(View.VISIBLE);
             radioButton.setVisibility(View.VISIBLE);
@@ -111,7 +115,7 @@ public class ThemeUtils {
             FontSize = cmsQuestion.getTheme().getListitemFontSize();
         }
 
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null && !cmsOption.getOptionText().contains("<p></p>"))  {
+        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null)  {
 
 
             String text = cmsOption.getOptionText();
@@ -123,7 +127,7 @@ public class ThemeUtils {
 
             String finaltext = "<html><head>"
                     + "<style type=\"text/css\">body{color: " + FontColor
-                    + "; background-color:" + BackgroundColor + " ;}"
+                    + "; background-color:" + BackgroundOptionColor + " ;}"
                     + "; font-family:" + FontFamily + " ;}"
                     + "; font-size:" + FontSize + " ;}"
                     + "</style></head>"
@@ -131,6 +135,7 @@ public class ThemeUtils {
                     + text
                     + "</body></html>";
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
+            webView.setBackgroundColor(0);
             checkBox.setTag(cmsOption.getId());
             webView.setVisibility(View.VISIBLE);
             checkBox.setVisibility(View.VISIBLE);
@@ -171,7 +176,7 @@ public class ThemeUtils {
 
 
             } else {
-                String finalurl = "http://beta.talentify.in:8339" + url;
+                String finalurl = context.getResources().getString(R.string.resources_fetch_ip) + url;
                 returingText = text.replaceAll(url, finalurl);
                 new SaveImageAsync(imageSaver).execute(finalurl);
             }
