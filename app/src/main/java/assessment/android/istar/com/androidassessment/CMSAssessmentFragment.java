@@ -76,7 +76,8 @@ public class CMSAssessmentFragment extends Fragment {
     private int assessment_id;
     private CMSAssessmentResult cmsAssessmentResult;
     private static ArrayList<Entry> question_map, question_time;
-    private long start_time, end_time, question_start = 0;private RelativeLayout main_layout;
+    private long start_time, end_time, question_start = 0;
+    private RelativeLayout main_layout;
     private TextView number_of_ques, progress_text, question_timer_text;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer, questionTimer;
@@ -311,17 +312,17 @@ public class CMSAssessmentFragment extends Fragment {
         main_layout.setVisibility(View.VISIBLE);
     }
 
-    private void setUpQuestionTimer(long questionDelay) {
+    private void setUpQuestionTimer(final long questionDelay) {
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
-            question_prograss_bar.setProgress(0);
         }
-        question_start = System.currentTimeMillis();
+
         question_progress_status = ((int) questionDelay / 1000);
-        Log.v("Talentify", "question Timer---->" + question_progress_status);
         question_prograss_bar.setMax(question_progress_status * 100000);
-        setProgressAnimate(question_prograss_bar, question_progress_status);
+        question_prograss_bar.setProgress((question_progress_status--) * 100000);
+        question_start = System.currentTimeMillis();
+        Log.v("Talentify", "question Timer---->" + question_progress_status);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
                 try {
@@ -337,12 +338,18 @@ public class CMSAssessmentFragment extends Fragment {
                         secString = "0" + sec;
                     }
                     timerString = minString + ":" + secString;
-                    question_timer_text.setText("Question response time "+timerString);
+                    question_timer_text.setText("Question response time " + timerString);
 
                     if (min == 0 && sec == 10) {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
-                    setProgressAnimate(question_prograss_bar, question_progress_status--);
+
+                    if (!((questionDelay / 1000) - 2 <= sec && (questionDelay / 1000) >= sec)) {
+                        setProgressAnimate(question_prograss_bar, question_progress_status--);
+                    } else {
+                        question_prograss_bar.setProgress((question_progress_status--) * 100000);
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -350,8 +357,8 @@ public class CMSAssessmentFragment extends Fragment {
 
             public void onFinish() {
                 try {
-                    question_progress_status = 0;
-                    setProgressAnimate(question_prograss_bar, 0);
+                   /* question_progress_status = 0;
+                    question_prograss_bar.setProgress(0);*/
                     updateCmsAssesmentResult(true);
                     if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                         if (getActivity() != null)
