@@ -205,6 +205,10 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         }
         result = result.replaceFirst("^,", "");
 
+        if(result.equalsIgnoreCase("")){
+            result="-1";
+        }
+
         hidden_value.setText(result + "");
     }
 
