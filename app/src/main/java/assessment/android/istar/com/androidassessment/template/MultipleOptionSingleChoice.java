@@ -139,7 +139,19 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
     public void createCountDownTimer() {
         try {
-            CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
+            countDownTimer= new CountDownTimer(500, 1000) { // adjust the milli seconds here
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+                    try {
+                        CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
         } catch (Exception e) {
 
         }
@@ -359,6 +371,14 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 hidden_time.setText(start_time + "");
             }
         } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
     }
 }

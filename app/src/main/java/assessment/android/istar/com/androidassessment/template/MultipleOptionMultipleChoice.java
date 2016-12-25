@@ -3,6 +3,7 @@ package assessment.android.istar.com.androidassessment.template;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
@@ -17,9 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
@@ -36,6 +39,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private RelativeLayout label_view;
     private CardView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
     private String optionCardColor = "#ffffff";
+    private FancyButton submit;
+    private  CountDownTimer countDownTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         label_view = (RelativeLayout) view.findViewById(R.id.label_view);
 
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
+        submit = (FancyButton) view.findViewById(R.id.submit);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
@@ -119,6 +125,27 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
 
         }
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    countDownTimer=new CountDownTimer(500, 1000) { // adjust the milli seconds here
+                        public void onTick(long millisUntilFinished) {
+                        }
+
+                        public void onFinish() {
+                            try {
+                                CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), hidden_value.getText().toString(), ((System.currentTimeMillis() - start_time) / 1000) + "");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }.start();
+                } catch (Exception e) {
+                }
+            }
+        });
 
         checkbtn1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -305,6 +332,14 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 hidden_time.setText(start_time + "");
             }
         } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
     }
 }

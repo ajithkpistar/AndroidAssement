@@ -320,7 +320,7 @@ public class CMSAssessmentFragment extends Fragment {
 
         question_progress_status = ((int) questionDelay / 1000);
         question_prograss_bar.setMax(question_progress_status * 100000);
-        question_prograss_bar.setProgress((question_progress_status--) * 100000);
+       // question_prograss_bar.setProgress((question_progress_status--) * 100000);
         question_start = System.currentTimeMillis();
         Log.v("Talentify", "question Timer---->" + question_progress_status);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
