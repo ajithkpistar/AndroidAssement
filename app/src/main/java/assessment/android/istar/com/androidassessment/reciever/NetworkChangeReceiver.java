@@ -28,26 +28,28 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-
-        String status = NetworkUtil.getConnectivityStatusString(context);
-        assessmentStatusHandler = new AssessmentStatusHandler(context);
-        if (!status.equalsIgnoreCase("Not connected to Internet")) {
-            assessmentStatuses = assessmentStatusHandler.getAllContent();
-            for (AssessmentStatus assessmentStatus : assessmentStatuses) {
-
-                if (assessmentStatus.getStatus() != null && assessmentStatus.getStatus().equalsIgnoreCase("COMPLETED")) {
-                    String assessmentStatusData = assessmentStatus.getData();
-                    StringReader reader = new StringReader(assessmentStatusData);
-                    Serializer serializer = new Persister();
-                    try {
-                        CMSAssessmentResult cmsAssessmentResult = serializer.read(CMSAssessmentResult.class, reader);
-                        new SubmitAssessmentAsyncTask(context, cmsAssessmentResult, Integer.parseInt(assessmentStatus.getLast_pointer())).execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+        try {
+            String status = NetworkUtil.getConnectivityStatusString(context);
+            assessmentStatusHandler = new AssessmentStatusHandler(context);
+            if (!status.equalsIgnoreCase("Not connected to Internet")) {
+                assessmentStatuses = assessmentStatusHandler.getAllContent();
+                for (AssessmentStatus assessmentStatus : assessmentStatuses) {
+                    if (assessmentStatus.getStatus() != null && assessmentStatus.getStatus().equalsIgnoreCase("COMPLETED")) {
+                        String assessmentStatusData = assessmentStatus.getData();
+                        StringReader reader = new StringReader(assessmentStatusData);
+                        Serializer serializer = new Persister();
+                        try {
+                            CMSAssessmentResult cmsAssessmentResult = serializer.read(CMSAssessmentResult.class, reader);
+                            new SubmitAssessmentAsyncTask(context, cmsAssessmentResult, Integer.parseInt(assessmentStatus.getLast_pointer())).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
+            System.out.println("Status----------------------->" + status);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Status----------------------->" + status);
     }
 }

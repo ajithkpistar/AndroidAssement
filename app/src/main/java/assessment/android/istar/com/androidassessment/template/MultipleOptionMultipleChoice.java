@@ -29,10 +29,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private CMSQuestion cmsQuestion;
     private long start_time;
     private ScrollView mainLayout;
-    private boolean chck_1 = false, chck_2 = false, chck_3 = false, chck_4 = false, chck_5 = false;
     private AppCompatCheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
     private View view;
-    private String selectedVal = "";
     private TextView hidden_key, hidden_value, hidden_time;
     private ThemeUtils themeutil;
     private RelativeLayout label_view;
@@ -77,7 +75,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
 
-      themeutil = new ThemeUtils();
+        themeutil = new ThemeUtils();
 
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
@@ -97,19 +95,19 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
 
-                        themeutil.getThemeMultipleOption(cmsQuestion, option1, checkbtn1,layoutBtn1, cmsOption, getActivity(), externalReadable);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option1, checkbtn1, layoutBtn1, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 1) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option2, checkbtn2,layoutBtn2, cmsOption, getActivity(), externalReadable);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option2, checkbtn2, layoutBtn2, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 2) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option3, checkbtn3,layoutBtn3, cmsOption, getActivity(), externalReadable);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option3, checkbtn3, layoutBtn3, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 3) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option4, checkbtn4,layoutBtn4, cmsOption, getActivity(), externalReadable);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option4, checkbtn4, layoutBtn4, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 4) {
-                        themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5,layoutBtn5, cmsOption, getActivity(), externalReadable);
+                        themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, layoutBtn5, cmsOption, getActivity(), externalReadable);
                     }
                     temp++;
                 }
@@ -118,8 +116,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             if (cmsQuestion.getTheme() != null) {
                 mainLayout.setBackgroundColor(Color.parseColor("#0097a7"));
                 label_view.setBackgroundColor(Color.parseColor("#0097a7"));
-               // setColorforCheckBox();
-                selectUnselect(0);
             }
 
         }
@@ -185,27 +181,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         hidden_value.setText(result + "");
     }
 
-    /*private void setColorforCheckBox() {
-        try {
-            String color = "#000000";
-            try {
-                color = cmsQuestion.getTheme().getListitemFontColor();
-            } catch (Exception e) {
-            }
-            int[][] states = new int[][]{new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}};
-            int[] colors = new int[]{Color.parseColor(color), Color.parseColor(color)};
-            ColorStateList colorStateList = new ColorStateList(states, colors);
-
-            CompoundButtonCompat.setButtonTintList(checkbtn1, colorStateList);
-            CompoundButtonCompat.setButtonTintList(checkbtn2, colorStateList);
-            CompoundButtonCompat.setButtonTintList(checkbtn3, colorStateList);
-            CompoundButtonCompat.setButtonTintList(checkbtn4, colorStateList);
-            CompoundButtonCompat.setButtonTintList(checkbtn5, colorStateList);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void webviewSetup() {
         forceWebViewRedraw(question);
@@ -214,56 +189,14 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         forceWebViewRedraw(option3);
         forceWebViewRedraw(option4);
         forceWebViewRedraw(option5);
+        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
     }
-    public void selectUnselect(int position) {
-        switch (position) {
-            case 1:
-                selectedVal = checkbtn1.getTag().toString();
-                chck_1 = true;
-                layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
 
-
-                break;
-            case 2:
-                selectedVal = checkbtn2.getTag().toString();
-                chck_2 = true;
-
-                layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-
-                break;
-            case 3:
-                selectedVal = checkbtn3.getTag().toString();
-                chck_3 = true;
-
-                layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-
-                break;
-            case 4:
-                selectedVal = checkbtn4.getTag().toString();
-                chck_4 = true;
-
-                layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-
-                break;
-            case 5:
-                selectedVal = checkbtn5.getTag().toString();
-                chck_5 = true;
-
-                layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-
-                break;
-            default:
-                selectedVal = "";
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                break;
-        }
-        hidden_value.setText(selectedVal + "");
-    }
     private void forceWebViewRedraw(final WebView mWebView) {
 
         mWebView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -300,41 +233,54 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         if (fingerState != FINGER_DRAGGING) {
                             fingerState = FINGER_RELEASED;
 
-                            if (view.getId() == R.id.option1) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(1);
-                                }                            }
-                            if (view.getId() == R.id.option2) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(2);
-                                }                            }
-                            if (view.getId() == R.id.option3) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(3);
-                                }                            }
-                            if (view.getId() == R.id.option4) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(4);
-                                }                            }
-                            if (view.getId() == R.id.option5) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(5);
-                                }                            }
+                            switch (view.getId()) {
+                                case R.id.option1:
+                                    if (checkbtn1.isChecked()) {
+                                        checkbtn1.setChecked(false);
+                                        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
+                                    } else {
+                                        checkbtn1.setChecked(true);
+                                        layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                    }
+                                    break;
+                                case R.id.option2:
+                                    if (checkbtn2.isChecked()) {
+                                        checkbtn2.setChecked(false);
+                                        layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
+                                    } else {
+                                        checkbtn2.setChecked(true);
+                                        layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                    }
+                                    break;
+                                case R.id.option3:
+                                    if (checkbtn3.isChecked()) {
+                                        checkbtn3.setChecked(false);
+                                        layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
+                                    } else {
+                                        checkbtn3.setChecked(true);
+                                        layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                    }
+                                    break;
+                                case R.id.option4:
+                                    if (checkbtn4.isChecked()) {
+                                        checkbtn4.setChecked(false);
+                                        layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
+                                    } else {
+                                        checkbtn4.setChecked(true);
+                                        layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                    }
+                                    break;
+                                case R.id.option5:
+                                    if (checkbtn5.isChecked()) {
+                                        checkbtn5.setChecked(false);
+                                        layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
+                                    } else {
+                                        checkbtn5.setChecked(true);
+                                        layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                    }
+                                    break;
+                            }
+                            updateValues();
 
 
                         } else if (fingerState == FINGER_DRAGGING) fingerState = FINGER_RELEASED;
@@ -348,6 +294,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
         });
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

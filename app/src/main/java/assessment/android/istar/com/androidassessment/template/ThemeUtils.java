@@ -146,7 +146,7 @@ public class ThemeUtils {
             checkBox.setTag(cmsOption.getId());
             webView.getSettings().setDefaultFontSize(optionFontSize);
             webView.setVisibility(View.VISIBLE);
-            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
 
 

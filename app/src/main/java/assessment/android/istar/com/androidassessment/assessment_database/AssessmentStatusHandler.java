@@ -49,12 +49,12 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void saveContent(String id, String content, String status, String last_pointer,String last_timer_vaue) {
+    public void saveContent(String id, String content, String status, String last_pointer, String last_timer_vaue) {
 
         Cursor cursor = getData(Integer.parseInt(id));
         if (cursor != null && cursor.getCount() > 0) {
             System.out.println("updateContent done");
-            updateContent(id, content, status, last_pointer,last_timer_vaue);
+            updateContent(id, content, status, last_pointer, last_timer_vaue);
         } else {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
@@ -68,7 +68,7 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void updateContent(String id, String content, String status, String last_pointer,String last_timer_vaue) {
+    public void updateContent(String id, String content, String status, String last_pointer, String last_timer_vaue) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_ID, id);
@@ -102,11 +102,16 @@ public class AssessmentStatusHandler extends SQLiteOpenHelper {
         List<AssessmentStatus> assessmentStatuses = new ArrayList<AssessmentStatus>();
         String selectQuery = "SELECT  * FROM " + TABLE;
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                assessmentStatuses.add(new AssessmentStatus(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4)));
-            } while (cursor.moveToNext());
+        try {
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    assessmentStatuses.add(new AssessmentStatus(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return assessmentStatuses;
     }

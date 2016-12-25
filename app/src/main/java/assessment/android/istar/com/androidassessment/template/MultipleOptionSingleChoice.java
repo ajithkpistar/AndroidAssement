@@ -271,43 +271,50 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                         if (fingerState != FINGER_DRAGGING) {
                             fingerState = FINGER_RELEASED;
 
-                            if (view.getId() == R.id.option1) {
-                                if (chck_1) {
-                                    selectUnselect(0);
-                                    chck_1 = false;
-                                } else {
-                                    selectUnselect(1);
-                                }
-                            } else if (view.getId() == R.id.option2) {
-                                if (chck_2) {
-                                    selectUnselect(0);
-                                    chck_2 = false;
-                                } else {
-                                    selectUnselect(2);
-                                }
-                            } else if (view.getId() == R.id.option3) {
-                                if (chck_3) {
-                                    selectUnselect(0);
-                                    chck_3 = false;
-                                } else {
-                                    selectUnselect(3);
-                                }
-                            } else if (view.getId() == R.id.option4) {
-                                if (chck_4) {
-                                    selectUnselect(0);
-                                    chck_4 = false;
-                                } else {
-                                    selectUnselect(4);
-                                }
-                            } else if (view.getId() == R.id.option5) {
-                                if (chck_5) {
-                                    selectUnselect(0);
-                                    chck_5 = false;
-                                } else {
-                                    selectUnselect(5);
-                                }
+                            switch (view.getId()) {
+                                case R.id.option1:
+                                    if (chck_1) {
+                                        selectUnselect(0);
+                                        chck_1 = false;
+                                    } else {
+                                        selectUnselect(1);
+                                    }
+                                    break;
+                                case R.id.option2:
+                                    if (chck_2) {
+                                        selectUnselect(0);
+                                        chck_2 = false;
+                                    } else {
+                                        selectUnselect(2);
+                                    }
+                                    break;
+                                case R.id.option3:
+                                    if (chck_3) {
+                                        selectUnselect(0);
+                                        chck_3 = false;
+                                    } else {
+                                        selectUnselect(3);
+                                    }
+                                    break;
+                                case R.id.option4:
+                                    if (chck_4) {
+                                        selectUnselect(0);
+                                        chck_4 = false;
+                                    } else {
+                                        selectUnselect(4);
+                                    }
+                                    break;
+                                case R.id.option5:
+                                    if (chck_5) {
+                                        selectUnselect(0);
+                                        chck_5 = false;
+                                    } else {
+                                        selectUnselect(5);
+                                    }
+                                    break;
                             }
-                            createCountDownTimer();
+                            if (view.getId() != R.id.question)
+                                createCountDownTimer();
                         } else if (fingerState == FINGER_DRAGGING) fingerState = FINGER_RELEASED;
                         else fingerState = FINGER_UNDEFINED;
                         break;
