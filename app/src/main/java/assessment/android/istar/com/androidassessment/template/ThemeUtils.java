@@ -1,12 +1,9 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
-import android.os.Environment;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.andexert.library.RippleView;
@@ -114,7 +111,7 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox,final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         /*if (cmsQuestion.getTheme() != null) {
 

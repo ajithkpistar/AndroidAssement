@@ -1,29 +1,20 @@
 package assessment.android.istar.com.androidassessment.template;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
-
 import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
-import assessment.android.istar.com.androidassessment.NextFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
