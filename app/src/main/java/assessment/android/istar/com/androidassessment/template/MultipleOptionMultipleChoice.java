@@ -36,12 +36,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private ScrollView mainLayout;
     private AppCompatCheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
     private View view;
-    private TextView hidden_key, hidden_value, hidden_time;
+    private TextView hidden_key, hidden_value, hidden_time,submit;
     private ThemeUtils themeutil;
     private RelativeLayout label_view;
-    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
+    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5,layoutBtn6;
     private String optionCardColor = "#ffffff";
-    private FancyButton submit;
     private  CountDownTimer countDownTimer;
 
     @Override
@@ -58,7 +57,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         label_view = (RelativeLayout) view.findViewById(R.id.label_view);
 
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
-        submit = (FancyButton) view.findViewById(R.id.submit);
+        submit = (TextView) view.findViewById(R.id.submit);
         question = (WebView) view.findViewById(R.id.question);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
@@ -77,6 +76,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         layoutBtn3 = (RippleView) view.findViewById(R.id.layoutBtn3);
         layoutBtn4 = (RippleView) view.findViewById(R.id.layoutBtn4);
         layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
+        layoutBtn6 = (RippleView) view.findViewById(R.id.layoutBtn6);
 
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
@@ -128,7 +128,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         }
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        layoutBtn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
