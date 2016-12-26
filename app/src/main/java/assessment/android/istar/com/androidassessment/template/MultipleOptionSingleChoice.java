@@ -47,6 +47,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private RelativeLayout label_view;
     private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
     private ThemeUtils themeutil;
+    private CountDownTimer countDownTimer;
 
 
     @Override
@@ -136,8 +137,24 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         return view;
     }
 
-    public void submitData() {
+    public void createCountDownTimer() {
+        try {
+            countDownTimer= new CountDownTimer(350, 1000) { // adjust the milli seconds here
+                public void onTick(long millisUntilFinished) {
+                }
 
+                public void onFinish() {
+                    try {
+                        CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
+        } catch (Exception e) {
+
+        }
     }
 
     public void selectUnselect(int position) {
@@ -276,6 +293,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     }
                                     break;
                             }
+                            if (view.getId() != R.id.question)
+                                createCountDownTimer();
 
                         } else if (fingerState == FINGER_DRAGGING) fingerState = FINGER_RELEASED;
                         else fingerState = FINGER_UNDEFINED;
@@ -288,19 +307,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         });
 
-
-
-        if (rippleView != null) {
-            rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                @Override
-                public void onComplete(RippleView rippleView) {
-                    rippleView.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-
-                    CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
-
-                }
-            });
-        }
 
     }
 
@@ -335,6 +341,14 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 hidden_time.setText(start_time + "");
             }
         } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
     }
 

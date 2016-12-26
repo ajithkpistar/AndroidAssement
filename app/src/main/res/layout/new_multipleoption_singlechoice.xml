@@ -68,7 +68,7 @@
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="250">
+                        app:rv_rippleDuration="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn1"
@@ -105,7 +105,7 @@
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="250">
+                        app:rv_rippleDuration="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn2"
@@ -142,7 +142,7 @@
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="250">
+                        app:rv_rippleDuration="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn3"
@@ -179,7 +179,7 @@
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="250">
+                        app:rv_rippleDuration="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn4"
@@ -217,7 +217,7 @@
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="250">
+                        app:rv_rippleDuration="50">
 
                         <android.support.v7.widget.AppCompatRadioButton
                             android:id="@+id/rbtn5"
