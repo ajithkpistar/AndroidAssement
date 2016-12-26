@@ -161,6 +161,26 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         switch (position) {
             case 1:
                 selectedVal = rbtn1.getTag().toString();
+                layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option1.loadUrl("javascript:document.body.style.color=\"white\";");
+                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
 
                 chck_1 = true;
                 chck_2 = false;
@@ -170,6 +190,28 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 2:
                 selectedVal = rbtn2.getTag().toString();
+
+                layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option2.loadUrl("javascript:document.body.style.color=\"white\";");
+                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
+
                 chck_2 = true;
                 chck_1 = false;
                 chck_3 = false;
@@ -178,6 +220,27 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 3:
                 selectedVal = rbtn3.getTag().toString();
+
+                layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option3.loadUrl("javascript:document.body.style.color=\"white\";");
+                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
                 chck_3 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -186,6 +249,27 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 4:
                 selectedVal = rbtn4.getTag().toString();
+
+                layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option4.loadUrl("javascript:document.body.style.color=\"white\";");
+                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
                 chck_4 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -194,6 +278,28 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 5:
                 selectedVal = rbtn5.getTag().toString();
+
+                layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option5.loadUrl("javascript:document.body.style.color=\"white\";");
+                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
+
                 chck_5 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -202,6 +308,26 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             default:
                 selectedVal = "";
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
+                } else {
+                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
+                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
+                }
+
+                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
                 break;
         }
         hidden_value.setText(selectedVal + "");
@@ -225,15 +351,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         });
 
-        if (rippleView != null){
+        if (rippleView != null) {
             rippleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     switch (view.getId()) {
                         case R.id.layoutBtn1:
-                            layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-
                             if (chck_1) {
                                 selectUnselect(0);
                                 chck_1 = false;
@@ -242,8 +366,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn2:
-                            layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-
                             if (chck_2) {
                                 selectUnselect(0);
                                 chck_2 = false;
@@ -252,7 +374,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn3:
-                            layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
                             if (chck_3) {
                                 selectUnselect(0);
                                 chck_3 = false;
@@ -261,7 +382,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn4:
-                            layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
                             if (chck_4) {
                                 selectUnselect(0);
                                 chck_4 = false;
@@ -270,8 +390,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn5:
-                            layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-
                             if (chck_5) {
                                 selectUnselect(0);
                                 chck_5 = false;

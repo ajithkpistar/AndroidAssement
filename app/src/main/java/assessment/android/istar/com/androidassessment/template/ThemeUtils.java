@@ -103,6 +103,7 @@ public class ThemeUtils {
                     + text
                     + "</b></center></body></html>";
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
+            webView.getSettings().setJavaScriptEnabled(true);
             webView.setBackgroundColor(0);
             webView.getSettings().setDefaultFontSize(optionFontSize);
             radioButton.setTag(cmsOption.getId());
@@ -145,6 +146,7 @@ public class ThemeUtils {
 
             webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
             webView.setBackgroundColor(0);
+            webView.getSettings().setJavaScriptEnabled(true);
             checkBox.setTag(cmsOption.getId());
             webView.getSettings().setDefaultFontSize(optionFontSize);
             webView.setVisibility(View.VISIBLE);
