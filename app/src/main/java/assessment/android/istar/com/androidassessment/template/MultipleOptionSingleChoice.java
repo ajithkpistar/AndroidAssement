@@ -139,7 +139,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
     public void createCountDownTimer() {
         try {
-            countDownTimer= new CountDownTimer(350, 1000) { // adjust the milli seconds here
+            countDownTimer = new CountDownTimer(350, 1000) { // adjust the milli seconds here
                 public void onTick(long millisUntilFinished) {
                 }
 
@@ -307,6 +307,58 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             }
         });
 
+        if (rippleView != null){
+            rippleView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    switch (view.getId()) {
+                        case R.id.layoutBtn1:
+                            if (chck_1) {
+                                selectUnselect(0);
+                                chck_1 = false;
+                            } else {
+                                selectUnselect(1);
+                            }
+                            break;
+                        case R.id.layoutBtn2:
+                            if (chck_2) {
+                                selectUnselect(0);
+                                chck_2 = false;
+                            } else {
+                                selectUnselect(2);
+                            }
+                            break;
+                        case R.id.layoutBtn3:
+                            if (chck_3) {
+                                selectUnselect(0);
+                                chck_3 = false;
+                            } else {
+                                selectUnselect(3);
+                            }
+                            break;
+                        case R.id.layoutBtn4:
+                            if (chck_4) {
+                                selectUnselect(0);
+                                chck_4 = false;
+                            } else {
+                                selectUnselect(4);
+                            }
+                            break;
+                        case R.id.layoutBtn5:
+                            if (chck_5) {
+                                selectUnselect(0);
+                                chck_5 = false;
+                            } else {
+                                selectUnselect(5);
+                            }
+                            break;
+                    }
+                    createCountDownTimer();
+                }
+            });
+        }
+
 
     }
 
@@ -345,7 +397,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         if (countDownTimer != null) {
             countDownTimer.cancel();
