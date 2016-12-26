@@ -113,7 +113,7 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox,final CardView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox,final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         /*if (cmsQuestion.getTheme() != null) {
 

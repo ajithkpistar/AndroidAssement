@@ -161,6 +161,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         switch (position) {
             case 1:
                 selectedVal = rbtn1.getTag().toString();
+
                 chck_1 = true;
                 chck_2 = false;
                 chck_3 = false;
@@ -231,6 +232,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
 
                     switch (view.getId()) {
                         case R.id.layoutBtn1:
+                            layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
                             if (chck_1) {
                                 selectUnselect(0);
                                 chck_1 = false;
@@ -239,6 +242,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn2:
+                            layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
                             if (chck_2) {
                                 selectUnselect(0);
                                 chck_2 = false;
@@ -247,6 +252,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn3:
+                            layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
                             if (chck_3) {
                                 selectUnselect(0);
                                 chck_3 = false;
@@ -255,6 +261,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn4:
+                            layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
                             if (chck_4) {
                                 selectUnselect(0);
                                 chck_4 = false;
@@ -263,6 +270,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                             }
                             break;
                         case R.id.layoutBtn5:
+                            layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
                             if (chck_5) {
                                 selectUnselect(0);
                                 chck_5 = false;

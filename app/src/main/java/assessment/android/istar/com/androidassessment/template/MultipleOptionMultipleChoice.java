@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
+
 import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
@@ -37,7 +39,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private TextView hidden_key, hidden_value, hidden_time;
     private ThemeUtils themeutil;
     private RelativeLayout label_view;
-    private CardView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
+    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
     private String optionCardColor = "#ffffff";
     private FancyButton submit;
     private  CountDownTimer countDownTimer;
@@ -70,11 +72,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         checkbtn4 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn4);
         checkbtn5 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn5);
 
-        layoutBtn1 = (CardView) view.findViewById(R.id.layoutBtn1);
-        layoutBtn2 = (CardView) view.findViewById(R.id.layoutBtn2);
-        layoutBtn3 = (CardView) view.findViewById(R.id.layoutBtn3);
-        layoutBtn4 = (CardView) view.findViewById(R.id.layoutBtn4);
-        layoutBtn5 = (CardView) view.findViewById(R.id.layoutBtn5);
+        layoutBtn1 = (RippleView) view.findViewById(R.id.layoutBtn1);
+        layoutBtn2 = (RippleView) view.findViewById(R.id.layoutBtn2);
+        layoutBtn3 = (RippleView) view.findViewById(R.id.layoutBtn3);
+        layoutBtn4 = (RippleView) view.findViewById(R.id.layoutBtn4);
+        layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
 
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
@@ -214,30 +216,88 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
 
     private void webviewSetup() {
-        forceWebViewRedraw(question);
-        forceWebViewRedraw(option1);
-        forceWebViewRedraw(option2);
-        forceWebViewRedraw(option3);
-        forceWebViewRedraw(option4);
-        forceWebViewRedraw(option5);
-        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-        layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-        layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-        layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-        layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
+        forceWebViewRedraw(question, null);
+        forceWebViewRedraw(option1, layoutBtn1);
+        forceWebViewRedraw(option2, layoutBtn2);
+        forceWebViewRedraw(option3, layoutBtn3);
+        forceWebViewRedraw(option4, layoutBtn4);
+        forceWebViewRedraw(option5, layoutBtn5);
+
     }
 
-    private void forceWebViewRedraw(final WebView mWebView) {
+    private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
 
-        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+      mWebView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
 
-        mWebView.setOnTouchListener(new View.OnTouchListener() {
+
+
+        if (rippleView != null){
+            rippleView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    switch (view.getId()) {
+                        case R.id.layoutBtn1:
+                            if (checkbtn1.isChecked()) {
+                                checkbtn1.setChecked(false);
+                                layoutBtn1.setBackgroundColor(Color.parseColor(optionCardColor));
+                            } else {
+                                checkbtn1.setChecked(true);
+                                layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                            }
+                            break;
+                        case R.id.layoutBtn2:
+                            if (checkbtn2.isChecked()) {
+                                checkbtn2.setChecked(false);
+                                layoutBtn2.setBackgroundColor(Color.parseColor(optionCardColor));
+                            } else {
+                                checkbtn2.setChecked(true);
+                                layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                            }
+                            break;
+                        case R.id.layoutBtn3:
+                            if (checkbtn3.isChecked()) {
+                                checkbtn3.setChecked(false);
+                                layoutBtn3.setBackgroundColor(Color.parseColor(optionCardColor));
+
+                            } else {
+                                checkbtn3.setChecked(true);
+                                layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                            }
+                            break;
+                        case R.id.layoutBtn4:
+                            if (checkbtn4.isChecked()) {
+                                checkbtn4.setChecked(false);
+                                layoutBtn4.setBackgroundColor(Color.parseColor(optionCardColor));
+
+                            } else {
+                                checkbtn4.setChecked(true);
+                                layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
+                            }
+                            break;
+                        case R.id.layoutBtn5:
+                            if (checkbtn5.isChecked()) {
+                                checkbtn5.setChecked(false);
+                                layoutBtn5.setBackgroundColor(Color.parseColor(optionCardColor));
+                            } else {
+                                checkbtn5.setChecked(true);
+                                layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
+
+                            }
+                            break;
+                    }
+                    updateValues();
+                }
+            });
+        }
+        /*  mWebView.setOnTouchListener(new View.OnTouchListener() {
 
             public final static int FINGER_RELEASED = 0;
             public final static int FINGER_TOUCHED = 1;
@@ -323,7 +383,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 }
                 return false;
             }
-        });
+        });*/
     }
 
 
