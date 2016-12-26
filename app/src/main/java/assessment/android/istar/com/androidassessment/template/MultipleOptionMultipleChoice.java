@@ -1,14 +1,10 @@
 package assessment.android.istar.com.androidassessment.template;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -24,7 +20,6 @@ import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
-import mehdi.sakout.fancybuttons.FancyButton;
 
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
@@ -36,12 +31,12 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private ScrollView mainLayout;
     private AppCompatCheckBox checkbtn1, checkbtn2, checkbtn3, checkbtn4, checkbtn5;
     private View view;
-    private TextView hidden_key, hidden_value, hidden_time,submit;
+    private TextView hidden_key, hidden_value, hidden_time, submit;
     private ThemeUtils themeutil;
     private RelativeLayout label_view;
-    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5,layoutBtn6;
+    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5, layoutBtn6;
     private String optionCardColor = "#ffffff";
-    private  CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,7 +127,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             @Override
             public void onClick(View view) {
                 try {
-                    countDownTimer=new CountDownTimer(500, 1000) { // adjust the milli seconds here
+                    countDownTimer = new CountDownTimer(350, 1000) { // adjust the milli seconds here
                         public void onTick(long millisUntilFinished) {
                         }
 
@@ -207,8 +202,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         }
         result = result.replaceFirst("^,", "");
 
-        if(result.equalsIgnoreCase("")){
-            result="-1";
+        if (result.equalsIgnoreCase("")) {
+            result = "-1";
         }
 
         hidden_value.setText(result + "");
@@ -227,7 +222,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
     private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
 
-      mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
@@ -235,8 +230,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         });
 
 
-
-        if (rippleView != null){
+        if (rippleView != null) {
             rippleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -297,93 +291,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 }
             });
         }
-        /*  mWebView.setOnTouchListener(new View.OnTouchListener() {
 
-            public final static int FINGER_RELEASED = 0;
-            public final static int FINGER_TOUCHED = 1;
-            public final static int FINGER_DRAGGING = 2;
-            public final static int FINGER_UNDEFINED = 3;
-
-            private int fingerState = FINGER_RELEASED;
-
-
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-
-                        if (fingerState == FINGER_RELEASED) fingerState = FINGER_TOUCHED;
-                        else fingerState = FINGER_UNDEFINED;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        if (fingerState == FINGER_TOUCHED || fingerState == FINGER_DRAGGING)
-                            fingerState = FINGER_DRAGGING;
-                        else fingerState = FINGER_UNDEFINED;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (fingerState != FINGER_DRAGGING) {
-                            fingerState = FINGER_RELEASED;
-
-                            switch (view.getId()) {
-                                case R.id.option1:
-                                    if (checkbtn1.isChecked()) {
-                                        checkbtn1.setChecked(false);
-                                        layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                                    } else {
-                                        checkbtn1.setChecked(true);
-                                        layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
-                                    }
-                                    break;
-                                case R.id.option2:
-                                    if (checkbtn2.isChecked()) {
-                                        checkbtn2.setChecked(false);
-                                        layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                                    } else {
-                                        checkbtn2.setChecked(true);
-                                        layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
-                                    }
-                                    break;
-                                case R.id.option3:
-                                    if (checkbtn3.isChecked()) {
-                                        checkbtn3.setChecked(false);
-                                        layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                                    } else {
-                                        checkbtn3.setChecked(true);
-                                        layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
-                                    }
-                                    break;
-                                case R.id.option4:
-                                    if (checkbtn4.isChecked()) {
-                                        checkbtn4.setChecked(false);
-                                        layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                                    } else {
-                                        checkbtn4.setChecked(true);
-                                        layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
-                                    }
-                                    break;
-                                case R.id.option5:
-                                    if (checkbtn5.isChecked()) {
-                                        checkbtn5.setChecked(false);
-                                        layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                                    } else {
-                                        checkbtn5.setChecked(true);
-                                        layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
-                                    }
-                                    break;
-                            }
-                            updateValues();
-
-
-                        } else if (fingerState == FINGER_DRAGGING) fingerState = FINGER_RELEASED;
-                        else fingerState = FINGER_UNDEFINED;
-                        break;
-                    default:
-                        fingerState = FINGER_UNDEFINED;
-                        break;
-                }
-                return false;
-            }
-        });*/
     }
 
 
@@ -400,7 +308,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         if (countDownTimer != null) {
             countDownTimer.cancel();

@@ -254,6 +254,7 @@
                         android:visibility="visible"
                         app:rv_alpha="200"
                         app:rv_centered="false"
+                        app:rv_color="@color/selectedOption"
                         app:rv_rippleDuration="50">
 
 
@@ -261,13 +262,13 @@
                             android:id="@+id/submit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SUBMIT"
-                            android:textColor="#444444"
-                            android:textStyle="bold"
-                            android:textSize="18dp"
-                            android:textAllCaps="false"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
+                            android:text="SUBMIT"
+                            android:textAllCaps="false"
+                            android:textColor="#444444"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
                             android:visibility="visible" />
 
                     </com.andexert.library.RippleView>
