@@ -190,6 +190,7 @@ public class CMSAssessmentFragment extends Fragment {
             try {
                 question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
             } catch (Exception e) {
+                e.printStackTrace();
             }
 
             //update the slide pointer.
@@ -574,6 +575,7 @@ public class CMSAssessmentFragment extends Fragment {
                     try {
                         question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
 

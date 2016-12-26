@@ -9,9 +9,9 @@ public class AssessmentFactory  {
 
     public static AssessmentCard getCard(String type) {
 
-        if(type.equalsIgnoreCase("1")){
+        if(type.equalsIgnoreCase("1") || type.equalsIgnoreCase("3")){
             return new MultipleOptionSingleChoice();
-        }if(type.equalsIgnoreCase("2")){
+        }if(type.equalsIgnoreCase("2") || type.equalsIgnoreCase("4")){
             return new MultipleOptionMultipleChoice();
         }else{
             return new DefaultFragment();
