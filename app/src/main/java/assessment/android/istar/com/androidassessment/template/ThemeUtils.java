@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
+import com.andexert.library.RippleView;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +69,7 @@ public class ThemeUtils {
         webView.getSettings().setDefaultFontSize(quetionFontSize);
     }
 
-    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final CardView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
        /* if (cmsQuestion.getTheme() != null) {
             try {

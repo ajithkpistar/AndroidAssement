@@ -271,7 +271,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                         layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
                                     } else {
                                         checkbtn1.setChecked(true);
-                                        layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                        layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
                                     }
                                     break;
                                 case R.id.option2:
@@ -280,7 +280,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                         layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
                                     } else {
                                         checkbtn2.setChecked(true);
-                                        layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                        layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
                                     }
                                     break;
                                 case R.id.option3:
@@ -289,7 +289,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                         layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
                                     } else {
                                         checkbtn3.setChecked(true);
-                                        layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                        layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
                                     }
                                     break;
                                 case R.id.option4:
@@ -298,7 +298,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                         layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
                                     } else {
                                         checkbtn4.setChecked(true);
-                                        layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                        layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
                                     }
                                     break;
                                 case R.id.option5:
@@ -307,7 +307,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                         layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
                                     } else {
                                         checkbtn5.setChecked(true);
-                                        layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
+                                        layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.selectedOption));
                                     }
                                     break;
                             }

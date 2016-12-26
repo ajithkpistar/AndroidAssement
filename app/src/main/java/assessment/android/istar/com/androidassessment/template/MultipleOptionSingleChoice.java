@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.util.concurrent.TimeUnit;
+import com.andexert.library.RippleView;
+
 
 import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.NextFragment;
@@ -43,10 +45,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private TextView hidden_key, hidden_value, hidden_time;
     private ScrollView mainLayout;
     private RelativeLayout label_view;
-    private CardView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
+    private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
     private ThemeUtils themeutil;
-    private String optionCardColor = "#ffffff";
-    private CountDownTimer countDownTimer;
 
 
     @Override
@@ -74,11 +74,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         rbtn4 = (AppCompatRadioButton) view.findViewById(R.id.rbtn4);
         rbtn5 = (AppCompatRadioButton) view.findViewById(R.id.rbtn5);
 
-        layoutBtn1 = (CardView) view.findViewById(R.id.layoutBtn1);
-        layoutBtn2 = (CardView) view.findViewById(R.id.layoutBtn2);
-        layoutBtn3 = (CardView) view.findViewById(R.id.layoutBtn3);
-        layoutBtn4 = (CardView) view.findViewById(R.id.layoutBtn4);
-        layoutBtn5 = (CardView) view.findViewById(R.id.layoutBtn5);
+        layoutBtn1 = (RippleView) view.findViewById(R.id.layoutBtn1);
+        layoutBtn2 = (RippleView) view.findViewById(R.id.layoutBtn2);
+        layoutBtn3 = (RippleView) view.findViewById(R.id.layoutBtn3);
+        layoutBtn4 = (RippleView) view.findViewById(R.id.layoutBtn4);
+        layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
 
 
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
@@ -106,7 +106,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 selectedVal = "";
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                     if (temp == 0) {
-
                         themeutil.getThemeSingleOption(cmsQuestion, option1, rbtn1, layoutBtn1, cmsOption, getActivity(), externalReadable);
                     }
                     if (temp == 1) {
@@ -137,24 +136,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         return view;
     }
 
-    public void createCountDownTimer() {
-        try {
-            countDownTimer= new CountDownTimer(500, 1000) { // adjust the milli seconds here
-                public void onTick(long millisUntilFinished) {
-                }
+    public void submitData() {
 
-                public void onFinish() {
-                    try {
-                        CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
-
-        } catch (Exception e) {
-
-        }
     }
 
     public void selectUnselect(int position) {
@@ -166,12 +149,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_3 = false;
                 chck_4 = false;
                 chck_5 = false;
-                layoutBtn1.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
-
                 break;
             case 2:
                 selectedVal = rbtn2.getTag().toString();
@@ -180,11 +157,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_3 = false;
                 chck_4 = false;
                 chck_5 = false;
-                layoutBtn2.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
                 break;
             case 3:
                 selectedVal = rbtn3.getTag().toString();
@@ -193,11 +165,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_4 = false;
                 chck_5 = false;
-                layoutBtn3.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
                 break;
             case 4:
                 selectedVal = rbtn4.getTag().toString();
@@ -206,11 +173,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_3 = false;
                 chck_5 = false;
-                layoutBtn4.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
                 break;
             case 5:
                 selectedVal = rbtn5.getTag().toString();
@@ -219,35 +181,24 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 chck_2 = false;
                 chck_3 = false;
                 chck_4 = false;
-                layoutBtn5.setCardBackgroundColor(getResources().getColor(R.color.SelectedOption));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
                 break;
             default:
                 selectedVal = "";
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn1.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn2.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn3.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn4.setCardBackgroundColor(Color.parseColor(optionCardColor));
-                layoutBtn5.setCardBackgroundColor(Color.parseColor(optionCardColor));
                 break;
         }
         hidden_value.setText(selectedVal + "");
     }
 
     private void webviewSetup() {
-        forceWebViewRedraw(question);
-        forceWebViewRedraw(option1);
-        forceWebViewRedraw(option2);
-        forceWebViewRedraw(option3);
-        forceWebViewRedraw(option4);
-        forceWebViewRedraw(option5);
+        forceWebViewRedraw(question, null);
+        forceWebViewRedraw(option1, layoutBtn1);
+        forceWebViewRedraw(option2, layoutBtn2);
+        forceWebViewRedraw(option3, layoutBtn3);
+        forceWebViewRedraw(option4, layoutBtn4);
+        forceWebViewRedraw(option5, layoutBtn5);
     }
 
-    private void forceWebViewRedraw(final WebView mWebView) {
+    private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
 
         mWebView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -325,8 +276,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                                     }
                                     break;
                             }
-                            if (view.getId() != R.id.question)
-                                createCountDownTimer();
+
                         } else if (fingerState == FINGER_DRAGGING) fingerState = FINGER_RELEASED;
                         else fingerState = FINGER_UNDEFINED;
                         break;
@@ -337,6 +287,20 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 return false;
             }
         });
+
+
+
+        if (rippleView != null) {
+            rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                @Override
+                public void onComplete(RippleView rippleView) {
+                    rippleView.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+
+                    CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), selectedVal, ((System.currentTimeMillis() - start_time) / 1000) + "");
+
+                }
+            });
+        }
 
     }
 
@@ -374,11 +338,4 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         }
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-    }
 }

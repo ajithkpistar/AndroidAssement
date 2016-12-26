@@ -46,6 +46,5 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
 
     compile 'com.github.medyo:fancybuttons:1.8.1'
-
-
+    compile 'com.github.traex.rippleeffect:library:1.3'
 }
