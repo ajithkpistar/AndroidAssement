@@ -24,7 +24,7 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
 
-    private WebView question, option1, option2, option3, option4, option5;
+    private WebView question, passage, option1, option2, option3, option4, option5;
     private int position;
     private CMSQuestion cmsQuestion;
     private long start_time;
@@ -54,6 +54,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         submit = (TextView) view.findViewById(R.id.submit);
         question = (WebView) view.findViewById(R.id.question);
+        passage = (WebView) view.findViewById(R.id.passage);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
         option3 = (WebView) view.findViewById(R.id.option3);
@@ -93,6 +94,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 hidden_key.setText(cmsQuestion.getId() + "");
                 themeutil.getThemeQuestion(cmsQuestion, question, getActivity(), externalReadable);
             }
+
+            if (cmsQuestion.getComprehensive_passage() != null) {
+                themeutil.getThemePassage(cmsQuestion, passage, getActivity(), externalReadable);
+            }
+
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 for (CMSOption cmsOption : cmsQuestion.getOptions()) {

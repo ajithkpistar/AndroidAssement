@@ -66,19 +66,34 @@ public class ThemeUtils {
         webView.getSettings().setDefaultFontSize(quetionFontSize);
     }
 
+
+    public void getThemePassage(final CMSQuestion cmsQuestion, final WebView webView, final Context context, final Boolean externalReadable) {
+
+        String text = cmsQuestion.getComprehensive_passage();
+
+        if (cmsQuestion.getComprehensive_passage().contains("<img")) {
+            int qId = cmsQuestion.getId();
+
+            text = getImageUrl(text, qId, context, externalReadable, webView);
+        }
+
+        String finaltext = "<html><head>"
+                + "<style type=\"text/css\">body{color: " + questionFontColor
+                + "; background-color:" + questionBackgroundColor + " ;}"
+                + "; font-family:" + fontFamily + " ;}"
+                + "; font-size:" + quetionFontSize + " ;}"
+                + "</style></head>"
+                + "<body>"
+                + text
+                + "</body></html>";
+        webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
+        webView.setBackgroundColor(0);
+        webView.getSettings().setDefaultFontSize(quetionFontSize);
+        webView.setVisibility(View.VISIBLE);
+    }
+
+
     public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
-
-       /* if (cmsQuestion.getTheme() != null) {
-            try {
-                FontColor = cmsQuestion.getTheme().getListitemFontColor();
-                BackgroundColor = cmsQuestion.getTheme().getBackgroundColor();
-                FontFamily = cmsQuestion.getTheme().getListitemFontFamily();
-                FontSize = cmsQuestion.getTheme().getListitemFontSize();
-            } catch (Exception e) {
-
-            }
-        }*/
-
         if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
             String text = cmsOption.getOptionText();
@@ -112,14 +127,6 @@ public class ThemeUtils {
     }
 
     public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
-
-        /*if (cmsQuestion.getTheme() != null) {
-
-            FontColor = cmsQuestion.getTheme().getListitemFontColor();
-            BackgroundColor = cmsQuestion.getTheme().getBackgroundColor();
-            FontFamily = cmsQuestion.getTheme().getListitemFontFamily();
-            FontSize = cmsQuestion.getTheme().getListitemFontSize();
-        }*/
 
         if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 

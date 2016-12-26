@@ -11,21 +11,19 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.andexert.library.RippleView;
-
 import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestion;
 
 /**
- * Created by Feroz on 14-12-2016.
+ * Created by Ajith on 14-12-2016.
  */
 
 public class MultipleOptionSingleChoice extends AssessmentCard {
 
-    private WebView question, option1, option2, option3, option4, option5;
+    private WebView question, passage, option1, option2, option3, option4, option5;
     private AppCompatRadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
     private int position;
     private CMSQuestion cmsQuestion;
@@ -54,6 +52,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         label_view = (RelativeLayout) view.findViewById(R.id.label_view);
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
+        passage = (WebView) view.findViewById(R.id.passage);
         option1 = (WebView) view.findViewById(R.id.option1);
         option2 = (WebView) view.findViewById(R.id.option2);
         option3 = (WebView) view.findViewById(R.id.option3);
@@ -91,6 +90,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             if (cmsQuestion.getQuestionText() != null) {
                 themeutil.getThemeQuestion(cmsQuestion, question, getActivity(), externalReadable);
             }
+
+            if (cmsQuestion.getComprehensive_passage() != null) {
+                themeutil.getThemePassage(cmsQuestion, passage, getActivity(), externalReadable);
+            }
+
             if (cmsQuestion.getOptions() != null) {
                 int temp = 0;
                 hidden_key.setText(cmsQuestion.getId() + "");
