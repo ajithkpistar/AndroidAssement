@@ -37,7 +37,7 @@
                         android:layout_height="match_parent"
                         android:indeterminate="false"
                         android:progress="0"
-                        android:progressDrawable="@drawable/progressbar" />
+                         />
 
                     <TextView
                         android:id="@+id/progress_text"
