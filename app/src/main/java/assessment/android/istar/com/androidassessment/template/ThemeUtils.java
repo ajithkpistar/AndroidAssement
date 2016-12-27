@@ -1,10 +1,12 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
@@ -31,25 +33,16 @@ public class ThemeUtils {
     private String optionBackgroundColor = "#00000000";
     private String optionFontColor = "#000000";
 
-    public void getThemeQuestion(final CMSQuestion cmsQuestion, final WebView webView, final Context context, final Boolean externalReadable) {
+    public void getThemeQuestion(final CMSQuestion cmsQuestion, final TextView textView, final Context context, final Boolean externalReadable) {
 
-        /*if (cmsQuestion.getTheme() != null) {
-            try {
-                FontColor = cmsQuestion.getTheme().getListitemFontColor();
-                BackgroundColor = cmsQuestion.getTheme().getBackgroundColor();
-                FontFamily = cmsQuestion.getTheme().getListitemFontFamily();
-                FontSize = cmsQuestion.getTheme().getListitemFontSize();
-            } catch (Exception e) {
 
-            }
-        }*/
 
         String text = cmsQuestion.getQuestionText();
 
         if (cmsQuestion.getQuestionText().contains("<img")) {
             int qId = cmsQuestion.getId();
 
-            text = getImageUrl(text, qId, context, externalReadable, webView);
+            text = getImageUrl(text, qId, context, externalReadable, textView);
         }
 
         String finaltext = "<html><head>"
@@ -61,20 +54,19 @@ public class ThemeUtils {
                 + "<body>"
                 + text
                 + "</body></html>";
-        webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-        webView.setBackgroundColor(0);
-        webView.getSettings().setDefaultFontSize(quetionFontSize);
+        textView.setText(Html.fromHtml(text));
+
     }
 
 
-    public void getThemePassage(final CMSQuestion cmsQuestion, final WebView webView, final Context context, final Boolean externalReadable) {
+    public void getThemePassage(final CMSQuestion cmsQuestion, final TextView textView, final Context context, final Boolean externalReadable) {
 
         String text = cmsQuestion.getComprehensive_passage();
 
         if (cmsQuestion.getComprehensive_passage().contains("<img")) {
             int qId = cmsQuestion.getId();
 
-            text = getImageUrl(text, qId, context, externalReadable, webView);
+            text = getImageUrl(text, qId, context, externalReadable, textView);
         }
 
         String finaltext = "<html><head>"
@@ -86,21 +78,20 @@ public class ThemeUtils {
                 + "<body>"
                 + text
                 + "</body></html>";
-        webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-        webView.setBackgroundColor(0);
-        webView.getSettings().setDefaultFontSize(quetionFontSize);
-        webView.setVisibility(View.VISIBLE);
+
+        textView.setText(Html.fromHtml(text));
+        textView.setVisibility(View.VISIBLE);
     }
 
 
-    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final TextView textView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
         if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
             String text = cmsOption.getOptionText();
             if (cmsOption.getOptionText().contains("<img")) {
                 int qId = cmsOption.getId();
 
-                text = getImageUrl(text, qId, context, externalReadable, webView);
+                text = getImageUrl(text, qId, context, externalReadable, textView);
             }
 
 
@@ -114,19 +105,17 @@ public class ThemeUtils {
                     + "<body><center><b>"
                     + text
                     + "</b></center></body></html>";
-            webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.setBackgroundColor(0);
-            webView.getSettings().setDefaultFontSize(optionFontSize);
+
+            textView.setText(Html.fromHtml(text));
             radioButton.setTag(cmsOption.getId());
-            webView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
             radioButton.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
         }
 
     }
 
-    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final TextView textView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
 
         if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
@@ -135,7 +124,7 @@ public class ThemeUtils {
             if (cmsOption.getOptionText().contains("<img")) {
                 int qId = cmsOption.getId();
 
-                text = getImageUrl(text, qId, context, externalReadable, webView);
+                text = getImageUrl(text, qId, context, externalReadable, textView);
             }
 
             String finaltext = "<html><head>"
@@ -148,12 +137,9 @@ public class ThemeUtils {
                     + text
                     + "</b></center></body></html>";
 
-            webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-            webView.setBackgroundColor(0);
-            webView.getSettings().setJavaScriptEnabled(true);
             checkBox.setTag(cmsOption.getId());
-            webView.getSettings().setDefaultFontSize(optionFontSize);
-            webView.setVisibility(View.VISIBLE);
+            textView.setText(Html.fromHtml(text));
+            textView.setVisibility(View.VISIBLE);
             checkBox.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
 
@@ -162,7 +148,7 @@ public class ThemeUtils {
 
     }
 
-    public String getImageUrl(final String text, final int qId, final Context context, final Boolean externalReadable, final WebView webView) {
+    public String getImageUrl(final String text, final int qId, final Context context, final Boolean externalReadable, final TextView webView) {
         String url = "";
         String returingText = "";
         try {
@@ -188,8 +174,8 @@ public class ThemeUtils {
                     setExternal(externalReadable);
             Boolean file_exist = imageSaver.checkFile();
             if (file_exist) {
-                webView.getSettings().setAllowFileAccess(true);
-                webView.getSettings().setJavaScriptEnabled(true);
+                //webView.getSettings().setAllowFileAccess(true);
+                //webView.getSettings().setJavaScriptEnabled(true);
                 returingText = text.replaceAll(url, "file://" + imageSaver.pathFile().getAbsolutePath().toString());
 
 
