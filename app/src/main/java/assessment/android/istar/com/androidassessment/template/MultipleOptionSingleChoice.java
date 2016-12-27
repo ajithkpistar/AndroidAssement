@@ -25,7 +25,8 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionSingleChoice extends AssessmentCard {
 
-    private WebView question, passage, option1, option2, option3, option4, option5;
+    private WebView question, passage;
+    private TextView option1, option2, option3, option4, option5;
     private AppCompatRadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
     private int position;
     private CMSQuestion cmsQuestion;
@@ -56,11 +57,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
         passage = (WebView) view.findViewById(R.id.passage);
-        option1 = (WebView) view.findViewById(R.id.option1);
-        option2 = (WebView) view.findViewById(R.id.option2);
-        option3 = (WebView) view.findViewById(R.id.option3);
-        option4 = (WebView) view.findViewById(R.id.option4);
-        option5 = (WebView) view.findViewById(R.id.option5);
+        option1 = (TextView) view.findViewById(R.id.option1);
+        option2 = (TextView) view.findViewById(R.id.option2);
+        option3 = (TextView) view.findViewById(R.id.option3);
+        option4 = (TextView) view.findViewById(R.id.option4);
+        option5 = (TextView) view.findViewById(R.id.option5);
 
         rbtn1 = (AppCompatRadioButton) view.findViewById(R.id.rbtn1);
         rbtn2 = (AppCompatRadioButton) view.findViewById(R.id.rbtn2);
@@ -166,19 +167,12 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option1.loadUrl("javascript:document.body.style.color=\"white\";");
-                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option1.setTextColor(Color.parseColor("#ffffff"));
+                option2.setTextColor(Color.parseColor("#000000"));
+                option3.setTextColor(Color.parseColor("#000000"));
+                option4.setTextColor(Color.parseColor("#000000"));
+                option5.setTextColor(Color.parseColor("#000000"));
+
 
                 chck_1 = true;
                 chck_2 = false;
@@ -196,19 +190,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option2.loadUrl("javascript:document.body.style.color=\"white\";");
-                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option2.setTextColor(Color.parseColor("#ffffff"));
+                option1.setTextColor(Color.parseColor("#000000"));
+                option3.setTextColor(Color.parseColor("#000000"));
+                option4.setTextColor(Color.parseColor("#000000"));
+                option5.setTextColor(Color.parseColor("#000000"));
 
                 chck_2 = true;
                 chck_1 = false;
@@ -226,19 +212,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option3.loadUrl("javascript:document.body.style.color=\"white\";");
-                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option3.setTextColor(Color.parseColor("#ffffff"));
+                option2.setTextColor(Color.parseColor("#000000"));
+                option1.setTextColor(Color.parseColor("#000000"));
+                option4.setTextColor(Color.parseColor("#000000"));
+                option5.setTextColor(Color.parseColor("#000000"));
                 chck_3 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -255,19 +233,12 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option4.loadUrl("javascript:document.body.style.color=\"white\";");
-                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option4.setTextColor(Color.parseColor("#ffffff"));
+                option2.setTextColor(Color.parseColor("#000000"));
+                option3.setTextColor(Color.parseColor("#000000"));
+                option1.setTextColor(Color.parseColor("#000000"));
+                option5.setTextColor(Color.parseColor("#000000"));
+
                 chck_4 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -284,19 +255,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
 
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"white\";", null);
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option5.loadUrl("javascript:document.body.style.color=\"white\";");
-                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option5.setTextColor(Color.parseColor("#ffffff"));
+                option2.setTextColor(Color.parseColor("#000000"));
+                option3.setTextColor(Color.parseColor("#000000"));
+                option4.setTextColor(Color.parseColor("#000000"));
+                option1.setTextColor(Color.parseColor("#000000"));
 
                 chck_5 = true;
                 chck_1 = false;
@@ -307,19 +270,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             default:
                 selectedVal = "";
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    option1.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option2.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option3.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option4.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                    option5.evaluateJavascript("javascript:document.body.style.color=\"black\";", null);
-                } else {
-                    option1.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option2.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option3.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option4.loadUrl("javascript:document.body.style.color=\"black\";");
-                    option5.loadUrl("javascript:document.body.style.color=\"black\";");
-                }
+                option1.setTextColor(Color.parseColor("#000000"));
+                option2.setTextColor(Color.parseColor("#000000"));
+                option3.setTextColor(Color.parseColor("#000000"));
+                option4.setTextColor(Color.parseColor("#000000"));
+                option5.setTextColor(Color.parseColor("#000000"));
 
                 layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
                 layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -332,22 +287,22 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     }
 
     private void webviewSetup() {
-        forceWebViewRedraw(question, null);
-        forceWebViewRedraw(option1, layoutBtn1);
-        forceWebViewRedraw(option2, layoutBtn2);
-        forceWebViewRedraw(option3, layoutBtn3);
-        forceWebViewRedraw(option4, layoutBtn4);
-        forceWebViewRedraw(option5, layoutBtn5);
-    }
+        forceWebViewRedraw(layoutBtn1);
+        forceWebViewRedraw(layoutBtn2);
+        forceWebViewRedraw(layoutBtn3);
+        forceWebViewRedraw(layoutBtn4);
+        forceWebViewRedraw(layoutBtn5);
 
-    private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
-
-        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+        question.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
+    }
+
+    private void forceWebViewRedraw(final RippleView rippleView) {
+
 
         if (rippleView != null) {
             rippleView.setOnClickListener(new View.OnClickListener() {

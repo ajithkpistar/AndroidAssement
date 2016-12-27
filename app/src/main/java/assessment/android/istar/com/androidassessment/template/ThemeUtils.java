@@ -95,34 +95,19 @@ public class ThemeUtils {
 
 
     public void getThemeSingleOption(final CMSQuestion cmsQuestion, final TextView textView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
+        try {
+            if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
-            String text = cmsOption.getOptionText();
-            if (cmsOption.getOptionText().contains("<img")) {
-                int qId = cmsOption.getId();
+                textView.setText(cmsOption.getOptionText());
+                radioButton.setTag(cmsOption.getId());
+                textView.setVisibility(View.VISIBLE);
+                radioButton.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
 
-                // text = getImageUrl(text, qId, context, externalReadable, webView);
+
             }
-
-
-          /*  String finaltext = "<html><head>"
-                    + "<style type=\"text/css\">body{color: " + optionFontColor
-                    + "; background-color:" + optionBackgroundColor + " ;}"
-                    + "; font-family:" + fontFamily + " ;}"
-                    + "; font-size:" + optionFontSize + " ;}"
-                    + "p{text-align:center;}"
-                    + "</style></head>"
-                    + "<body><center><b>"
-                    + text
-                    + "</b></center></body></html>";
-            webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.setBackgroundColor(0);
-            webView.getSettings().setDefaultFontSize(optionFontSize);
-            radioButton.setTag(cmsOption.getId());
-            webView.setVisibility(View.VISIBLE);
-            radioButton.setVisibility(View.GONE);
-            layout.setVisibility(View.VISIBLE);*/
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
