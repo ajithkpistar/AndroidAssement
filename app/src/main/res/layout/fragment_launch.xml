@@ -1,62 +1,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="assessment.android.istar.com.androidassessment.LaunchFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="HOMOPHONES AND OTHER CONFUSING WORDS"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="23dp"
-        android:id="@+id/text"/>
 
-    <View
-        android:layout_margin="10dp"
+    <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/line"
-        android:layout_below="@+id/text"
-        android:background="@android:color/black" />
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Pre Assessment Homophones"
-        android:layout_margin="20dp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_below="@+id/line"
-        android:id="@+id/title"/>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="80dp"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="23dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="All questions are compulsory All questions are OBJECTIVE multiple choice Each Question will have at least 4 choice"
-        android:layout_margin="20dp"
-        android:textSize="16dp"
-        android:textColor="#000"
-        android:layout_below="@+id/title"
-        android:id="@+id/description"/>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/text"
+            android:layout_margin="10dp"
+            android:background="@android:color/black" />
 
-    <Button
-        android:layout_margin="20dp"
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="Pre Assessment Homophones"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="All questions are compulsory\n\nAll questions are OBJECTIVE multiple\n\nChoice Each Question will have at least 4 choice"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/launchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#000"
+            android:text="LAUNCH TEST"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="LAUNCH TEST"
-        android:background="#000"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/description"
-        android:id="@+id/launchBtn"/>
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
 </RelativeLayout>

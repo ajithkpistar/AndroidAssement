@@ -11,7 +11,9 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.andexert.library.RippleView;
+
 import assessment.android.istar.com.androidassessment.CMSAssessmentFragment;
 import assessment.android.istar.com.androidassessment.R;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSOption;
@@ -37,6 +39,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5;
     private ThemeUtils themeutil;
     private CountDownTimer countDownTimer;
+    private Boolean submitCheck = false;
 
 
     @Override
@@ -350,50 +353,52 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             rippleView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    switch (view.getId()) {
-                        case R.id.layoutBtn1:
-                            if (chck_1) {
-                                selectUnselect(0);
-                                chck_1 = false;
-                            } else {
-                                selectUnselect(1);
-                            }
-                            break;
-                        case R.id.layoutBtn2:
-                            if (chck_2) {
-                                selectUnselect(0);
-                                chck_2 = false;
-                            } else {
-                                selectUnselect(2);
-                            }
-                            break;
-                        case R.id.layoutBtn3:
-                            if (chck_3) {
-                                selectUnselect(0);
-                                chck_3 = false;
-                            } else {
-                                selectUnselect(3);
-                            }
-                            break;
-                        case R.id.layoutBtn4:
-                            if (chck_4) {
-                                selectUnselect(0);
-                                chck_4 = false;
-                            } else {
-                                selectUnselect(4);
-                            }
-                            break;
-                        case R.id.layoutBtn5:
-                            if (chck_5) {
-                                selectUnselect(0);
-                                chck_5 = false;
-                            } else {
-                                selectUnselect(5);
-                            }
-                            break;
+                    if (!submitCheck) {
+                        switch (view.getId()) {
+                            case R.id.layoutBtn1:
+                                if (chck_1) {
+                                    selectUnselect(0);
+                                    chck_1 = false;
+                                } else {
+                                    selectUnselect(1);
+                                }
+                                break;
+                            case R.id.layoutBtn2:
+                                if (chck_2) {
+                                    selectUnselect(0);
+                                    chck_2 = false;
+                                } else {
+                                    selectUnselect(2);
+                                }
+                                break;
+                            case R.id.layoutBtn3:
+                                if (chck_3) {
+                                    selectUnselect(0);
+                                    chck_3 = false;
+                                } else {
+                                    selectUnselect(3);
+                                }
+                                break;
+                            case R.id.layoutBtn4:
+                                if (chck_4) {
+                                    selectUnselect(0);
+                                    chck_4 = false;
+                                } else {
+                                    selectUnselect(4);
+                                }
+                                break;
+                            case R.id.layoutBtn5:
+                                if (chck_5) {
+                                    selectUnselect(0);
+                                    chck_5 = false;
+                                } else {
+                                    selectUnselect(5);
+                                }
+                                break;
+                        }
+                        createCountDownTimer();
+                        submitCheck = true;
                     }
-                    createCountDownTimer();
                 }
             });
         }

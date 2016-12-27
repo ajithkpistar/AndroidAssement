@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString(CMSAssessmentFragment.ASSESSMENT_ID,editText.getText().toString()+"");
-                Fragment fragment = new CMSAssessmentFragment();
+                Fragment fragment = new LaunchFragment();
                 fragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
             }

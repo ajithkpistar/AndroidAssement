@@ -37,6 +37,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private RippleView layoutBtn1, layoutBtn2, layoutBtn3, layoutBtn4, layoutBtn5, layoutBtn6;
     private String optionCardColor = "#ffffff";
     private CountDownTimer countDownTimer;
+    private Boolean submitCheck = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -133,18 +134,21 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             @Override
             public void onClick(View view) {
                 try {
-                    countDownTimer = new CountDownTimer(350, 1000) { // adjust the milli seconds here
-                        public void onTick(long millisUntilFinished) {
-                        }
-
-                        public void onFinish() {
-                            try {
-                                CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), hidden_value.getText().toString(), ((System.currentTimeMillis() - start_time) / 1000) + "");
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    if (!submitCheck) {
+                        countDownTimer = new CountDownTimer(350, 1000) { // adjust the milli seconds here
+                            public void onTick(long millisUntilFinished) {
                             }
-                        }
-                    }.start();
+
+                            public void onFinish() {
+                                try {
+                                    CMSAssessmentFragment.nextViewpager(hidden_key.getText().toString(), hidden_value.getText().toString(), ((System.currentTimeMillis() - start_time) / 1000) + "");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }.start();
+                        submitCheck = true;
+                    }
                 } catch (Exception e) {
                 }
             }
