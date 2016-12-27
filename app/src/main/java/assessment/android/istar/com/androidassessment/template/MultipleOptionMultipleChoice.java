@@ -194,22 +194,37 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         boolean checkbox1 = ((CheckBox) view.findViewById(R.id.checkbtn1)).isChecked();
         if (checkbox1 == true) {
             result = result + "," + checkbtn1.getTag();
+            option1.setTextColor(Color.WHITE);
+        }else{
+            option1.setTextColor(Color.BLACK);
         }
         boolean checkbox2 = ((CheckBox) view.findViewById(R.id.checkbtn2)).isChecked();
         if (checkbox2 == true) {
             result = result + "," + checkbtn2.getTag();
+            option2.setTextColor(Color.WHITE);
+        }else{
+            option2.setTextColor(Color.BLACK);
         }
         boolean checkbox3 = ((CheckBox) view.findViewById(R.id.checkbtn3)).isChecked();
         if (checkbox3 == true) {
             result = result + "," + checkbtn3.getTag();
+            option3.setTextColor(Color.WHITE);
+        }else{
+            option3.setTextColor(Color.BLACK);
         }
         boolean checkbox4 = ((CheckBox) view.findViewById(R.id.checkbtn4)).isChecked();
         if (checkbox4 == true) {
             result = result + "," + checkbtn4.getTag();
+            option4.setTextColor(Color.WHITE);
+        }else{
+            option4.setTextColor(Color.BLACK);
         }
         boolean checkbox5 = ((CheckBox) view.findViewById(R.id.checkbtn5)).isChecked();
         if (checkbox5 == true) {
             result = result + "," + checkbtn5.getTag();
+            option5.setTextColor(Color.WHITE);
+        }else{
+            option5.setTextColor(Color.BLACK);
         }
         result = result.replaceFirst("^,", "");
 

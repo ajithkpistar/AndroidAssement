@@ -94,6 +94,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textAlignment="center"
+                            android:textColor="#000000"
                             android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
@@ -133,6 +134,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textAlignment="center"
+                            android:textColor="#000000"
                             android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
@@ -171,6 +173,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textAlignment="center"
+                            android:textColor="#000000"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -207,6 +210,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textAlignment="center"
+                            android:textColor="#000000"
                             android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
@@ -245,6 +249,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textAlignment="center"
+                            android:textColor="#000000"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
@@ -262,7 +267,6 @@
                         android:background="#ffffff"
                         android:elevation="10dp"
                         android:minHeight="60dp"
-                        android:visibility="gone"
                         app:rv_alpha="200"
                         app:rv_centered="false"
                         app:rv_color="@color/selectedOption"
@@ -277,10 +281,9 @@
                             android:layout_centerVertical="true"
                             android:text="SUBMIT"
                             android:textAllCaps="false"
-                            android:textColor="#444444"
+                            android:textColor="#000000"
                             android:textSize="18dp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
+                            android:textStyle="bold" />
 
                     </com.andexert.library.RippleView>
 
