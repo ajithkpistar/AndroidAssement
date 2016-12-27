@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <WebView
                         android:id="@+id/passage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                         android:textSize="30sp"
                         android:visibility="gone" />
 
-                    <TextView
+                    <WebView
                         android:id="@+id/question"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -84,15 +84,15 @@
                             android:text=""
                             android:visibility="gone" />
 
-                        <TextView
+                        <WebView
                             android:id="@+id/option1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
                             android:minHeight="60dp"
                             android:text=""
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textAlignment="center" />
                     </com.andexert.library.RippleView>
 
 
@@ -120,16 +120,16 @@
                             android:text=""
                             android:visibility="gone" />
 
-                        <TextView
+                        <WebView
                             android:id="@+id/option2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:minHeight="60dp"
                             android:text=""
-                            android:textAlignment="center"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textAlignment="center" />
                     </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView
@@ -156,16 +156,16 @@
                             android:text=""
                             android:visibility="gone" />
 
-                        <TextView
+                        <WebView
                             android:id="@+id/option3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:minHeight="60dp"
                             android:text=""
-                            android:textAlignment="center"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textAlignment="center" />
                     </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView
@@ -193,16 +193,16 @@
                             android:text=""
                             android:visibility="gone" />
 
-                        <TextView
+                        <WebView
                             android:id="@+id/option4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_horizontal|center_vertical"
                             android:minHeight="60dp"
                             android:text=""
-                            android:textAlignment="center"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textAlignment="center" />
                     </com.andexert.library.RippleView>
 
                     <com.andexert.library.RippleView
@@ -230,7 +230,7 @@
                             android:text=""
                             android:visibility="gone" />
 
-                        <TextView
+                        <WebView
                             android:id="@+id/option5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -239,9 +239,7 @@
                             android:layout_gravity="center_horizontal|center_vertical"
                             android:minHeight="60dp"
                             android:text=""
-                            android:textAlignment="center"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textAlignment="center" />
                     </com.andexert.library.RippleView>
 
                     <TextView

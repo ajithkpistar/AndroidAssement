@@ -43,9 +43,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
-        return view;
-    }
-        /*//hardware acceleration disable
+
+        //hardware acceleration disable
         try {
             view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         } catch (Exception e) {
@@ -127,7 +126,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             if (cmsQuestion.getTheme() != null) {
                 mainLayout.setBackgroundColor(Color.parseColor("#0097a7"));
                 label_view.setBackgroundColor(Color.parseColor("#0097a7"));
-            }/*
+            }
 
         }
 
@@ -325,5 +324,5 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
-    }*/
+    }
 }
