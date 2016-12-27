@@ -89,6 +89,7 @@ public class CMSAssessmentFragment extends Fragment {
     private TreeMap<Integer, Long> questionTimerData;
     private CMSAssessment cmsAssessment;
     private long last_questionTimer;
+    private ObjectAnimator animation;
 
 
     @Override
@@ -314,15 +315,22 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     private void setUpQuestionTimer(final long questionDelay) {
+        question_progress_status = ((int) questionDelay / 1000);
+        question_prograss_bar.setMax(question_progress_status * 100000);
+        question_prograss_bar.setProgress((question_progress_status) * 100000);
+        question_start = System.currentTimeMillis();
+
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
         }
 
-        question_progress_status = ((int) questionDelay / 1000);
-        question_prograss_bar.setMax(question_progress_status * 100000);
-       // question_prograss_bar.setProgress((question_progress_status--) * 100000);
-        question_start = System.currentTimeMillis();
+        if(animation!=null){
+            if(animation.isRunning()){
+                animation.cancel();
+            }
+        }
+
         Log.v("Talentify", "question Timer---->" + question_progress_status);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -345,11 +353,7 @@ public class CMSAssessmentFragment extends Fragment {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
 
-                    if (!((questionDelay / 1000) - 2 <= sec && (questionDelay / 1000) >= sec)) {
-                        setProgressAnimate(question_prograss_bar, question_progress_status--);
-                    } else {
-                        question_prograss_bar.setProgress((question_progress_status--) * 100000);
-                    }
+                    setProgressAnimate(question_prograss_bar, question_progress_status--,1000);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -372,9 +376,9 @@ public class CMSAssessmentFragment extends Fragment {
         }.start();
     }
 
-    private void setProgressAnimate(ProgressBar pb, int progressTo) {
-        ObjectAnimator animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 100000);
-        animation.setDuration(1100);
+    private void setProgressAnimate(ProgressBar pb, int progressTo,int duration) {
+        animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 100000);
+        animation.setDuration(duration);
         animation.setInterpolator(new LinearInterpolator());
         animation.start();
     }
