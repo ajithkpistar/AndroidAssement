@@ -93,6 +93,7 @@
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -129,6 +130,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textColor="#000000"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -164,6 +166,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textColor="#000000"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -200,6 +203,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textColor="#000000"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -236,6 +240,7 @@
                             android:minHeight="60dp"
                             android:text=""
                             android:textColor="#000000"
+                            android:textSize="17sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
