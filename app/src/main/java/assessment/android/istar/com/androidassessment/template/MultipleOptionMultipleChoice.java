@@ -24,7 +24,8 @@ import assessment.android.istar.com.androidassessment.assessment_pojo.CMSQuestio
 
 public class MultipleOptionMultipleChoice extends AssessmentCard {
 
-    private WebView question, passage, option1, option2, option3, option4, option5;
+    private WebView question, passage;
+    private TextView option1, option2, option3, option4, option5;
     private int position;
     private CMSQuestion cmsQuestion;
     private long start_time;
@@ -56,11 +57,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         submit = (TextView) view.findViewById(R.id.submit);
         question = (WebView) view.findViewById(R.id.question);
         passage = (WebView) view.findViewById(R.id.passage);
-        option1 = (WebView) view.findViewById(R.id.option1);
-        option2 = (WebView) view.findViewById(R.id.option2);
-        option3 = (WebView) view.findViewById(R.id.option3);
-        option4 = (WebView) view.findViewById(R.id.option4);
-        option5 = (WebView) view.findViewById(R.id.option5);
+        option1 = (TextView) view.findViewById(R.id.option1);
+        option2 = (TextView) view.findViewById(R.id.option2);
+        option3 = (TextView) view.findViewById(R.id.option3);
+        option4 = (TextView) view.findViewById(R.id.option4);
+        option5 = (TextView) view.findViewById(R.id.option5);
 
         checkbtn1 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn1);
         checkbtn2 = (AppCompatCheckBox) view.findViewById(R.id.checkbtn2);
@@ -221,25 +222,23 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
 
     private void webviewSetup() {
-        forceWebViewRedraw(question, null);
-        forceWebViewRedraw(option1, layoutBtn1);
-        forceWebViewRedraw(option2, layoutBtn2);
-        forceWebViewRedraw(option3, layoutBtn3);
-        forceWebViewRedraw(option4, layoutBtn4);
-        forceWebViewRedraw(option5, layoutBtn5);
+        forceWebViewRedraw(layoutBtn1);
+        forceWebViewRedraw(layoutBtn2);
+        forceWebViewRedraw(layoutBtn3);
+        forceWebViewRedraw(layoutBtn4);
+        forceWebViewRedraw(layoutBtn5);
 
-    }
-
-
-    private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
-
-        mWebView.setOnLongClickListener(new View.OnLongClickListener() {
+        question.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
             }
         });
 
+    }
+
+
+    private void forceWebViewRedraw(final RippleView rippleView) {
 
         if (rippleView != null) {
             rippleView.setOnClickListener(new View.OnClickListener() {
@@ -293,8 +292,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                             } else {
                                 checkbtn5.setChecked(true);
                                 layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-
-
                             }
                             break;
                     }

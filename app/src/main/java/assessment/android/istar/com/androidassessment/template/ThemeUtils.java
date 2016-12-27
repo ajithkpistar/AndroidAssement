@@ -101,7 +101,7 @@ public class ThemeUtils {
             if (cmsOption.getOptionText().contains("<img")) {
                 int qId = cmsOption.getId();
 
-               // text = getImageUrl(text, qId, context, externalReadable, webView);
+                // text = getImageUrl(text, qId, context, externalReadable, webView);
             }
 
 
@@ -127,40 +127,20 @@ public class ThemeUtils {
 
     }
 
-    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final WebView webView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeMultipleOption(final CMSQuestion cmsQuestion, final TextView textView, final CheckBox checkBox, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+        try {
 
-        if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
-
-
-            String text = cmsOption.getOptionText();
-            if (cmsOption.getOptionText().contains("<img")) {
-                int qId = cmsOption.getId();
-
-                text = getImageUrl(text, qId, context, externalReadable, webView);
+            if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
+                String text = cmsOption.getOptionText();
+                textView.setText(text);
+                checkBox.setTag(cmsOption.getId());
+                textView.setVisibility(View.VISIBLE);
+                checkBox.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
             }
-
-            String finaltext = "<html><head>"
-                    + "<style type=\"text/css\">body{color: " + optionFontColor
-                    + "; background-color:" + optionBackgroundColor + " ;}"
-                    + "; font-family:" + fontFamily + " ;}"
-                    + "; font-size:" + optionFontSize + " ;}"
-                    + "</style></head>"
-                    + "<body><center><b>"
-                    + text
-                    + "</b></center></body></html>";
-
-            webView.loadDataWithBaseURL(null, finaltext, "text/html", "utf-8", null);
-            webView.setBackgroundColor(0);
-            webView.getSettings().setJavaScriptEnabled(true);
-            checkBox.setTag(cmsOption.getId());
-            webView.getSettings().setDefaultFontSize(optionFontSize);
-            webView.setVisibility(View.VISIBLE);
-            checkBox.setVisibility(View.GONE);
-            layout.setVisibility(View.VISIBLE);
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     public String getImageUrl(final String text, final int qId, final Context context, final Boolean externalReadable, final WebView webView) {
