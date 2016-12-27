@@ -230,6 +230,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
     }
 
+
     private void forceWebViewRedraw(final WebView mWebView, final RippleView rippleView) {
 
         mWebView.setOnLongClickListener(new View.OnLongClickListener() {
