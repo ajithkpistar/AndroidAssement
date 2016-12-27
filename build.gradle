@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'http://raw.github.com/emreaktrk/WaveView/master/repository/' }
     }
 }
 

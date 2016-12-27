@@ -1,14 +1,7 @@
 package assessment.android.istar.com.androidassessment;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -16,15 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,6 +52,8 @@ import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerA
 import assessment.android.istar.com.androidassessment.istarindia.utils.SingletonStudent;
 import assessment.android.istar.com.androidassessment.template.MultipleOptionMultipleChoice;
 import assessment.android.istar.com.androidassessment.template.MultipleOptionSingleChoice;
+import me.itangqi.waveloadingview.WaveLoadingView;
+
 
 /**
  * Created by Feroz on 14-12-2016.
@@ -81,15 +72,13 @@ public class CMSAssessmentFragment extends Fragment {
     private TextView number_of_ques, progress_text, question_timer_text;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer, questionTimer;
-    private int delay = 120000;
-    private int progress_status = 0, question_progress_status = 0;
-    private ProgressBar prograss_bar, question_prograss_bar;
+    private int delay = 120000, progress_status = 0, question_progress_status = 0;
+    private ProgressBar prograss_bar;
     private AssessmentStatusHandler assessmentStatusHandler;
-    private Button submit_question;
     private TreeMap<Integer, Long> questionTimerData;
     private CMSAssessment cmsAssessment;
     private long last_questionTimer;
-    private ObjectAnimator animation;
+    private WaveLoadingView waveLoadingView;
 
 
     @Override
@@ -100,12 +89,11 @@ public class CMSAssessmentFragment extends Fragment {
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         View view = inflater.inflate(R.layout.new_cms_assessment_fragment, container, false);
-        submit_question = (Button) view.findViewById(R.id.submit_question);
+        waveLoadingView = (WaveLoadingView) view.findViewById(R.id.waveLoadingView);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         question_timer_text = (TextView) view.findViewById(R.id.question_timer_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
-        question_prograss_bar = (ProgressBar) view.findViewById(R.id.question_prograss_bar);
         main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
@@ -167,14 +155,6 @@ public class CMSAssessmentFragment extends Fragment {
             fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
         }
 
-        submit_question.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateCmsAssesmentResult(false);
-            }
-        });
-
-
         return view;
     }
 
@@ -188,11 +168,6 @@ public class CMSAssessmentFragment extends Fragment {
             assessmentLockableViewPager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
             start_time = System.currentTimeMillis();
-            try {
-                question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             //update the slide pointer.
             setupOfflineAssessmentSlide();
@@ -312,24 +287,18 @@ public class CMSAssessmentFragment extends Fragment {
 
         //visible toolbar
         main_layout.setVisibility(View.VISIBLE);
+        waveLoadingView.setVisibility(View.VISIBLE);
     }
 
     private void setUpQuestionTimer(final long questionDelay) {
         question_progress_status = ((int) questionDelay / 1000);
-        question_prograss_bar.setMax(question_progress_status * 100000);
-        question_prograss_bar.setProgress((question_progress_status) * 100000);
         question_start = System.currentTimeMillis();
-
+        waveLoadingView.setProgressValue(0);
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
         }
 
-        if(animation!=null){
-            if(animation.isRunning()){
-                animation.cancel();
-            }
-        }
 
         Log.v("Talentify", "question Timer---->" + question_progress_status);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
@@ -346,14 +315,20 @@ public class CMSAssessmentFragment extends Fragment {
                     if (sec < 10) {
                         secString = "0" + sec;
                     }
-                    timerString = minString + ":" + secString;
-                    question_timer_text.setText("Question response time " + timerString);
+                    if (minString.equalsIgnoreCase("00")) {
+                        timerString = secString + " sec left";
+                    } else {
+                        timerString = minString + " min " + secString + " sec left";
+                    }
+
+                    question_timer_text.setText(timerString);
 
                     if (min == 0 && sec == 10) {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
 
-                    setProgressAnimate(question_prograss_bar, question_progress_status--,1000);
+                    int progress = ((int) (((millisUntilFinished / 1000) * 100) / question_progress_status));
+                    waveLoadingView.setProgressValue(progress);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -362,8 +337,6 @@ public class CMSAssessmentFragment extends Fragment {
 
             public void onFinish() {
                 try {
-                   /* question_progress_status = 0;
-                    question_prograss_bar.setProgress(0);*/
                     updateCmsAssesmentResult(true);
                     if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                         if (getActivity() != null)
@@ -376,62 +349,6 @@ public class CMSAssessmentFragment extends Fragment {
         }.start();
     }
 
-    private void setProgressAnimate(ProgressBar pb, int progressTo,int duration) {
-        animation = ObjectAnimator.ofInt(pb, "progress", pb.getProgress(), progressTo * 100000);
-        animation.setDuration(duration);
-        animation.setInterpolator(new LinearInterpolator());
-        animation.start();
-    }
-
-    protected Drawable generateProgressDrawable(String colorProgress) {
-
-       /* if (colorProgress.equalsIgnoreCase("#ffffff")) {
-            colorProgress = "#000000";
-        } else if (colorProgress.equalsIgnoreCase("#000000")) {
-            colorProgress = "#ffffff";
-            question_timer_text.setTextColor(Color.parseColor("#000000"));
-        }*/
-
-        colorProgress = "#0097a7";
-
-        final float[] roundedCorners = new float[]{1, 1, 1, 1, 1, 1, 1, 1};
-        // Create a ShapeDrawable to generate progress bar background
-        ShapeDrawable backgroundDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
-        backgroundDrawable.getPaint().setColor(Color.parseColor("#ffffff"));
-
-        // Initialize a new shape drawable to draw progress bar progress
-        ShapeDrawable progressDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
-        //progressDrawable.getPaint().set(paint);
-        progressDrawable.getPaint().setColor(Color.parseColor(colorProgress));
-
-        // Another shape drawable to draw secondary progress
-        ShapeDrawable secondaryProgressDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
-        secondaryProgressDrawable.getPaint().setColor(Color.parseColor(colorProgress));
-
-        // Initialize a ClipDrawable to generate progress on progress bar
-        ClipDrawable progressClip = new ClipDrawable(progressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
-
-        // Another clip drawable to draw secondary progress
-        ClipDrawable secondaryProgressClip = new ClipDrawable(secondaryProgressDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
-
-        // Initialize a new LayerDrawable to hold progress bar all states
-        LayerDrawable layer = new LayerDrawable(new Drawable[]{backgroundDrawable, secondaryProgressClip, progressClip});
-
-        // Set the ids for different layers on layer drawable
-        layer.setId(0, android.R.id.background);
-        layer.setId(1, android.R.id.secondaryProgress);
-        layer.setId(2, android.R.id.progress);
-
-        // Return the LayerDrawable as progress bar progress drawable
-        return layer;
-    }
-
-
-    public static void previousViewpager() {
-        if (assessmentLockableViewPager.getCurrentItem() != 0) {
-            assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() - 1);
-        }
-    }
 
     public static void nextViewpager(String key, String answer, String time) {
         if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
@@ -451,9 +368,11 @@ public class CMSAssessmentFragment extends Fragment {
             if (assessmentLockableViewPager.getCurrentItem() == assessmentLockableViewPager.getAdapter().getCount() - 1) {
                 number_of_ques.setText("");
                 main_layout.setVisibility(View.GONE);
+                waveLoadingView.setVisibility(View.GONE);
             } else {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
                 main_layout.setVisibility(View.VISIBLE);
+                waveLoadingView.setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -567,31 +486,7 @@ public class CMSAssessmentFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if (result != null && !result.equalsIgnoreCase("")) {
-                StringReader reader = new StringReader(result);
-                Serializer serializer = new Persister();
-                try {
-                    cmsAssessment = serializer.read(CMSAssessment.class, reader);
-                    viewpagerAdapter = new ViewpagerAdapter(fm, cmsAssessment);
-                    assessmentLockableViewPager.setAdapter(viewpagerAdapter);
-                    delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
-                    start_time = System.currentTimeMillis();
-
-                    try {
-                        question_prograss_bar.setProgressDrawable(generateProgressDrawable(cmsAssessment.getTheme().getBackgroundColor()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-
-                    //update the slide pointer.
-                    setupOfflineAssessmentSlide();
-
-                    createQuestionTimerValues();
-                    if (response_success)
-                        setupObject();
-                } catch (Exception e) {
-
-                }
+                setupOfflineAssement(result);
             }
         }
     }

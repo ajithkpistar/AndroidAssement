@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -98,6 +99,9 @@ public class LaunchFragment extends Fragment {
 
     private void setupOfflineAssement(String assessment_string) {
         try {
+           /* Gson gnson = new Gson();
+            CMSAssessment example = gnson.fromJson(assessment_string, CMSAssessment.class);*/
+
             StringReader reader = new StringReader(assessment_string);
             Serializer serializer = new Persister();
             cmsAssessment = serializer.read(CMSAssessment.class, reader);

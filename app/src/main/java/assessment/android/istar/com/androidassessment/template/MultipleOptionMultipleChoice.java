@@ -124,10 +124,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                 }
             }
 
-            if (cmsQuestion.getTheme() != null) {
-                mainLayout.setBackgroundColor(Color.parseColor("#0097a7"));
-                label_view.setBackgroundColor(Color.parseColor("#0097a7"));
-            }
 
         }
 
@@ -195,35 +191,35 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         if (checkbox1 == true) {
             result = result + "," + checkbtn1.getTag();
             option1.setTextColor(Color.WHITE);
-        }else{
+        } else {
             option1.setTextColor(Color.BLACK);
         }
         boolean checkbox2 = ((CheckBox) view.findViewById(R.id.checkbtn2)).isChecked();
         if (checkbox2 == true) {
             result = result + "," + checkbtn2.getTag();
             option2.setTextColor(Color.WHITE);
-        }else{
+        } else {
             option2.setTextColor(Color.BLACK);
         }
         boolean checkbox3 = ((CheckBox) view.findViewById(R.id.checkbtn3)).isChecked();
         if (checkbox3 == true) {
             result = result + "," + checkbtn3.getTag();
             option3.setTextColor(Color.WHITE);
-        }else{
+        } else {
             option3.setTextColor(Color.BLACK);
         }
         boolean checkbox4 = ((CheckBox) view.findViewById(R.id.checkbtn4)).isChecked();
         if (checkbox4 == true) {
             result = result + "," + checkbtn4.getTag();
             option4.setTextColor(Color.WHITE);
-        }else{
+        } else {
             option4.setTextColor(Color.BLACK);
         }
         boolean checkbox5 = ((CheckBox) view.findViewById(R.id.checkbtn5)).isChecked();
         if (checkbox5 == true) {
             result = result + "," + checkbtn5.getTag();
             option5.setTextColor(Color.WHITE);
-        }else{
+        } else {
             option5.setTextColor(Color.BLACK);
         }
         result = result.replaceFirst("^,", "");
@@ -267,7 +263,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                 layoutBtn1.setBackgroundColor(Color.parseColor(optionCardColor));
                             } else {
                                 checkbtn1.setChecked(true);
-                                layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                                layoutBtn1.setBackgroundColor(Color.parseColor("#aceb0b"));
                             }
                             break;
                         case R.id.layoutBtn2:
@@ -276,7 +272,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                 layoutBtn2.setBackgroundColor(Color.parseColor(optionCardColor));
                             } else {
                                 checkbtn2.setChecked(true);
-                                layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                                layoutBtn2.setBackgroundColor(Color.parseColor("#aceb0b"));
                             }
                             break;
                         case R.id.layoutBtn3:
@@ -286,7 +282,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
                             } else {
                                 checkbtn3.setChecked(true);
-                                layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                                layoutBtn3.setBackgroundColor(Color.parseColor("#aceb0b"));
                             }
                             break;
                         case R.id.layoutBtn4:
@@ -296,7 +292,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
                             } else {
                                 checkbtn4.setChecked(true);
-                                layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                                layoutBtn4.setBackgroundColor(Color.parseColor("#aceb0b"));
 
                             }
                             break;
@@ -306,7 +302,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                 layoutBtn5.setBackgroundColor(Color.parseColor(optionCardColor));
                             } else {
                                 checkbtn5.setChecked(true);
-                                layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
+                                layoutBtn5.setBackgroundColor(Color.parseColor("#aceb0b"));
                             }
                             break;
                     }

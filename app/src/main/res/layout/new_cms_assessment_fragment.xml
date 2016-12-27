@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0097a7"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:visibility="gone">
 
         <RelativeLayout
@@ -71,56 +72,48 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar_layout">
-
-            <ProgressBar
-                android:id="@+id/question_prograss_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_marginTop="1dp"
-                android:indeterminate="false"
-                android:progress="0" />
+            android:layout_below="@+id/toolbar_layout"
+            android:background="#0097a7">
 
             <TextView
                 android:id="@+id/question_timer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
                 android:text=""
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#cfd8dc"
-        android:elevation="5dp"
-        android:padding="2dp"
-        android:visibility="gone">
 
-        <Button
-            android:id="@+id/submit_question"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/button_circle"
-            android:text=""
-            android:visibility="gone" />
-    </RelativeLayout>
+    <me.itangqi.waveloadingview.WaveLoadingView
+        android:id="@+id/waveLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/main_layout"
+        android:visibility="gone"
+        app:wlv_borderColor="#ffffff"
+        app:wlv_borderWidth="0dp"
+        app:wlv_progressValue="0"
+        app:wlv_round_rectangle="true"
+        app:wlv_shapeType="rectangle"
+        app:wlv_titleCenter=""
+        app:wlv_titleCenterColor="@android:color/white"
+        app:wlv_titleCenterSize="24sp"
+        app:wlv_titleCenterStrokeColor="@android:color/holo_blue_dark"
+        app:wlv_titleCenterStrokeWidth="3dp"
+        app:wlv_triangle_direction="north"
+        app:wlv_waveAmplitude="9"
+        app:wlv_waveColor="#2ccaf0f4"
+        app:wlv_wave_background_Color="#0097a7" />
 
     <assessment.android.istar.com.androidassessment.assessment_util.AssessmentLockableViewPager
         android:id="@+id/assessment_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/main_layout" />
 
 

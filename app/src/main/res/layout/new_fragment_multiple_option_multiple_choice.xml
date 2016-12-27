@@ -7,15 +7,14 @@
         android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        android:background="#DCDCDC"
-        app:cardCornerRadius="3dp">
+        app:cardBackgroundColor="#00000000"
+        app:cardCornerRadius="0dp">
 
         <RelativeLayout
             android:id="@+id/label_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp">
+            android:background="#00000000">
 
             <TextView
                 android:id="@+id/label"
@@ -23,24 +22,32 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="#00000000"
-                android:padding="10dp"
                 android:text="Multiple Choice"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="17sp"
                 android:textStyle="bold|italic" />
 
+            <View
+                android:id="@+id/view_dummy"
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_below="@+id/label"
+                android:layout_margin="10sp"
+                android:background="#fff" />
 
             <ScrollView
                 android:id="@+id/mainLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/label"
-                android:background="#fff">
+                android:layout_below="@id/view_dummy"
+                android:background="#00000000"
+                android:paddingTop="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="#00000000">
 
                     <WebView
                         android:id="@+id/passage"
@@ -74,9 +81,10 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn1"
@@ -113,9 +121,10 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn2"
@@ -152,9 +161,10 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn3"
@@ -192,9 +202,10 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn4"
@@ -228,9 +239,10 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatCheckBox
                             android:id="@+id/checkbtn5"
@@ -267,10 +279,10 @@
                         android:background="#ffffff"
                         android:elevation="10dp"
                         android:minHeight="60dp"
-                        app:rv_alpha="200"
+                        app:rv_alpha="50"
                         app:rv_centered="false"
-                        app:rv_color="@color/selectedOption"
-                        app:rv_rippleDuration="50">
+                        app:rv_color="@color/ripplecolor"
+                        app:rv_rippleDuration="100">
 
 
                         <TextView
@@ -308,7 +320,5 @@
                 </RelativeLayout>
             </ScrollView>
         </RelativeLayout>
-
-
     </android.support.v7.widget.CardView>
 </LinearLayout>

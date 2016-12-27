@@ -124,11 +124,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 }
             }
             if (cmsQuestion.getTheme() != null) {
-                mainLayout.setBackgroundColor(Color.parseColor("#0097a7"));
-                label_view.setBackgroundColor(Color.parseColor("#0097a7"));
-                /*if(cmsQuestion.getTheme().getBackgroundColor().equalsIgnoreCase("#ffffff")){
-                    optionCardColor="#e0e0e0";
-                }*/
                 selectUnselect(0);
             }
         }
@@ -160,20 +155,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         switch (position) {
             case 1:
                 selectedVal = rbtn1.getTag().toString();
-                layoutBtn1.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
-
-
-                option1.setTextColor(Color.parseColor("#ffffff"));
-                option2.setTextColor(Color.parseColor("#000000"));
-                option3.setTextColor(Color.parseColor("#000000"));
-                option4.setTextColor(Color.parseColor("#000000"));
-                option5.setTextColor(Color.parseColor("#000000"));
-
-
                 chck_1 = true;
                 chck_2 = false;
                 chck_3 = false;
@@ -182,19 +163,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 2:
                 selectedVal = rbtn2.getTag().toString();
-
-                layoutBtn2.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
-
-
-                option2.setTextColor(Color.parseColor("#ffffff"));
-                option1.setTextColor(Color.parseColor("#000000"));
-                option3.setTextColor(Color.parseColor("#000000"));
-                option4.setTextColor(Color.parseColor("#000000"));
-                option5.setTextColor(Color.parseColor("#000000"));
 
                 chck_2 = true;
                 chck_1 = false;
@@ -205,18 +173,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             case 3:
                 selectedVal = rbtn3.getTag().toString();
 
-                layoutBtn3.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
-
-
-                option3.setTextColor(Color.parseColor("#ffffff"));
-                option2.setTextColor(Color.parseColor("#000000"));
-                option1.setTextColor(Color.parseColor("#000000"));
-                option4.setTextColor(Color.parseColor("#000000"));
-                option5.setTextColor(Color.parseColor("#000000"));
                 chck_3 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -226,19 +182,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
             case 4:
                 selectedVal = rbtn4.getTag().toString();
 
-                layoutBtn4.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
-
-
-                option4.setTextColor(Color.parseColor("#ffffff"));
-                option2.setTextColor(Color.parseColor("#000000"));
-                option3.setTextColor(Color.parseColor("#000000"));
-                option1.setTextColor(Color.parseColor("#000000"));
-                option5.setTextColor(Color.parseColor("#000000"));
-
                 chck_4 = true;
                 chck_1 = false;
                 chck_2 = false;
@@ -247,19 +190,6 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 break;
             case 5:
                 selectedVal = rbtn5.getTag().toString();
-
-                layoutBtn5.setBackgroundColor(getResources().getColor(R.color.selectedOption));
-                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
-
-
-                option5.setTextColor(Color.parseColor("#ffffff"));
-                option2.setTextColor(Color.parseColor("#000000"));
-                option3.setTextColor(Color.parseColor("#000000"));
-                option4.setTextColor(Color.parseColor("#000000"));
-                option1.setTextColor(Color.parseColor("#000000"));
 
                 chck_5 = true;
                 chck_1 = false;
