@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
@@ -93,18 +94,18 @@ public class ThemeUtils {
     }
 
 
-    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final WebView webView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
+    public void getThemeSingleOption(final CMSQuestion cmsQuestion, final TextView textView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
         if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
 
             String text = cmsOption.getOptionText();
             if (cmsOption.getOptionText().contains("<img")) {
                 int qId = cmsOption.getId();
 
-                text = getImageUrl(text, qId, context, externalReadable, webView);
+               // text = getImageUrl(text, qId, context, externalReadable, webView);
             }
 
 
-            String finaltext = "<html><head>"
+          /*  String finaltext = "<html><head>"
                     + "<style type=\"text/css\">body{color: " + optionFontColor
                     + "; background-color:" + optionBackgroundColor + " ;}"
                     + "; font-family:" + fontFamily + " ;}"
@@ -121,7 +122,7 @@ public class ThemeUtils {
             radioButton.setTag(cmsOption.getId());
             webView.setVisibility(View.VISIBLE);
             radioButton.setVisibility(View.GONE);
-            layout.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.VISIBLE);*/
         }
 
     }
