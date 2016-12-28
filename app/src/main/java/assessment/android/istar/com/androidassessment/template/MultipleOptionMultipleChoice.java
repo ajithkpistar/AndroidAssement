@@ -40,7 +40,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private String optionCardColor = "#ffffff";
     private CountDownTimer countDownTimer;
     private Boolean submitCheck = false;
-   // private LinearLayout layout;
+    private LinearLayout layout;
+    private boolean hasMaxLen = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,10 +56,12 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
         }
 
-        themeutil.getOptionView(cmsQuestion);
-
-
-        view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
+        if (themeutil.getOptionView(cmsQuestion)) {
+            view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
+        } else {
+            hasMaxLen = true;
+            view = inflater.inflate(R.layout.multiple_option_multiple_choice, container, false);
+        }
 
         //hardware acceleration disable
         try {
@@ -90,13 +93,15 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         layoutBtn4 = (RippleView) view.findViewById(R.id.layoutBtn4);
         layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
         layoutBtn6 = (RippleView) view.findViewById(R.id.layoutBtn6);
-       // layout = (LinearLayout) view.findViewById(R.id.lay3);
+
+
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
 
-
+        if (hasMaxLen)
+            layout = (LinearLayout) view.findViewById(R.id.lay3);
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
@@ -126,13 +131,12 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                     }
                     if (temp == 4) {
                         themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, layoutBtn5, cmsOption, getActivity(), externalReadable);
-                      //  layout.setVisibility(View.VISIBLE);
+                        if (hasMaxLen)
+                            layout.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }
             }
-
-
         }
 
         layoutBtn6.setOnClickListener(new View.OnClickListener() {

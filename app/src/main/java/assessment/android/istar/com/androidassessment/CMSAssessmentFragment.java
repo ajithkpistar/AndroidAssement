@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +33,6 @@ import org.apache.http.util.EntityUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,51 +61,63 @@ import me.itangqi.waveloadingview.WaveLoadingView;
 public class CMSAssessmentFragment extends Fragment {
     public final static String ASSESSMENT_ID = "ASSESSMENT_ID";
     public static AssessmentLockableViewPager assessmentLockableViewPager;
-    private AssessmentDataHandler assessmentDataHandler;
-    private ViewpagerAdapter viewpagerAdapter;
+    public static ArrayList<Entry> question_map, question_time;
+
     private int assessment_id;
+    private CMSAssessment cmsAssessment;
     private CMSAssessmentResult cmsAssessmentResult;
-    private static ArrayList<Entry> question_map, question_time;
-    private long start_time, end_time, question_start = 0;
+    private AssessmentDataHandler assessmentDataHandler;
+    private AssessmentStatusHandler assessmentStatusHandler;
+    private ViewpagerAdapter viewpagerAdapter;
+
+
+    private WaveLoadingView waveLoadingView;
+    private ProgressBar prograss_bar;
     private RelativeLayout main_layout;
     private TextView number_of_ques, progress_text, question_timer_text, question_label;
     private Toast mToastToShow;
+
+    private long start_time, end_time, question_start = 0, last_questionTimer;
     private CountDownTimer countDownTimer, questionTimer;
-    private int delay = 120000, progress_status = 0, question_progress_status = 0;
-    private ProgressBar prograss_bar;
-    private AssessmentStatusHandler assessmentStatusHandler;
+    private int delay = 120000, progress_status = 0, question_progress_time = 0;
+
     private TreeMap<Integer, Long> questionTimerData;
-    private CMSAssessment cmsAssessment;
-    private long last_questionTimer;
-    private WaveLoadingView waveLoadingView;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (getActivity() != null)
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         View view = inflater.inflate(R.layout.new_cms_assessment_fragment, container, false);
+        if (getActivity() != null) {
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+        main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
         waveLoadingView = (WaveLoadingView) view.findViewById(R.id.waveLoadingView);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
         question_label = (TextView) view.findViewById(R.id.question_label);
         question_timer_text = (TextView) view.findViewById(R.id.question_timer_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
-        main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
         mToastToShow = Toast.makeText(view.getContext(), "Hurry Up.!\n1 Minute left to submit assessment", Toast.LENGTH_LONG);
+
         assessmentLockableViewPager = (AssessmentLockableViewPager) view.findViewById(R.id.assessment_viewpager);
         assessmentDataHandler = new AssessmentDataHandler(getContext());
         assessmentStatusHandler = new AssessmentStatusHandler(getContext());
+        cmsAssessmentResult = new CMSAssessmentResult();
+        question_map = new ArrayList<>();
+        question_time = new ArrayList<>();
+
         if (getArguments() != null) {
             if (getArguments().getString(ASSESSMENT_ID) != null) {
                 assessment_id = Integer.parseInt(getArguments().getString(ASSESSMENT_ID));
                 Log.v("Talentify", "Assessment Id---->" + assessment_id);
             }
         }
-        cmsAssessmentResult = new CMSAssessmentResult();
+
 
         assessmentLockableViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -143,26 +153,26 @@ public class CMSAssessmentFragment extends Fragment {
 
         cmsAssessmentResult.setAssessment_id(assessment_id + "");
         cmsAssessmentResult.setUser_id(SingletonStudent.getInstance().getStudent().getId() + "");
-        question_map = new ArrayList<>();
-        question_time = new ArrayList<>();
+
         try {
             Cursor c = assessmentDataHandler.getData(assessment_id);
             if (c.moveToFirst()) {
                 setupOfflineAssement(c.getString(1));
             } else {
-                fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
+                fetchAssessmentFromServer();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            fetchAssessmentFromServer(assessment_id, assessmentDataHandler, viewpagerAdapter, assessmentLockableViewPager);
+            fetchAssessmentFromServer();
         }
 
         return view;
     }
 
     private void setupOfflineAssement(String assessment_string) {
-        StringReader reader = new StringReader(assessment_string);
-        Serializer serializer = new Persister();
+        
+       /* StringReader reader = new StringReader(assessment_string);
+        Serializer serializer = new Persister();*/
         try {
 
             Gson gnson = new Gson();
@@ -214,9 +224,8 @@ public class CMSAssessmentFragment extends Fragment {
         }
     }
 
-    private void fetchAssessmentFromServer(int assessment_id, AssessmentDataHandler assessmentDataHandler, ViewpagerAdapter viewpagerAdapter, AssessmentLockableViewPager viewpager) {
-        new FetchAssessmentFromServer(getContext(), getChildFragmentManager()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
-
+    private void fetchAssessmentFromServer() {
+        new FetchAssessmentFromServer(getContext()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, assessment_id + "");
     }
 
     public void setupObject() {
@@ -249,7 +258,6 @@ public class CMSAssessmentFragment extends Fragment {
                     if (min == 1 && sec == 0) {
                         mToastToShow.show();
                     }
-
                     prograss_bar.setProgress(progress_status++);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -299,16 +307,14 @@ public class CMSAssessmentFragment extends Fragment {
     }
 
     private void setUpQuestionTimer(final long questionDelay) {
-        question_progress_status = ((int) questionDelay / 1000);
+        question_progress_time = ((int) questionDelay / 1000);
         question_start = System.currentTimeMillis();
         waveLoadingView.setProgressValue(0);
         if (questionTimer != null) {
             questionTimer.cancel();
             questionTimer = null;
         }
-
-
-        Log.v("Talentify", "question Timer---->" + question_progress_status);
+        Log.v("Talentify", "question Timer---->" + question_progress_time);
         questionTimer = new CountDownTimer(questionDelay, 1000) {
             public void onTick(long millisUntilFinished) {
                 try {
@@ -335,7 +341,7 @@ public class CMSAssessmentFragment extends Fragment {
                         Toast.makeText(getContext(), "Hurry Up.!\n" + "10 Second is left for Answer this question", Toast.LENGTH_SHORT).show();
                     }
 
-                    int progress = ((int) (((millisUntilFinished / 1000) * 100) / question_progress_status));
+                    int progress = ((int) (((millisUntilFinished / 1000) * 100) / question_progress_time));
                     waveLoadingView.setProgressValue(progress);
 
                 } catch (Exception e) {
@@ -361,15 +367,10 @@ public class CMSAssessmentFragment extends Fragment {
     public static void nextViewpager(String key, String answer, String time) {
         if (assessmentLockableViewPager.getCurrentItem() != (assessmentLockableViewPager.getAdapter().getCount() - 1)) {
             assessmentLockableViewPager.setCurrentItem(assessmentLockableViewPager.getCurrentItem() + 1);
-            addData(key, answer, time);
+            question_map.add(new Entry(key, answer));
+            question_time.add(new Entry(key, time));
         }
     }
-
-    static void addData(String key, String answer, String time) {
-        question_map.add(new Entry(key, answer));
-        question_time.add(new Entry(key, time));
-    }
-
 
     public void updateslidePointerText() {
         try {
@@ -381,7 +382,6 @@ public class CMSAssessmentFragment extends Fragment {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
                 main_layout.setVisibility(View.VISIBLE);
                 waveLoadingView.setVisibility(View.VISIBLE);
-
 
                 try {
                     if (cmsAssessment != null) {
@@ -397,6 +397,7 @@ public class CMSAssessmentFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -468,12 +469,10 @@ public class CMSAssessmentFragment extends Fragment {
     public class FetchAssessmentFromServer extends AsyncTask<String, Integer, String> {
 
         private Context context;
-        private FragmentManager fm;
         boolean response_success = true;
 
-        public FetchAssessmentFromServer(Context context, FragmentManager fm) {
+        public FetchAssessmentFromServer(Context context) {
             this.context = context;
-            this.fm = fm;
         }
 
 
@@ -489,7 +488,7 @@ public class CMSAssessmentFragment extends Fragment {
             try {
                 HttpClient httpclient = new DefaultHttpClient();
                 String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?content_type=JSON&assessment_id=" + params[0];
-                Log.v("Talentify", "BASE_URL " + BASE_URL);
+                Log.v("Talentify", "ASSESSMENT_URL " + BASE_URL);
 
                 int timeout = 80; // seconds
                 HttpParams httpParams = httpclient.getParams();

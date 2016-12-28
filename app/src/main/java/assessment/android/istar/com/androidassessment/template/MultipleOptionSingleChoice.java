@@ -42,21 +42,37 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private ThemeUtils themeutil;
     private CountDownTimer countDownTimer;
     private Boolean submitCheck = false;
-  //  private LinearLayout linearLayout;
+    private LinearLayout linearLayout;
+    private boolean hasMaxLen = false;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        themeutil = new ThemeUtils();
+        if (getArguments() != null) {
+            if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
+                cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
+                if (getArguments().getInt(AssessmentCard.POSITION, -1) != -1)
+                    position = getArguments().getInt(AssessmentCard.POSITION, -1);
+            }
+        }
 
+        if (themeutil.getOptionView(cmsQuestion)) {
+            view = inflater.inflate(R.layout.new_multipleoption_singlechoice, container, false);
+        } else {
+            hasMaxLen = true;
+            view = inflater.inflate(R.layout.multipleoption_singlechoice, container, false);
+        }
 
-        view = inflater.inflate(R.layout.new_multipleoption_singlechoice, container, false);
 
         //hardware acceleration disable
         try {
             view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         } catch (Exception e) {
         }
+
+
         label_view = (RelativeLayout) view.findViewById(R.id.label_view);
         mainLayout = (ScrollView) view.findViewById(R.id.mainLayout);
         question = (WebView) view.findViewById(R.id.question);
@@ -66,7 +82,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         option3 = (TextView) view.findViewById(R.id.option3);
         option4 = (TextView) view.findViewById(R.id.option4);
         option5 = (TextView) view.findViewById(R.id.option5);
-       // linearLayout = (LinearLayout) view.findViewById(R.id.lay3);
+
         rbtn1 = (AppCompatRadioButton) view.findViewById(R.id.rbtn1);
         rbtn2 = (AppCompatRadioButton) view.findViewById(R.id.rbtn2);
         rbtn3 = (AppCompatRadioButton) view.findViewById(R.id.rbtn3);
@@ -80,19 +96,16 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
 
 
+        if (hasMaxLen)
+            linearLayout = (LinearLayout) view.findViewById(R.id.lay3);
+
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
-        themeutil = new ThemeUtils();
+
 
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
-        if (getArguments() != null) {
-            if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
-                cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
-                if (getArguments().getInt(AssessmentCard.POSITION, -1) != -1)
-                    position = getArguments().getInt(AssessmentCard.POSITION, -1);
-            }
-        }
+
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
@@ -123,7 +136,8 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                     }
                     if (temp == 4) {
                         themeutil.getThemeSingleOption(cmsQuestion, option5, rbtn5, layoutBtn5, cmsOption, getActivity(), externalReadable);
-                       // linearLayout.setVisibility(View.VISIBLE);
+                        if (hasMaxLen)
+                            linearLayout.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }

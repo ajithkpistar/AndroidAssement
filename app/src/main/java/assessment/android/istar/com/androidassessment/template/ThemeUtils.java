@@ -171,30 +171,21 @@ public class ThemeUtils {
         return returingText;
     }
 
-    public  Boolean getOptionView(CMSQuestion cmsQuestion){
-        boolean hasMaxSize=false;
+    public Boolean getOptionView(CMSQuestion cmsQuestion) {
+        boolean hasMaxSize = false;
         try {
-            ArrayList<Integer>  lenArry = new ArrayList<>();
             if (cmsQuestion != null) {
                 if (cmsQuestion.getOptions() != null) {
                     for (CMSOption cmsOption : cmsQuestion.getOptions()) {
-                        lenArry.add(cmsOption.getOptionText().length());
+                        if (cmsOption.getOptionText().length() > 25) {
+                            hasMaxSize = true;
+                            break;
+                        }
                     }
                 }
             }
-
-            for(int len:lenArry){
-
-                if(len > 25){
-                    hasMaxSize = true;
-                    break;
-                }
-            }
-
-        }catch (Exception e){
-
+        } catch (Exception e) {
         }
-        return  hasMaxSize;
-
+        return hasMaxSize;
     }
 }
