@@ -13,19 +13,19 @@ import java.util.List;
 
 @Root(name = "assessment")
 public class CMSAssessment implements java.io.Serializable {
-    @Attribute(name = "assessment_id", required = false)
+    @Attribute(name = "assessmentId", required = false)
     private int assessmentId;
-    @Attribute(name = "duration", required = false)
+    @Attribute(name = "assessmentDurationMinutes", required = false)
     private Integer assessmentDurationMinutes;
     @Attribute(name = "number_of_questions", required = false)
     private Integer number_of_questions;
-    @Attribute(name = "assessment_title", required = false)
+    @Attribute(name = "assessmentTitle", required = false)
     private String assessmentTitle;
-    @Attribute(name = "is_retryable", required = false)
+    @Attribute(name = "isRetryAble", required = false)
     private Boolean isRetryAble;
     @Attribute(name = "category", required = false)
     private String category;
-    @Attribute(name = "assessment_type", required = false)
+    @Attribute(name = "assessmentType", required = false)
     private String assessmentType;
     @ElementList(name = "questions", required = false)
     private List<CMSQuestion> questions;

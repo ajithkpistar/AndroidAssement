@@ -11,13 +11,13 @@ import org.simpleframework.xml.Root;
 public class CMSOption implements java.io.Serializable{
 
 
-    @Attribute(name = "option_id", required = false)
+    @Attribute(name = "id", required = false)
     private Integer id;
     @Element(data=true, required = false)
-    private String option_text;
-    @Attribute(name="marking_scheme",required = false)
+    private String optionText;
+    @Attribute(name="markingScheme",required = false)
     private Integer markingScheme;
-    @Attribute(name="option_order",required = false)
+    @Attribute(name="optionOrder",required = false)
     private Integer optionOrder;
 
 
@@ -29,12 +29,12 @@ public class CMSOption implements java.io.Serializable{
         this.id = id;
     }
     public String getOptionText() {
-        return option_text;
+        return optionText;
     }
 
 
     public void setOptionText(String optionText) {
-        this.option_text = optionText;
+        this.optionText = optionText;
     }
     public Integer getMarkingScheme() {
         return markingScheme;

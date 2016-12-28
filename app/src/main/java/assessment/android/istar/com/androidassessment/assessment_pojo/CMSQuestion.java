@@ -14,20 +14,20 @@ import java.util.List;
 @Root(name = "question")
 public class CMSQuestion implements java.io.Serializable{
 
-    @Attribute(name = "question_id", required = false)
+    @Attribute(name = "id", required = false)
     private Integer id;
     @Element(data=true,required = false)
-    private String question_text;
-    @Attribute(name = "question_duration", required = false)
+    private String questionText;
+    @Attribute(name = "durationInSec", required = false)
     private Integer durationInSec;
-    @Attribute(name = "question_order", required = false)
+    @Attribute(name = "orderId", required = false)
     private int orderId;
     @Attribute(name = "template", required = false)
     private String template;
-    @Attribute(name = "difficulty_level", required = false)
+    @Attribute(name = "difficultyLevel", required = false)
     private Integer difficultyLevel;
     @Element(data=true, required = false)
-    private String passage;
+    private String comprehensive_passage;
     @Element(name = "theme", required = false)
     private UiTheme theme;
     @ElementList(name = "options", required = false)
@@ -47,12 +47,12 @@ public class CMSQuestion implements java.io.Serializable{
     }
 
     public String getQuestionText() {
-        return question_text;
+        return questionText;
     }
 
 
     public void setQuestionText(String questionText) {
-        this.question_text = questionText;
+        this.questionText = questionText;
     }
 
     public Integer getDurationInSec() {
@@ -92,12 +92,12 @@ public class CMSQuestion implements java.io.Serializable{
 
 
     public String getComprehensive_passage() {
-        return passage;
+        return comprehensive_passage;
     }
 
 
     public void setComprehensive_passage(String comprehensive_passage) {
-        this.passage = comprehensive_passage;
+        this.comprehensive_passage = comprehensive_passage;
     }
 
 

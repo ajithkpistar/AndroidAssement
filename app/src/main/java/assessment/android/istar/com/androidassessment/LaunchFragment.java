@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,7 +32,6 @@ import java.io.StringReader;
 
 import assessment.android.istar.com.androidassessment.assessment_database.AssessmentDataHandler;
 import assessment.android.istar.com.androidassessment.assessment_pojo.CMSAssessment;
-import assessment.android.istar.com.androidassessment.assessment_util.ViewpagerAdapter;
 
 
 public class LaunchFragment extends Fragment {
@@ -99,12 +98,12 @@ public class LaunchFragment extends Fragment {
 
     private void setupOfflineAssement(String assessment_string) {
         try {
-           /* Gson gnson = new Gson();
-            CMSAssessment example = gnson.fromJson(assessment_string, CMSAssessment.class);*/
+            Gson gnson = new Gson();
+            CMSAssessment cmsAssessment = gnson.fromJson(assessment_string, CMSAssessment.class);
 
-            StringReader reader = new StringReader(assessment_string);
+           /* StringReader reader = new StringReader(assessment_string);
             Serializer serializer = new Persister();
-            cmsAssessment = serializer.read(CMSAssessment.class, reader);
+            cmsAssessment = serializer.read(CMSAssessment.class, reader);*/
 
             if (cmsAssessment != null) {
                 if (cmsAssessment.getAssessmentTitle() != null) {
@@ -141,7 +140,7 @@ public class LaunchFragment extends Fragment {
             String xml_object = null;
             try {
                 HttpClient httpclient = new DefaultHttpClient();
-                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?assessment_id=" + params[0];
+                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?content_type=JSON&assessment_id=" + params[0];
                 Log.v("Talentify", "BASE_URL " + BASE_URL);
 
                 int timeout = 80; // seconds

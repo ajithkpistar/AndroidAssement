@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -69,7 +70,7 @@ public class CMSAssessmentFragment extends Fragment {
     private static ArrayList<Entry> question_map, question_time;
     private long start_time, end_time, question_start = 0;
     private RelativeLayout main_layout;
-    private TextView number_of_ques, progress_text, question_timer_text;
+    private TextView number_of_ques, progress_text, question_timer_text, question_label;
     private Toast mToastToShow;
     private CountDownTimer countDownTimer, questionTimer;
     private int delay = 120000, progress_status = 0, question_progress_status = 0;
@@ -92,6 +93,7 @@ public class CMSAssessmentFragment extends Fragment {
         waveLoadingView = (WaveLoadingView) view.findViewById(R.id.waveLoadingView);
         number_of_ques = (TextView) view.findViewById(R.id.number_of_ques);
         progress_text = (TextView) view.findViewById(R.id.progress_text);
+        question_label = (TextView) view.findViewById(R.id.question_label);
         question_timer_text = (TextView) view.findViewById(R.id.question_timer_text);
         prograss_bar = (ProgressBar) view.findViewById(R.id.prograss_bar);
         main_layout = (RelativeLayout) view.findViewById(R.id.main_layout);
@@ -162,8 +164,14 @@ public class CMSAssessmentFragment extends Fragment {
         StringReader reader = new StringReader(assessment_string);
         Serializer serializer = new Persister();
         try {
-            cmsAssessment = serializer.read(CMSAssessment.class, reader);
 
+            Gson gnson = new Gson();
+            cmsAssessment = gnson.fromJson(assessment_string, CMSAssessment.class);
+
+       /* StringReader reader = new StringReader(assessment_string);
+        Serializer serializer = new Persister();
+        try {
+            cmsAssessment = serializer.read(CMSAssessment.class, reader);*/
             viewpagerAdapter = new ViewpagerAdapter(getChildFragmentManager(), cmsAssessment);
             assessmentLockableViewPager.setAdapter(viewpagerAdapter);
             delay = cmsAssessment.getAssessmentDurationMinutes() * 60000;
@@ -373,6 +381,22 @@ public class CMSAssessmentFragment extends Fragment {
                 number_of_ques.setText((assessmentLockableViewPager.getCurrentItem() + 1) + "/" + (assessmentLockableViewPager.getAdapter().getCount() - 1));
                 main_layout.setVisibility(View.VISIBLE);
                 waveLoadingView.setVisibility(View.VISIBLE);
+
+
+                try {
+                    if (cmsAssessment != null) {
+                        String template = cmsAssessment.getQuestions().get(assessmentLockableViewPager.getCurrentItem()).getTemplate();
+                        String label = "";
+                        if (template.equalsIgnoreCase("2") || template.equalsIgnoreCase("4")) {
+                            label = "Multiple Choice";
+                        } else {
+                            label = "Single Choice";
+                        }
+                        question_label.setText(label);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -464,7 +488,7 @@ public class CMSAssessmentFragment extends Fragment {
             String xml_object = null;
             try {
                 HttpClient httpclient = new DefaultHttpClient();
-                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?assessment_id=" + params[0];
+                String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?content_type=JSON&assessment_id=" + params[0];
                 Log.v("Talentify", "BASE_URL " + BASE_URL);
 
                 int timeout = 80; // seconds

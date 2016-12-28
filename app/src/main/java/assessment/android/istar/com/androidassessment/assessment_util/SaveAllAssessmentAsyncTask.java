@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -56,7 +58,7 @@ public class SaveAllAssessmentAsyncTask extends AsyncTask<String, Integer, Strin
                     System.out.println("--------------------AssesmentID---------------" + assessment_id);
 
                     HttpClient httpclient = new DefaultHttpClient();
-                    String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?assessment_id=" + assessment_id;
+                    String BASE_URL = context.getResources().getString(R.string.server_ip) + "/get_offline_assessment?content_type=JSON&assessment_id=" + assessment_id;
                     Log.v("Talentify", "BASE_URL " + BASE_URL);
 
                     int timeout = 20; // seconds
@@ -70,16 +72,10 @@ public class SaveAllAssessmentAsyncTask extends AsyncTask<String, Integer, Strin
 
                     HttpEntity entity = response.getEntity();
                     String xml_object = EntityUtils.toString(entity, "UTF-8");
-                    xml_object = xml_object.replaceAll("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "");
-                    StringReader reader = new StringReader(xml_object);
-                    Serializer serializer = new Persister();
                     try {
-                        CMSAssessment example = serializer.read(CMSAssessment.class, reader);
+                        Gson gnson = new Gson();
+                        CMSAssessment example = gnson.fromJson(xml_object, CMSAssessment.class);
                         System.out.println("example " + example.getAssessmentId());
-
-                        for(CMSQuestion cmsQuestion:example.getQuestions()){
-                            System.out.println("jjxkjsjkjskjs "+cmsQuestion.getTemplate());
-                        }
 
                     }catch (Exception e){
                         e.printStackTrace();
