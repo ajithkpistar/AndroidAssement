@@ -186,8 +186,8 @@
                     android:id="@+id/lay3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="80dp"
                     android:layout_below="@+id/lay2"
+                    android:minHeight="80dp"
                     android:visibility="gone">
 
                     <com.andexert.library.RippleView
@@ -232,10 +232,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/layout_1"
-                android:scrollbarThumbVertical="@android:color/white"
                 android:background="#00000000"
-
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:scrollbarSize="4sp"
+                android:scrollbarThumbVertical="@android:color/white">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

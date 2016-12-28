@@ -23,7 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:scrollbarSize="4sp"
+                android:scrollbarThumbVertical="@android:color/white">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -62,8 +64,8 @@
                         android:minHeight="60dp"
                         android:visibility="gone"
                         app:rv_alpha="50"
-                        app:rv_color="@color/ripplecolor"
                         app:rv_centered="false"
+                        app:rv_color="@color/ripplecolor"
                         app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -101,8 +103,8 @@
                         android:minHeight="60dp"
                         android:visibility="gone"
                         app:rv_alpha="50"
-                        app:rv_color="@color/ripplecolor"
                         app:rv_centered="false"
+                        app:rv_color="@color/ripplecolor"
                         app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -138,8 +140,8 @@
                         android:minHeight="60dp"
                         android:visibility="gone"
                         app:rv_alpha="50"
-                        app:rv_color="@color/ripplecolor"
                         app:rv_centered="false"
+                        app:rv_color="@color/ripplecolor"
                         app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -175,8 +177,8 @@
                         android:minHeight="60dp"
                         android:visibility="gone"
                         app:rv_alpha="50"
-                        app:rv_color="@color/ripplecolor"
                         app:rv_centered="false"
+                        app:rv_color="@color/ripplecolor"
                         app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatRadioButton
@@ -212,9 +214,9 @@
                         android:elevation="10dp"
                         android:minHeight="60dp"
                         android:visibility="gone"
-                        app:rv_color="@color/ripplecolor"
                         app:rv_alpha="50"
                         app:rv_centered="false"
+                        app:rv_color="@color/ripplecolor"
                         app:rv_rippleDuration="100">
 
                         <android.support.v7.widget.AppCompatRadioButton
