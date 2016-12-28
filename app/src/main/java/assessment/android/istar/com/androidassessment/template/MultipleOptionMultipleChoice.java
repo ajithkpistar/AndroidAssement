@@ -45,6 +45,8 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        themeutil = new ThemeUtils();
+
         if (getArguments() != null) {
             if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
                 cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
@@ -53,7 +55,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
             }
         }
 
-
+        themeutil.getOptionView(cmsQuestion);
 
 
         view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
@@ -94,7 +96,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
         Boolean externalReadable = ImageSaver.isExternalStorageReadable();
 
-        themeutil = new ThemeUtils();
 
 
         if (cmsQuestion != null) {

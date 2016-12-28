@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -168,5 +169,32 @@ public class ThemeUtils {
         }
 
         return returingText;
+    }
+
+    public  Boolean getOptionView(CMSQuestion cmsQuestion){
+        boolean hasMaxSize=false;
+        try {
+            ArrayList<Integer>  lenArry = new ArrayList<>();
+            if (cmsQuestion != null) {
+                if (cmsQuestion.getOptions() != null) {
+                    for (CMSOption cmsOption : cmsQuestion.getOptions()) {
+                        lenArry.add(cmsOption.getOptionText().length());
+                    }
+                }
+            }
+
+            for(int len:lenArry){
+
+                if(len > 25){
+                    hasMaxSize = true;
+                    break;
+                }
+            }
+
+        }catch (Exception e){
+
+        }
+        return  hasMaxSize;
+
     }
 }
