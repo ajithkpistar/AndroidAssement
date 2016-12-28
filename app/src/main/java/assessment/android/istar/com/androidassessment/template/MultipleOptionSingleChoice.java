@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,10 +42,13 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
     private ThemeUtils themeutil;
     private CountDownTimer countDownTimer;
     private Boolean submitCheck = false;
+  //  private LinearLayout linearLayout;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
 
         view = inflater.inflate(R.layout.new_multipleoption_singlechoice, container, false);
 
@@ -62,7 +66,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
         option3 = (TextView) view.findViewById(R.id.option3);
         option4 = (TextView) view.findViewById(R.id.option4);
         option5 = (TextView) view.findViewById(R.id.option5);
-
+       // linearLayout = (LinearLayout) view.findViewById(R.id.lay3);
         rbtn1 = (AppCompatRadioButton) view.findViewById(R.id.rbtn1);
         rbtn2 = (AppCompatRadioButton) view.findViewById(R.id.rbtn2);
         rbtn3 = (AppCompatRadioButton) view.findViewById(R.id.rbtn3);
@@ -119,6 +123,7 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                     }
                     if (temp == 4) {
                         themeutil.getThemeSingleOption(cmsQuestion, option5, rbtn5, layoutBtn5, cmsOption, getActivity(), externalReadable);
+                       // linearLayout.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }
@@ -206,11 +211,11 @@ public class MultipleOptionSingleChoice extends AssessmentCard {
                 option4.setTextColor(Color.parseColor("#000000"));
                 option5.setTextColor(Color.parseColor("#000000"));
 
-                layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+              /*  layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
                 layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
                 layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
                 layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
-                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+                layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));*/
                 break;
         }
         hidden_value.setText(selectedVal + "");

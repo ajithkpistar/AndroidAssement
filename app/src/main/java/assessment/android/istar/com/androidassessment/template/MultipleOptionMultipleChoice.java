@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -39,9 +40,21 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
     private String optionCardColor = "#ffffff";
     private CountDownTimer countDownTimer;
     private Boolean submitCheck = false;
+   // private LinearLayout layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        if (getArguments() != null) {
+            if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
+                cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
+                if (getArguments().getInt(AssessmentCard.POSITION, -1) != -1)
+                    position = getArguments().getInt(AssessmentCard.POSITION, -1);
+            }
+        }
+
+
+
 
         view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
 
@@ -75,7 +88,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         layoutBtn4 = (RippleView) view.findViewById(R.id.layoutBtn4);
         layoutBtn5 = (RippleView) view.findViewById(R.id.layoutBtn5);
         layoutBtn6 = (RippleView) view.findViewById(R.id.layoutBtn6);
-
+       // layout = (LinearLayout) view.findViewById(R.id.lay3);
         hidden_key = (TextView) view.findViewById(R.id.hidden_key);
         hidden_value = (TextView) view.findViewById(R.id.hidden_value);
         hidden_time = (TextView) view.findViewById(R.id.hidden_time);
@@ -83,13 +96,6 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
         themeutil = new ThemeUtils();
 
-        if (getArguments() != null) {
-            if (getArguments().getSerializable(AssessmentCard.CMSASSESSMENT) != null) {
-                cmsQuestion = (CMSQuestion) getArguments().getSerializable(AssessmentCard.CMSASSESSMENT);
-                if (getArguments().getInt(AssessmentCard.POSITION, -1) != -1)
-                    position = getArguments().getInt(AssessmentCard.POSITION, -1);
-            }
-        }
 
         if (cmsQuestion != null) {
             if (cmsQuestion.getQuestionText() != null) {
@@ -119,6 +125,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                     }
                     if (temp == 4) {
                         themeutil.getThemeMultipleOption(cmsQuestion, option5, checkbtn5, layoutBtn5, cmsOption, getActivity(), externalReadable);
+                      //  layout.setVisibility(View.VISIBLE);
                     }
                     temp++;
                 }
@@ -260,7 +267,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn1:
                             if (checkbtn1.isChecked()) {
                                 checkbtn1.setChecked(false);
-                                layoutBtn1.setBackgroundColor(Color.parseColor(optionCardColor));
+                                layoutBtn1.setBackgroundColor(Color.parseColor("#ebebeb"));
                             } else {
                                 checkbtn1.setChecked(true);
                                 layoutBtn1.setBackgroundColor(Color.parseColor("#aceb0b"));
@@ -269,7 +276,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn2:
                             if (checkbtn2.isChecked()) {
                                 checkbtn2.setChecked(false);
-                                layoutBtn2.setBackgroundColor(Color.parseColor(optionCardColor));
+                                layoutBtn2.setBackgroundColor(Color.parseColor("#f2f2f2"));
                             } else {
                                 checkbtn2.setChecked(true);
                                 layoutBtn2.setBackgroundColor(Color.parseColor("#aceb0b"));
@@ -278,7 +285,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn3:
                             if (checkbtn3.isChecked()) {
                                 checkbtn3.setChecked(false);
-                                layoutBtn3.setBackgroundColor(Color.parseColor(optionCardColor));
+                                layoutBtn3.setBackgroundColor(Color.parseColor("#f2f2f2"));
 
                             } else {
                                 checkbtn3.setChecked(true);
@@ -288,7 +295,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn4:
                             if (checkbtn4.isChecked()) {
                                 checkbtn4.setChecked(false);
-                                layoutBtn4.setBackgroundColor(Color.parseColor(optionCardColor));
+                                layoutBtn4.setBackgroundColor(Color.parseColor("#ebebeb"));
 
                             } else {
                                 checkbtn4.setChecked(true);
@@ -299,7 +306,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn5:
                             if (checkbtn5.isChecked()) {
                                 checkbtn5.setChecked(false);
-                                layoutBtn5.setBackgroundColor(Color.parseColor(optionCardColor));
+                                layoutBtn5.setBackgroundColor(Color.parseColor("#ebebeb"));
                             } else {
                                 checkbtn5.setChecked(true);
                                 layoutBtn5.setBackgroundColor(Color.parseColor("#aceb0b"));
