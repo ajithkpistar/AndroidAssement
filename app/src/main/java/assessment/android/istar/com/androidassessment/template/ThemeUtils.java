@@ -174,10 +174,10 @@ public class ThemeUtils {
     public Boolean getOptionView(CMSQuestion cmsQuestion) {
         boolean hasMaxSize = false;
         try {
-            if (cmsQuestion != null  ) {
-                if (cmsQuestion.getOptions() != null && cmsQuestion.getOptions().size() >= 3) {
+            if (cmsQuestion != null) {
+                if (cmsQuestion.getOptions() != null) {
                     for (CMSOption cmsOption : cmsQuestion.getOptions()) {
-                        if (cmsOption.getOptionText().length() >= 23) {
+                        if (cmsOption.getOptionText().length() >= 23 || cmsQuestion.getOptions().size()<=3) {
                             hasMaxSize = true;
                             break;
                         }
