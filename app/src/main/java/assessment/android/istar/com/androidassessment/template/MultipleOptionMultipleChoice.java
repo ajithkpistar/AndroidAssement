@@ -272,7 +272,13 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn1:
                             if (checkbtn1.isChecked()) {
                                 checkbtn1.setChecked(false);
-                                layoutBtn1.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                if (!hasMaxLen) {
+                                    layoutBtn1.setBackgroundColor(Color.parseColor("#ffffff"));
+                                } else {
+                                    layoutBtn1.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                }
+
+
                             } else {
                                 checkbtn1.setChecked(true);
                                 layoutBtn1.setBackgroundColor(Color.parseColor("#aceb0b"));
@@ -281,7 +287,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn2:
                             if (checkbtn2.isChecked()) {
                                 checkbtn2.setChecked(false);
-                                layoutBtn2.setBackgroundColor(Color.parseColor("#f2f2f2"));
+                                if (!hasMaxLen) {
+                                    layoutBtn2.setBackgroundColor(Color.parseColor("#ffffff"));
+                                } else {
+                                    layoutBtn2.setBackgroundColor(Color.parseColor("#f2f2f2"));
+                                }
                             } else {
                                 checkbtn2.setChecked(true);
                                 layoutBtn2.setBackgroundColor(Color.parseColor("#aceb0b"));
@@ -290,7 +300,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn3:
                             if (checkbtn3.isChecked()) {
                                 checkbtn3.setChecked(false);
-                                layoutBtn3.setBackgroundColor(Color.parseColor("#f2f2f2"));
+                                if (!hasMaxLen) {
+                                    layoutBtn3.setBackgroundColor(Color.parseColor("#ffffff"));
+                                } else {
+                                    layoutBtn3.setBackgroundColor(Color.parseColor("#f2f2f2"));
+                                }
 
                             } else {
                                 checkbtn3.setChecked(true);
@@ -300,7 +314,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn4:
                             if (checkbtn4.isChecked()) {
                                 checkbtn4.setChecked(false);
-                                layoutBtn4.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                if (!hasMaxLen) {
+                                    layoutBtn4.setBackgroundColor(Color.parseColor("#ffffff"));
+                                } else {
+                                    layoutBtn4.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                }
 
                             } else {
                                 checkbtn4.setChecked(true);
@@ -311,7 +329,11 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                         case R.id.layoutBtn5:
                             if (checkbtn5.isChecked()) {
                                 checkbtn5.setChecked(false);
-                                layoutBtn5.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                if (!hasMaxLen) {
+                                    layoutBtn5.setBackgroundColor(Color.parseColor("#ffffff"));
+                                } else {
+                                    layoutBtn5.setBackgroundColor(Color.parseColor("#ebebeb"));
+                                }
                             } else {
                                 checkbtn5.setChecked(true);
                                 layoutBtn5.setBackgroundColor(Color.parseColor("#aceb0b"));
