@@ -165,6 +165,7 @@ public class ThemeUtils {
                 new SaveImageAsync(imageSaver).execute(finalurl);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return returingText;
@@ -173,8 +174,8 @@ public class ThemeUtils {
     public Boolean getOptionView(CMSQuestion cmsQuestion) {
         boolean hasMaxSize = false;
         try {
-            if (cmsQuestion != null) {
-                if (cmsQuestion.getOptions() != null) {
+            if (cmsQuestion != null  ) {
+                if (cmsQuestion.getOptions() != null && cmsQuestion.getOptions().size() >= 3) {
                     for (CMSOption cmsOption : cmsQuestion.getOptions()) {
                         if (cmsOption.getOptionText().length() >= 23) {
                             hasMaxSize = true;
