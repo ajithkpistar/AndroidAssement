@@ -281,7 +281,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
                             } else {
                                 checkbtn1.setChecked(true);
-                                layoutBtn1.setBackgroundColor(Color.parseColor("#aceb0b"));
+                                layoutBtn1.setBackgroundColor(Color.parseColor("#838a8e"));
                             }
                             break;
                         case R.id.layoutBtn2:
@@ -294,7 +294,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                 }
                             } else {
                                 checkbtn2.setChecked(true);
-                                layoutBtn2.setBackgroundColor(Color.parseColor("#aceb0b"));
+                                layoutBtn2.setBackgroundColor(Color.parseColor("#838a8e"));
                             }
                             break;
                         case R.id.layoutBtn3:
@@ -308,7 +308,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
                             } else {
                                 checkbtn3.setChecked(true);
-                                layoutBtn3.setBackgroundColor(Color.parseColor("#aceb0b"));
+                                layoutBtn3.setBackgroundColor(Color.parseColor("#838a8e"));
                             }
                             break;
                         case R.id.layoutBtn4:
@@ -322,7 +322,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
 
                             } else {
                                 checkbtn4.setChecked(true);
-                                layoutBtn4.setBackgroundColor(Color.parseColor("#aceb0b"));
+                                layoutBtn4.setBackgroundColor(Color.parseColor("#838a8e"));
 
                             }
                             break;
@@ -336,7 +336,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
                                 }
                             } else {
                                 checkbtn5.setChecked(true);
-                                layoutBtn5.setBackgroundColor(Color.parseColor("#aceb0b"));
+                                layoutBtn5.setBackgroundColor(Color.parseColor("#838a8e"));
                             }
                             break;
                     }
