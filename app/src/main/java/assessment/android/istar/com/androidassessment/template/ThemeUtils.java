@@ -99,8 +99,8 @@ public class ThemeUtils {
     public void getThemeSingleOption(final CMSQuestion cmsQuestion, final TextView textView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
         try {
             if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
-                String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
-                textView.setText(cleanText);
+                //String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
+                textView.setText(cmsOption.getOptionText());
                 radioButton.setTag(cmsOption.getId());
                 textView.setVisibility(View.VISIBLE);
                 radioButton.setVisibility(View.GONE);
@@ -116,9 +116,8 @@ public class ThemeUtils {
         try {
 
             if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
-                String text = cmsOption.getOptionText();
-                String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
-                textView.setText(cleanText);
+               // String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
+                textView.setText( cmsOption.getOptionText());
                 checkBox.setTag(cmsOption.getId());
                 textView.setVisibility(View.VISIBLE);
                 checkBox.setVisibility(View.GONE);
@@ -177,7 +176,7 @@ public class ThemeUtils {
             if (cmsQuestion != null) {
                 if (cmsQuestion.getOptions() != null) {
                     for (CMSOption cmsOption : cmsQuestion.getOptions()) {
-                        if (cmsOption.getOptionText().length() > 25) {
+                        if (cmsOption.getOptionText().length() >= 23) {
                             hasMaxSize = true;
                             break;
                         }
