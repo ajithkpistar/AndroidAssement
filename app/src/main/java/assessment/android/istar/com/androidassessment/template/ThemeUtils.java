@@ -1,6 +1,7 @@
 package assessment.android.istar.com.androidassessment.template;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.CheckBox;
@@ -98,14 +99,12 @@ public class ThemeUtils {
     public void getThemeSingleOption(final CMSQuestion cmsQuestion, final TextView textView, final RadioButton radioButton, final RippleView layout, final CMSOption cmsOption, final Context context, final Boolean externalReadable) {
         try {
             if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
-
-                textView.setText(cmsOption.getOptionText());
+                String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
+                textView.setText(cleanText);
                 radioButton.setTag(cmsOption.getId());
                 textView.setVisibility(View.VISIBLE);
                 radioButton.setVisibility(View.GONE);
                 layout.setVisibility(View.VISIBLE);
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +117,8 @@ public class ThemeUtils {
 
             if (cmsOption != null && cmsOption.getId() != null && cmsOption.getOptionText() != null) {
                 String text = cmsOption.getOptionText();
-                textView.setText(text);
+                String cleanText = cmsOption.getOptionText().replaceAll("[^\\p{ASCII}]", "").replaceAll("\\?{2,}", "'");
+                textView.setText(cleanText);
                 checkBox.setTag(cmsOption.getId());
                 textView.setVisibility(View.VISIBLE);
                 checkBox.setVisibility(View.GONE);
