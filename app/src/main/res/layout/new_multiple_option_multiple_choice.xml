@@ -81,10 +81,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minHeight="60dp"
+                            android:padding="5dp"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -122,10 +123,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minHeight="60dp"
+                            android:padding="5dp"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -162,10 +164,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minHeight="60dp"
+                            android:padding="5dp"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                     </com.andexert.library.RippleView>
@@ -200,10 +203,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minHeight="60dp"
+                            android:padding="5dp"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
                     </com.andexert.library.RippleView>
 
@@ -240,10 +244,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minHeight="60dp"
+                            android:padding="5dp"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="#000000"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                     </com.andexert.library.RippleView>

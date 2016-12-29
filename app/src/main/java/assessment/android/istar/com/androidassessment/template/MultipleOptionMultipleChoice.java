@@ -57,7 +57,7 @@ public class MultipleOptionMultipleChoice extends AssessmentCard {
         }
 
         if (themeutil.getOptionView(cmsQuestion)) {
-            view = inflater.inflate(R.layout.new_fragment_multiple_option_multiple_choice, container, false);
+            view = inflater.inflate(R.layout.new_multiple_option_multiple_choice, container, false);
         } else {
             hasMaxLen = true;
             view = inflater.inflate(R.layout.multiple_option_multiple_choice, container, false);
